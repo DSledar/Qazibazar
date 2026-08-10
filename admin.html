@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qazibazar | پانێڵی بەڕێوەبردنی گشتی</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // 🔑 هەمان زانیاری Supabase کە لە index.html دانرا لێرەش دابنێ
+        const SUPABASE_URL = 'https://aatgbpcxafrrkdalhdju.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_IuZMLJHzJunWQPlami95Zw_8s4Ov-yi';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --sidebar-bg: #0f172a;
+            --sidebar-text: #94a3b8;
+            --surface: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --primary: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border: #e2e8f0;
+            --radius: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-dark); display: flex; min-height: 100vh; }
+        
+        .login-wrapper { position: fixed; inset: 0; background: #090d16; display: flex; justify-content: center; align-items: center; z-index: 9999; }
+        .login-card { background: #1e293b; padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #334155; }
+        .secure-input { width: 100%; background: #0f172a; border: 1px solid #334155; padding: 14px; border-radius: var(--radius); color: #fff; font-size: 18px; text-align: center; margin-bottom: 20px; outline: none; }
+        
+        .sidebar { width: 260px; background: var(--sidebar-bg); color: #fff; padding: 25px 20px; display: flex; flex-direction: column; gap: 30px; }
+        .sidebar .brand { font-size: 20px; font-weight: 800; border-bottom: 1px solid #1e293b; padding-bottom: 20px; }
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .nav-links li a { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: var(--sidebar-text); text-decoration: none; font-weight: 500; border-radius: var(--radius); cursor: pointer; }
+        .nav-links li.active a { background: #1e293b; color: #fff; }
+
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; margin-bottom: 40px; }
+        .stat-card { background: var(--surface); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .stat-card .value { font-size: 32px; font-weight: 800; }
+        
+        .table-container { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow-x: auto; padding-top: 10px; }
+        .table-header-area { display: flex; justify-content: space-between; align-items: center; padding: 15px 24px; border-bottom: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; text-align: right; min-width: 1000px; }
+        th { background: #f8fafc; padding: 16px 24px; font-size: 13px; font-weight: 700; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+        td { padding: 16px 24px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        
+        .prod-info { display: flex; align-items: center; gap: 15px; }
+        .img-gallery-container { display: flex; gap: 4px; flex-wrap: wrap; max-width: 120px; }
+        .prod-img { width: 52px; height: 52px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; }
+        .prod-name { font-weight: 700; font-size: 15px; }
+        .user-details { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.6; }
+        
+        .plan-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+        .plan-standard { background: #f1f5f9; color: #475467; }
+        .plan-vip { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-active { background: #d1fae5; color: #065f46; }
+        .status-expired { background: #fee2e2; color: #991b1b; }
+        .status-rejected { background: #f1f5f9; color: #475467; }
+        .status-sold { background: #e0f2fe; color: #0369a1; }
+        .status-trash { background: #fee2e2; color: #ef4444; }
+
+        .actions-cell { display: flex; gap: 8px; }
+        .btn-action { border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; }
+        .btn-app { background: #e6f4ea; color: var(--success); }
+        .btn-app:hover { background: var(--success); color: #fff; }
+        .btn-rej { background: #fce8e6; color: var(--danger); }
+        .btn-rej:hover { background: var(--danger); color: #fff; }
+        .btn-del { background: #f1f5f9; color: var(--text-muted); }
+        .btn-del:hover { background: var(--danger); color: #fff; }
+        .btn-view-main { background: var(--primary); color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-card">
+            <h2 style="color:#fff; margin-bottom:15px;">قازی بازار ئەدمین</h2>
+            <input type="email" id="admin-email" class="secure-input" placeholder="ئیمەیل" style="margin-bottom:12px;">
+            <input type="password" id="admin-password" class="secure-input" placeholder="وشەی نهێنی">
+            <button class="btn-action btn-app" style="width: 100%; padding: 14px;" onclick="authenticateAdmin()">چوونەژوورەوە</button>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <div class="brand">قازی بازار 💼</div>
+        <ul class="nav-links">
+            <li class="active" id="nav-general" onclick="switchView('main')"><a>📊 بەڕێوەبردنی گشتی</a></li>
+            <li id="nav-trash" onclick="switchView('trash')"><a>🗑️ ئەرشیفی سڕدراوەکان</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="top-header">
+            <h1 id="page-title">ڕاپۆرتی کاتەکان و داهات</h1>
+            <div id="live-time" style="font-weight:700;"></div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card" onclick="switchView('main')"><span>کۆی گشتی کاڵاکان</span><span class="value" id="stat-total">0</span></div>
+            <div class="stat-card" onclick="switchView('main')"><span>ڕیکلامی چالاکی VIP</span><span class="value" id="stat-vip" style="color:var(--warning);">0</span></div>
+            <div class="stat-card" onclick="switchView('main')"><span>کاڵا فرۆشراوەکان</span><span class="value" id="stat-sold" style="color:var(--primary);">0</span></div>
+            <div class="stat-card" onclick="switchView('trash')" style="border-left: 4px solid var(--danger);"><span>کاڵا سڕدراوەکان 🗑️</span><span class="value" id="stat-deleted" style="color:var(--danger);">0</span></div>
+            <div class="stat-card"><span>داهاتی قبوڵکراو</span><span class="value" id="stat-revenue" style="color:var(--success);">0 د.ع</span></div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header-area">
+                <h3 id="table-title">لیستی پۆستە نێردراوەکان</h3>
+                <button id="btn-back-main" class="btn-view-main" style="display: none;" onclick="switchView('main')">⬅️ گەڕانەوە بۆ پۆستە سەرەکییەکان</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>زانیاری بەرهەم و خاوەنەکەی</th>
+                        <th>نرخی فرۆشتن</th>
+                        <th>پلانی داواکراو / بڕی داهات</th>
+                        <th id="th-status-time">دۆخ / ماوەی ماوە</th>
+                        <th>کردارەکان (Actions)</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('live-time').innerText = new Date().toLocaleDateString('ku-Arab');
+
+        // مۆدێلی دارایی فەرمی
+        const planDetails = {
+            'standard_1': { name: 'ئاسایی (١ مانگ)', price: 5000, hours: 720, vip: false },
+            'standard_2': { name: 'ئاسایی (٢ مانگ)', price: 9000, hours: 1440, vip: false },
+            'vip_1': { name: '🌟 VIP (١ مانگ)', price: 13000, hours: 720, vip: true },
+            'vip_2': { name: '🌟 VIP (٢ مانگ)', price: 25000, hours: 1440, vip: true }
+        };
+
+        // دۆخی ئێستای پیشاندان (main یان trash)
+        let currentView = 'main';
+
+        async function authenticateAdmin() {
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) { alert('ئیمەیل یان وشەی نهێنی هەڵەیە!'); return; }
+            enterDashboard();
+        }
+
+        function enterDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            setInterval(checkExpired, 10000);
+            loadDashboardData();
+        }
+
+        // ئەگەر بەکارهێنەر پێشتر چووبووەتەژوورەوە (سیشنەکەی هێشتا چالاکە)، دووبارە داوای چوونەژوورەوە لێ مەکە
+        (async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) enterDashboard();
+        })();
+
+        function switchView(view) {
+            currentView = view;
+            if(view === 'main') {
+                document.getElementById('nav-general').classList.add('active');
+                document.getElementById('nav-trash').classList.remove('active');
+                document.getElementById('page-title').innerText = "ڕاپۆرتی کاتەکان و داهات";
+                document.getElementById('table-title').innerText = "لیستی پۆستە نێردراوەکان";
+                document.getElementById('th-status-time').innerText = "دۆخ / ماوەی ماوە";
+                document.getElementById('btn-back-main').style.display = 'none';
+            } else {
+                document.getElementById('nav-general').classList.remove('active');
+                document.getElementById('nav-trash').classList.add('active');
+                document.getElementById('page-title').innerText = "ئەرشیفی سڕدراوەکان و ڕەتکراوەکان";
+                document.getElementById('table-title').innerText = "تەواوی دیتەیڵی کاڵا سڕدراوەکان 🗑️";
+                document.getElementById('th-status-time').innerText = "کاتی سڕینەوە";
+                document.getElementById('btn-back-main').style.display = 'block';
+            }
+            loadDashboardData();
+        }
+
+        async function loadDashboardData() {
+            const [{ data: products, error: err1 }, { data: trashProducts, error: err2 }] = await Promise.all([
+                supabase.from('products').select('*').is('deleted_at', null).order('created_at', { ascending: false }),
+                supabase.from('products').select('*').not('deleted_at', 'is', null).order('deleted_at', { ascending: false })
+            ]);
+
+            if (err1 || err2) {
+                console.error(err1 || err2);
+                alert('هەڵەیەک لە هێنانی زانیاری ڕوویدا. دڵنیابەرەوە کە چوویتەژوورەوە.');
+                return;
+            }
+
+            let totalRevenue = 0;
+            products.forEach(p => {
+                if(p.status === 'active' && planDetails[p.plan]) totalRevenue += planDetails[p.plan].price;
+            });
+
+            // نیشاندانی ژمارەی ئامارەکان لە سەرەوە
+            document.getElementById('stat-total').innerText = products.length;
+            document.getElementById('stat-vip').innerText = products.filter(p => p.status === 'active' && p.plan && p.plan.startsWith('vip')).length;
+            document.getElementById('stat-sold').innerText = products.filter(p => p.status === 'sold').length;
+            document.getElementById('stat-deleted').innerText = trashProducts.length;
+            document.getElementById('stat-revenue').innerText = totalRevenue.toLocaleString() + " د.ع";
+
+            const tbody = document.getElementById('admin-table-body');
+            
+            // دیاریکردنی جۆری داتا بەپێی ویستی بەکارهێنەر
+            let targetData = (currentView === 'main') ? products : trashProducts;
+
+            if(targetData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px;">هیچ پۆستێک لێرەدا نییە.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = targetData.map(p => {
+                let planKey = p.plan || 'standard_1';
+                let planInfo = planDetails[planKey] || planDetails['standard_1'];
+                let expiryOrTrashText = '';
+
+                if (currentView === 'main') {
+                    if(p.status === 'active' && p.expiry_time) {
+                        let daysLeft = Math.round((new Date(p.expiry_time).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--success); font-weight:700;">⌛ ${daysLeft > 0 ? daysLeft : 0} ڕۆژ ماوە</span>`;
+                    } else if(p.status === 'expired') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--danger); font-weight:700;">❌ بەسەرچوو</span>`;
+                    } else if(p.status === 'rejected') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--danger); font-weight:700;">🚫 ڕەتکراوەتەوە</span>`;
+                    } else if(p.status === 'sold') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--primary); font-weight:700;">🤝 فرۆشراوە</span>`;
+                    }
+                } else {
+                    // ئەگەر لەناو بەشی سڕدراوەکان بوو کاتی سڕینەوەکە پیشان بدە بە تەواوی
+                    let deleteDate = p.deleted_at ? new Date(p.deleted_at).toLocaleString('ku-Arab') : "نادیار";
+                    expiryOrTrashText = `<br><span style="font-size:11px; color:var(--danger); font-weight:700;">📅 ${deleteDate}</span>`;
+                }
+
+                let imgHtml = '';
+                if (p.images && Array.isArray(p.images) && p.images.length > 0) {
+                    imgHtml = p.images.map(img => `<img src="${img}" class="prod-img" onclick="window.open('${img}')">`).join('');
+                } else {
+                    imgHtml = `<img src="https://via.placeholder.com/150" class="prod-img">`;
+                }
+
+                let ownerName = p.owner_name || "نادیار";
+                let whatsappNum = p.whatsapp || "تۆمار نەکراوە";
+                
+                // وەرگرتنی زانیاری شار و ناونیشان لە ئۆبجێکتی کاڵاکەدا
+                let sellerCity = p.city || "نادیار";
+                let sellerAddress = p.address || "تۆمار نەکراوە";
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="prod-info">
+                                <div class="img-gallery-container">${imgHtml}</div>
+                                <div>
+                                    <div class="prod-name">${p.title}</div>
+                                    <div class="user-details">
+                                        👤 <b>خاوەن کاڵا:</b> ${ownerName}<br>
+                                        📱 <b>واتسئەپ:</b> ${whatsappNum}<br>
+                                        📍 <b>ناونیشان:</b> ${sellerCity} - ${sellerAddress}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="font-weight:700;">${p.price}</td>
+                        <td><span class="plan-badge ${planInfo.vip ? 'plan-vip' : 'plan-standard'}">${planInfo.name} - ${planInfo.price.toLocaleString()} د.ع</span></td>
+                        <td><span class="status-badge ${currentView === 'main' ? 'status-'+p.status : 'status-trash'}">${currentView === 'main' ? p.status.toUpperCase() : 'DELETED'}</span>${expiryOrTrashText}</td>
+                        <td>
+                            <div class="actions-cell">
+                                ${currentView === 'main' ? `
+                                    ${p.status === 'pending' ? `
+                                        <button class="btn-action btn-app" onclick="approveProduct(${p.id})">✅ ئەکتیڤکردن</button>
+                                        <button class="btn-action btn-rej" onclick="rejectProduct(${p.id})">ڕەتکردنەوە</button>
+                                    ` : ''}
+                                    <button class="btn-action btn-del" onclick="deleteProduct(${p.id})">سڕینەوە</button>
+                                ` : `
+                                    <button class="btn-action btn-app" onclick="restoreProduct(${p.id})">🔄 گەڕاندنەوە</button>
+                                    <button class="btn-action btn-rej" onclick="permaDeleteProduct(${p.id})">🔥 سڕینەوەی هەمیشەیی</button>
+                                `}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function approveProduct(id) {
+            const { data: prod, error: fetchErr } = await supabase.from('products').select('plan').eq('id', id).single();
+            if (fetchErr || !prod) { alert('هەڵەیەک ڕوویدا.'); return; }
+            const planInfo = planDetails[prod.plan] || planDetails['standard_1'];
+            const expiryTime = new Date(Date.now() + planInfo.hours * 60 * 60 * 1000).toISOString();
+            const { error } = await supabase.from('products').update({ status: 'active', expiry_time: expiryTime }).eq('id', id);
+            if (error) { alert('هەڵەیەک لە ئەکتیڤکردن ڕوویدا.'); return; }
+            loadDashboardData();
+        }
+
+        async function rejectProduct(id) {
+            const { error } = await supabase.from('products')
+                .update({ status: 'rejected', deleted_at: new Date().toISOString() })
+                .eq('id', id);
+            if (error) { alert('هەڵەیەک ڕوویدا.'); return; }
+            loadDashboardData();
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm('بۆ ئەرشیفی سڕدراوەکان بگوازرێتەوە؟')) return;
+            const { error } = await supabase.from('products')
+                .update({ deleted_at: new Date().toISOString() })
+                .eq('id', id);
+            if (error) { alert('هەڵەیەک ڕوویدا.'); return; }
+            loadDashboardData();
+        }
+
+        async function restoreProduct(id) {
+            const { error } = await supabase.from('products')
+                .update({ status: 'pending', deleted_at: null })
+                .eq('id', id);
+            if (error) { alert('هەڵەیەک ڕوویدا.'); return; }
+            loadDashboardData();
+        }
+
+        // وەرگرتنی ڕێڕەوی فایلەکە لە URLی گشتی، بۆ سڕینەوەی وێنەکان لە Storage
+        function getStoragePathFromUrl(url) {
+            const marker = '/product-images/';
+            const idx = url.indexOf(marker);
+            return idx === -1 ? null : url.substring(idx + marker.length);
+        }
+
+        async function permaDeleteProduct(id) {
+            if (!confirm('ئایا دڵنیایت لە سڕینەوەی هەمیشەیی؟ ئەم پۆستە بە هیچ جۆرێک ناگەڕێتەوە!')) return;
+
+            const { data: prod } = await supabase.from('products').select('images').eq('id', id).single();
+            if (prod && prod.images && prod.images.length > 0) {
+                const paths = prod.images.map(getStoragePathFromUrl).filter(Boolean);
+                if (paths.length > 0) await supabase.storage.from('product-images').remove(paths);
+            }
+
+            const { error } = await supabase.from('products').delete().eq('id', id);
+            if (error) { alert('هەڵەیەک لە سڕینەوە ڕوویدا.'); return; }
+            loadDashboardData();
+        }
+
+        async function checkExpired() {
+            const nowIso = new Date().toISOString();
+            const { data, error } = await supabase.from('products')
+                .update({ status: 'expired' })
+                .eq('status', 'active')
+                .lt('expiry_time', nowIso)
+                .select('id');
+            if (!error && data && data.length > 0) loadDashboardData();
+        }
+    </script>
+</body>
+</html>
