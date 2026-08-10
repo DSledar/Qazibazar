@@ -23,6 +23,7 @@
             --shadow-md: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
             --radius-md: 12px;
             --radius-lg: 20px;
+            --brand-ink: #090d16; /* هەمیشە تاریکە، گۆڕان بە دۆخی تاریک/ڕووناک ناکات — بۆ دوگمە سەرەکییەکان */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -52,7 +53,7 @@
         .logo-text p { font-size: 9px; color: var(--accent-green); font-weight: 700; letter-spacing: 0.5px; margin-top: -2px; }
         
         .nav-left { display: flex; gap: 14px; align-items: center; }
-        .btn-add-product { background: var(--text-dark); color: #fff; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.2s, background 0.2s; }
+        .btn-add-product { background: var(--brand-ink); color: #fff; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.2s, background 0.2s; }
         .btn-add-product:hover { background: #1d2939; transform: translateY(-1px); }
         .user-badge { color: var(--accent-green); font-size: 13px; font-weight: 700; background: #ecfdf3; padding: 6px 14px; border-radius: var(--radius-md); display: none; }
 
@@ -128,7 +129,7 @@
         .product-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto; }
         .product-price { color: var(--text-dark); font-weight: 800; font-size: 17px; }
         
-        .btn-buy { background: var(--text-dark); color: #fff; border: none; padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; font-size: 12.5px; text-decoration: none; text-align: center; box-shadow: var(--shadow-sm); }
+        .btn-buy { background: var(--brand-ink); color: #fff; border: none; padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; font-size: 12.5px; text-decoration: none; text-align: center; box-shadow: var(--shadow-sm); }
 
         .form-box { max-width: 540px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border-subtle); padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
         .form-box h2 { margin-bottom: 24px; font-weight: 800; font-size: 20px; letter-spacing: -0.5px; }
@@ -136,7 +137,7 @@
         .form-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #344054; }
         .form-control { width: 100%; background: #f9fafb; border: 1px solid #d0d5dd; padding: 12px 14px; border-radius: var(--radius-md); color: var(--text-dark); font-size: 14px; }
         .form-control:focus { outline: none; border-color: var(--text-dark); background: #fff; box-shadow: 0 0 0 4px rgba(9, 13, 22, 0.05); }
-        .btn-submit { width: 100%; background: var(--text-dark); color: #fff; border: none; padding: 14px; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; font-size: 14px; margin-top: 10px; }
+        .btn-submit { width: 100%; background: var(--brand-ink); color: #fff; border: none; padding: 14px; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; font-size: 14px; margin-top: 10px; }
 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9, 13, 22, 0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: var(--surface); border: 1px solid var(--border-subtle); padding: 35px; border-radius: var(--radius-lg); max-width: 400px; width: 92%; text-align: center; box-shadow: var(--shadow-md); position: relative; }
@@ -186,8 +187,15 @@
         html[data-theme="dark"] .accordion-panel { background: #131a2a; }
         html[data-theme="dark"] .accordion-panel a { border-color: #1b2233; color: #c3c9d4; }
         html[data-theme="dark"] header { background: rgba(11,15,25,0.85); }
-        html[data-theme="dark"] .menu-toggle, html[data-theme="dark"] .btn-back, html[data-theme="dark"] .drawer-close-btn { background: #1b2233; color: #dfe3ea; }
+        html[data-theme="dark"] .menu-toggle, html[data-theme="dark"] .btn-back, html[data-theme="dark"] .drawer-close-btn, html[data-theme="dark"] .close-modal-btn { background: #1b2233; color: #dfe3ea; }
         html[data-theme="dark"] .product-img-wrapper, html[data-theme="dark"] .detail-desc { background: #0f1524; }
+        html[data-theme="dark"] .user-badge { background: rgba(7,148,85,0.18); }
+        html[data-theme="dark"] .product-city-badge { background: rgba(19,26,42,0.85); color: #f2f4f7; }
+        html[data-theme="dark"] .swiper-button-next, html[data-theme="dark"] .swiper-button-prev { background: rgba(19,26,42,0.85); color: #f2f4f7 !important; }
+        html[data-theme="dark"] .role-status-box { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.35); color: #fcd34d; }
+        html[data-theme="dark"] .role-status-box.ok { background: rgba(7,148,85,0.15); border-color: rgba(7,148,85,0.4); color: #6ee7b7; }
+        html[data-theme="dark"] .otp-secret-box { background: #0f1524; border-color: #333f57; color: #f2f4f7; }
+        html[data-theme="dark"] #modal-detail-seller-btn { background: rgba(67,56,202,0.18) !important; color: #a5b4fc !important; }
         html * { transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
 
         .theme-toggle-btn { background: #f2f4f7; border: none; width: 40px; height: 40px; border-radius: var(--radius-md); cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; }
@@ -226,7 +234,7 @@
     <script>
         // 🔑 لێرە زانیارییەکانی پڕۆژەکەت لە Firebase Console دابنێ:
         // Firebase Console → Project settings → General → Your apps → SDK setup and configuration
-            const firebaseConfig = {
+        const firebaseConfig = {
                 apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
                 authDomain: "qazibazar.firebaseapp.com",
                 projectId: "qazibazar",
@@ -248,6 +256,7 @@
         </div>
         <div class="nav-left">
             <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="گۆڕینی دۆخی ڕووناکی/تاریک">🌙</button>
+            <a href="admin.html" id="headerAdminBtn" style="display:none; background:#4338ca; color:#fff; text-decoration:none; padding: 8px 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; align-items:center;">🛠️ پانێڵی ئەدمین</a>
             <span id="user-badge" class="user-badge">👤 لۆگینە</span>
             <button class="avatar-btn" id="avatarBtn" onclick="openProfileModal()" title="پرۆفایلەکەم"><img id="avatarBtnImg" src=""></button>
             <button class="btn-add-product" onclick="checkLoginBeforeSell()">+ بڵاوکردنەوەی کاڵا</button>
@@ -472,6 +481,7 @@
             <div class="accordion-container" style="margin-bottom:6px;">
                 <a href="#" class="more-option" style="padding: 11px 5px; display:block; text-decoration:none;" onclick="event.preventDefault(); toggleDrawer(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
                 <a href="#" id="drawer-profile-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#475467; font-size:13px; font-weight:600;" onclick="event.preventDefault(); toggleDrawer(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
+                <a href="admin.html" id="drawer-admin-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#4338ca; font-size:13px; font-weight:700;">🛠️ چوونە پانێڵی ئەدمین</a>
                 <a href="#" id="drawer-logout-link" style="padding: 11px 5px; display:none; text-decoration:none; color:var(--accent-red); font-size:13px; font-weight:700;" onclick="event.preventDefault(); toggleDrawer(); signOutUser();">🚪 چوونەدەرەوە</a>
             </div>
 
@@ -623,6 +633,7 @@
 
             <div class="form-group">
                 <label>ڕەنگی سەرپەڕە (Cover)</label>
+                <div id="cover-preview-strip" style="height:36px; border-radius:10px; margin-bottom:10px; background:#079455;"></div>
                 <div class="cover-swatches" id="cover-swatches"></div>
             </div>
 
@@ -641,6 +652,7 @@
             </div>
 
             <button class="btn-submit" style="margin-top:20px;" onclick="saveProfile()">پاشەکەوتکردن</button>
+            <button type="button" class="btn-back" style="width:100%; justify-content:center; margin-top:10px;" onclick="closeProfileModal(); showSellerProfile(currentUser.uid);">👁️ بینینی پرۆفایلی گشتیم</button>
         </div>
     </div>
 
@@ -679,7 +691,7 @@
                 </div>
                 <button id="modal-detail-seller-btn" class="btn-submit" style="display:block; width:100%; background:#eef2ff; color:#4338ca; margin-bottom: 10px;" onclick="showSellerProfile(currentDetailOwnerId)">👤 بینینی پرۆفایلی فرۆشیار</button>
                 <a id="modal-detail-wa-btn" href="#" target="_blank" class="btn-submit" style="display:block; text-align:center; text-decoration:none; background:#25d366; margin-bottom: 10px;">💬 ڕاستەوخۆ داوا بکە لە واتسئەپ</a>
-                <a id="modal-detail-call-btn" href="#" class="btn-submit" style="display:block; text-align:center; text-decoration:none; background:var(--text-dark); margin-bottom: 10px;">📞 پەیوەندی بکە: <span id="modal-detail-phone-num"></span></a>
+                <a id="modal-detail-call-btn" href="#" class="btn-submit" style="display:block; text-align:center; text-decoration:none; background:var(--brand-ink); margin-bottom: 10px;">📞 پەیوەندی بکە: <span id="modal-detail-phone-num"></span></a>
                 <button class="btn-back" onclick="closeDetailModal()" style="width: 100%; justify-content: center;">↩ داخستن و گەڕانەوە بۆ مارکێت</button>
             </div>
         </div>
@@ -821,6 +833,8 @@
             const avatarImg = document.getElementById('avatarBtnImg');
             const profileLink = document.getElementById('drawer-profile-link');
             const logoutLink = document.getElementById('drawer-logout-link');
+            const adminDrawerLink = document.getElementById('drawer-admin-link');
+            const adminHeaderBtn = document.getElementById('headerAdminBtn');
 
             if (currentUser && currentUserDoc) {
                 badge.innerText = `👤 ${currentUserDoc.name}` + (currentUserDoc.role === 'admin' ? ' (ئەدمین)' : currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved' ? ' (فرۆشیار)' : '');
@@ -829,11 +843,16 @@
                 avatarImg.src = currentUserDoc.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(currentUserDoc.name || 'U');
                 profileLink.style.display = 'block';
                 logoutLink.style.display = 'block';
+                const isAdmin = currentUserDoc.role === 'admin';
+                adminDrawerLink.style.display = isAdmin ? 'block' : 'none';
+                adminHeaderBtn.style.display = isAdmin ? 'flex' : 'none';
             } else {
                 badge.style.display = 'none';
                 avatarBtn.style.display = 'none';
                 profileLink.style.display = 'none';
                 logoutLink.style.display = 'none';
+                adminDrawerLink.style.display = 'none';
+                adminHeaderBtn.style.display = 'none';
             }
         }
 
@@ -1075,6 +1094,8 @@
 
             const swatchBox = document.getElementById('cover-swatches');
             swatchBox.innerHTML = COVER_COLORS.map(c => `<div class="cover-swatch ${currentUserDoc.coverColor === c ? 'selected' : ''}" style="background:${c}" onclick="selectCoverColor('${c}', event)"></div>`).join('');
+            selectedCoverColor = currentUserDoc.coverColor || COVER_COLORS[0];
+            document.getElementById('cover-preview-strip').style.background = `linear-gradient(135deg, ${selectedCoverColor}, #111827)`;
 
             renderTwoFAStatus();
             document.getElementById('profileModal').style.display = 'flex';
@@ -1091,6 +1112,7 @@
             selectedCoverColor = c;
             document.querySelectorAll('.cover-swatch').forEach(el => el.classList.remove('selected'));
             evt.target.classList.add('selected');
+            document.getElementById('cover-preview-strip').style.background = `linear-gradient(135deg, ${c}, #111827)`;
         }
 
         function handleAvatarChange(e) {
