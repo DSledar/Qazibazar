@@ -8,14 +8,6 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        // 🔑 لێرە زانیاری پڕۆژەکەی خۆت لە Supabase دابنێ
-        // Project Settings > API لە داشبۆردی Supabase دەیدۆزیتەوە
-        const SUPABASE_URL = 'https://aatgbpcxafrrkdalhdju.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_IuZMLJHzJunWQPlami95Zw_8s4Ov-yi';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    </script>
 
     <style>
         :root {
@@ -177,7 +169,75 @@
         .info-tag { font-size: 13px; color: #344054; font-weight: 600; }
 
         .no-data { text-align: center; color: var(--text-muted); padding: 80px 0; grid-column: 1 / -1; font-size: 14px; font-weight: 500; }
+
+        /* ===================== دۆخی تاریک (Dark Mode) ===================== */
+        html[data-theme="dark"] {
+            --bg-main: #0b0f19;
+            --surface: #131a2a;
+            --text-dark: #f2f4f7;
+            --text-muted: #98a2b3;
+            --border-subtle: #232b3d;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+            --shadow-md: 0 12px 20px -4px rgba(0,0,0,0.5);
+        }
+        html[data-theme="dark"] .search-input,
+        html[data-theme="dark"] .form-control { background: #0f1524; color: var(--text-dark); border-color: #232b3d; }
+        html[data-theme="dark"] .accordion-item { background: #0f1524; border-color: #232b3d; }
+        html[data-theme="dark"] .accordion-panel { background: #131a2a; }
+        html[data-theme="dark"] .accordion-panel a { border-color: #1b2233; color: #c3c9d4; }
+        html[data-theme="dark"] header { background: rgba(11,15,25,0.85); }
+        html[data-theme="dark"] .menu-toggle, html[data-theme="dark"] .btn-back, html[data-theme="dark"] .drawer-close-btn { background: #1b2233; color: #dfe3ea; }
+        html[data-theme="dark"] .product-img-wrapper, html[data-theme="dark"] .detail-desc { background: #0f1524; }
+        html * { transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+
+        .theme-toggle-btn { background: #f2f4f7; border: none; width: 40px; height: 40px; border-radius: var(--radius-md); cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; }
+        html[data-theme="dark"] .theme-toggle-btn { background: #1b2233; }
+
+        /* ===================== بەکارهێنەر / پرۆفایل ===================== */
+        .avatar-btn { width: 38px; height: 38px; border-radius: 50%; overflow: hidden; border: 2px solid var(--border-subtle); cursor: pointer; display: none; background: #eaecf0; flex-shrink: 0; }
+        .avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-google { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; border: 1px solid #d0d5dd; padding: 12px; border-radius: var(--radius-md); font-weight: 700; font-size: 14px; cursor: pointer; color: #1e293b; }
+        .btn-google:hover { background: #f9fafb; }
+        .role-status-box { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 14px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; line-height: 1.6; margin-bottom: 16px; text-align: right; }
+        .role-status-box.ok { background: #ecfdf3; border-color: #a6f4c5; color: #065f46; }
+
+        .avatar-upload-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 18px; }
+        .avatar-upload-wrap img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-subtle); background: #eaecf0; }
+        .cover-swatches { display: flex; gap: 8px; justify-content: center; margin-bottom: 10px; }
+        .cover-swatch { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+        .cover-swatch.selected { border-color: var(--text-dark); }
+
+        /* ===================== پرۆفایلی گشتی فرۆشیار ===================== */
+        .seller-cover { height: 110px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+        .seller-card-wrap { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); max-width: 720px; margin: 0 auto 30px; }
+        .seller-header { padding: 0 26px 24px; margin-top: -42px; display: flex; align-items: flex-end; gap: 16px; }
+        .seller-avatar-lg { width: 84px; height: 84px; border-radius: 50%; border: 4px solid var(--surface); object-fit: cover; background: #eaecf0; }
+        .seller-name-lg { font-weight: 800; font-size: 19px; }
+        .seller-bio { padding: 0 26px 22px; font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
+        .seller-badge-role { display: inline-block; background: #ecfdf3; color: var(--accent-green); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 4px; }
+
+        .otp-secret-box { background: #f9fafb; border: 1px dashed #d0d5dd; padding: 14px; border-radius: var(--radius-md); font-family: monospace; font-size: 14px; letter-spacing: 2px; text-align: center; word-break: break-all; margin-bottom: 14px; }
     </style>
+
+    <!-- ===================== Firebase SDK (Free Spark plan – no credit card) ===================== -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <script>
+        // 🔑 لێرە زانیارییەکانی پڕۆژەکەت لە Firebase Console دابنێ:
+        // Firebase Console → Project settings → General → Your apps → SDK setup and configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
+                authDomain: "qazibazar.firebaseapp.com",
+                projectId: "qazibazar",
+                storageBucket: "qazibazar.firebasestorage.app",
+                messagingSenderId: "668390534465",
+                appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
+            };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
 </head>
 <body>
 
@@ -187,7 +247,9 @@
             <div class="logo-text"><h1>Qazibazar</h1><p>MADE IN KURDISTAN</p></div>
         </div>
         <div class="nav-left">
+            <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="گۆڕینی دۆخی ڕووناکی/تاریک">🌙</button>
             <span id="user-badge" class="user-badge">👤 لۆگینە</span>
+            <button class="avatar-btn" id="avatarBtn" onclick="openProfileModal()" title="پرۆفایلەکەم"><img id="avatarBtnImg" src=""></button>
             <button class="btn-add-product" onclick="checkLoginBeforeSell()">+ بڵاوکردنەوەی کاڵا</button>
             <button class="menu-toggle" onclick="toggleDrawer()">
                 <span></span>
@@ -406,6 +468,13 @@
         <hr style="border:none; border-top:1px solid var(--border-subtle); margin:10px 0;">
         <div>
             <h3 class="menu-main-title" style="margin-bottom:6px;">دەربارەی ئێمە</h3>
+            <h3 class="menu-main-title" style="margin-top:6px;">هەژمار</h3>
+            <div class="accordion-container" style="margin-bottom:6px;">
+                <a href="#" class="more-option" style="padding: 11px 5px; display:block; text-decoration:none;" onclick="event.preventDefault(); toggleDrawer(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
+                <a href="#" id="drawer-profile-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#475467; font-size:13px; font-weight:600;" onclick="event.preventDefault(); toggleDrawer(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
+                <a href="#" id="drawer-logout-link" style="padding: 11px 5px; display:none; text-decoration:none; color:var(--accent-red); font-size:13px; font-weight:700;" onclick="event.preventDefault(); toggleDrawer(); signOutUser();">🚪 چوونەدەرەوە</a>
+            </div>
+
             <p class="drawer-info-text">قازی بازار سەکۆیەکی بازرگانی پێشەنگە لە کوردستان بۆ بەیەکەوەبەستنی فرۆشیارانی بەرهەمی لۆکاڵی و کڕیاران بە خێراترین شێوازی دیجیتاڵی.</p>
         </div>
     </aside>
@@ -477,24 +546,101 @@
                 </form>
             </div>
         </section>
+
+        <section id="view-become-seller" class="view-section">
+            <div class="top-action-bar">
+                <h2>بوون بە فرۆشیار</h2>
+                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
+            </div>
+            <div class="form-box" style="margin-top:10px;" id="become-seller-box"></div>
+        </section>
+
+        <section id="view-sellers" class="view-section">
+            <div class="top-action-bar">
+                <h2>🛍️ فرۆشیارە پشتڕاستکراوەکان</h2>
+                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
+            </div>
+            <div class="grid-products" id="sellers-grid"></div>
+        </section>
+
+        <section id="view-profile" class="view-section">
+            <div class="top-action-bar">
+                <h2>پرۆفایلی فرۆشیار</h2>
+                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
+            </div>
+            <div class="seller-card-wrap">
+                <div class="seller-cover" id="profile-cover" style="background: linear-gradient(135deg,#079455,#0b7a46);"></div>
+                <div class="seller-header">
+                    <img class="seller-avatar-lg" id="profile-view-avatar" src="">
+                    <div>
+                        <div class="seller-name-lg" id="profile-view-name"></div>
+                        <span class="seller-badge-role" id="profile-view-role"></span>
+                    </div>
+                </div>
+                <p class="seller-bio" id="profile-view-bio"></p>
+            </div>
+            <div class="grid-products" id="profile-products-grid"></div>
+        </section>
     </div>
 
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <button class="close-modal-btn" onclick="closeLoginModal()">✕</button>
-            <h3 style="font-weight: 800; margin-bottom: 14px; margin-top: 10px;">تۆمارکردنی فرۆشیار</h3>
-            <div id="auth-step-1">
-                <div class="form-group" style="text-align:right;"><label>ناو</label><input type="text" id="u-name" class="form-control" required></div>
-                <div class="form-group" style="text-align:right;"><label>ئیمەیل</label><input type="email" id="u-email" class="form-control" required></div>
-                <div class="form-group" style="text-align:right;"><label>مۆبایل</label><input type="tel" id="u-phone" class="form-control" placeholder="0750XXXXXXX" required></div>
-                <button class="btn-submit" onclick="sendOTPCode()">ناردنی کۆد</button>
-            </div>
-            <div id="auth-step-2" style="display:none;">
-                <p style="margin-bottom:15px; font-size:13px; color:var(--text-muted);">کۆدی SMS بنووسە:</p>
-                <input type="text" id="otp-input" class="form-control" style="text-align:center; font-size:22px; font-weight:bold; letter-spacing:6px; margin-bottom:15px;" maxlength="4">
-                <button class="btn-submit" onclick="verifyOTPCode()">چوونەژوورەوە</button>
-            </div>
+            <h3 style="font-weight: 800; margin-bottom: 6px; margin-top: 10px;">چوونەژوورەوە بۆ قازی بازار</h3>
+            <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:20px;">بە هەژمارەکەی گووگڵ خۆت تۆمار بکە، پارادا و سادەیە.</p>
+            <button class="btn-google" onclick="signInWithGoogle()">
+                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.3 4.4-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35 26.8 36 24 36c-5.3 0-9.8-3.3-11.4-7.9l-6.5 5C9.6 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3C40.6 36.2 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+                چوونەژوورەوە بە Google
+            </button>
             <button class="btn-back" onclick="closeLoginModal()" style="width: 100%; justify-content: center; margin-top: 15px;">↩ پاشگەزبوونەوە و گەڕانەوە</button>
+        </div>
+    </div>
+
+    <!-- مۆداڵی داواکردنی کۆدی 2FA لە کاتی چوونەژوورەوە -->
+    <div class="modal" id="twoFAModal">
+        <div class="modal-content">
+            <h3 style="font-weight: 800; margin-bottom: 6px; margin-top: 10px;">🔐 دووهەنگاوی پاراستن</h3>
+            <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:16px;">کۆدی ٦ ژمارەیی لە ئەپی Authenticator خۆت بنووسە.</p>
+            <input type="text" id="twofa-login-input" class="form-control" style="text-align:center; font-size:22px; font-weight:bold; letter-spacing:6px; margin-bottom:15px;" maxlength="6" placeholder="000000">
+            <button class="btn-submit" onclick="verifyLogin2FA()">پشتڕاستکردنەوە</button>
+            <button class="btn-back" onclick="signOutUser()" style="width: 100%; justify-content: center; margin-top: 15px;">↩ چوونەدەرەوە</button>
+        </div>
+    </div>
+
+    <!-- مۆداڵی ڕێکخستنی پرۆفایل -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content" style="max-width:460px; text-align:right;">
+            <button class="close-modal-btn" onclick="closeProfileModal()">✕</button>
+            <h3 style="font-weight: 800; margin-bottom: 18px; margin-top: 10px; text-align:center;">ڕێکخستنی پرۆفایل</h3>
+
+            <div class="avatar-upload-wrap">
+                <img id="profile-avatar-preview" src="">
+                <input type="file" id="profile-avatar-file" accept="image/*" onchange="handleAvatarChange(event)">
+            </div>
+
+            <div class="form-group"><label>ناوی نیشاندان</label><input type="text" id="profile-name" class="form-control"></div>
+            <div class="form-group"><label>بایۆگرافیا / سەبارەت بە خۆت</label><textarea id="profile-bio" class="form-control" rows="3" placeholder="چەند دەربارەی خۆت و کاڵاکانت بنووسە..."></textarea></div>
+
+            <div class="form-group">
+                <label>ڕەنگی سەرپەڕە (Cover)</label>
+                <div class="cover-swatches" id="cover-swatches"></div>
+            </div>
+
+            <hr style="border:none; border-top:1px solid var(--border-subtle); margin: 18px 0;">
+
+            <div class="form-group">
+                <label>🔐 دووهەنگاوی پاراستن (2FA)</label>
+                <div id="twofa-status-text" style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px;"></div>
+                <button type="button" class="btn-submit" id="twofa-toggle-btn" style="background:var(--accent-green);" onclick="start2FASetup()">چالاککردنی 2FA</button>
+                <div id="twofa-setup-box" style="display:none; margin-top:14px;">
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">ئەم کۆدە بخە ناو ئەپی Google Authenticator یان Authy:</p>
+                    <div class="otp-secret-box" id="twofa-secret-display"></div>
+                    <input type="text" id="twofa-confirm-input" class="form-control" placeholder="کۆدی ٦ ژمارەیی بنووسە بۆ پشتڕاستکردنەوە" maxlength="6" style="text-align:center; letter-spacing:4px; margin-bottom:10px;">
+                    <button type="button" class="btn-submit" onclick="confirm2FASetup()">پشتڕاستکردنەوە و چالاککردن</button>
+                </div>
+            </div>
+
+            <button class="btn-submit" style="margin-top:20px;" onclick="saveProfile()">پاشەکەوتکردن</button>
         </div>
     </div>
 
@@ -531,6 +677,7 @@
                     <div class="info-tag">📁 بەش: <span id="modal-detail-cat" style="font-weight:700; color:var(--accent-green);"></span></div>
                     <div class="info-tag">📍 جۆری پۆست: <span id="modal-detail-type" style="font-weight:700;"></span></div>
                 </div>
+                <button id="modal-detail-seller-btn" class="btn-submit" style="display:block; width:100%; background:#eef2ff; color:#4338ca; margin-bottom: 10px;" onclick="showSellerProfile(currentDetailOwnerId)">👤 بینینی پرۆفایلی فرۆشیار</button>
                 <a id="modal-detail-wa-btn" href="#" target="_blank" class="btn-submit" style="display:block; text-align:center; text-decoration:none; background:#25d366; margin-bottom: 10px;">💬 ڕاستەوخۆ داوا بکە لە واتسئەپ</a>
                 <a id="modal-detail-call-btn" href="#" class="btn-submit" style="display:block; text-align:center; text-decoration:none; background:var(--text-dark); margin-bottom: 10px;">📞 پەیوەندی بکە: <span id="modal-detail-phone-num"></span></a>
                 <button class="btn-back" onclick="closeDetailModal()" style="width: 100%; justify-content: center;">↩ داخستن و گەڕانەوە بۆ مارکێت</button>
@@ -539,9 +686,16 @@
     </div>
 
     <script>
-        let generatedOTP = null;
         let mySwiperInstance = null; // پاراستنی سەکۆی سکڕۆڵەرەکە
         let currentFilter = null;
+
+        // ===================== دۆخی بەکارهێنەری چوونەژوورەوەکراو =====================
+        let currentUser = null;       // firebase.auth() user object
+        let currentUserDoc = null;    // Firestore users/{uid} data
+        let currentProducts = [];     // کاشی کاڵا چالاکەکان (بۆ خێراتر بوونی مۆداڵی وردەکاری)
+        let currentDetailOwnerId = null;
+        let pendingTotpSecret = null; // کاتی سێتئەپکردنی 2FA
+        const COVER_COLORS = ['#079455', '#4338ca', '#d92d20', '#eab308', '#0369a1', '#111827'];
 
         function toggleDrawer() {
             document.getElementById('navDrawer').classList.toggle('open');
@@ -586,14 +740,18 @@
             document.getElementById(`view-${viewName}`).classList.add('active');
         }
 
+        // ===================== چوونەژوورەوە / دەرچوون =====================
         function checkLoginBeforeSell() {
-            const user = JSON.parse(localStorage.getItem('qazi_user'));
-            if (!user) {
+            if (!currentUser) {
                 document.getElementById('loginModal').style.display = 'flex';
-                document.getElementById('auth-step-1').style.display = 'block';
-                document.getElementById('auth-step-2').style.display = 'none';
-            } else {
+                return;
+            }
+            if (currentUserDoc && currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved') {
+                document.getElementById('ownerName').value = currentUserDoc.name;
                 switchView('sell');
+            } else {
+                renderBecomeSellerBox();
+                switchView('become-seller');
             }
         }
 
@@ -601,75 +759,142 @@
             document.getElementById('loginModal').style.display = 'none';
         }
 
-        function sendOTPCode() {
-            const name = document.getElementById('u-name').value;
-            const email = document.getElementById('u-email').value;
-            const phone = document.getElementById('u-phone').value;
-            if(!name || !email || !phone) { alert("تکایە سەرجەم خانەکان پڕبکەرەوە"); return; }
-
-            generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
-            alert(`[Qazi-SMS] کۆدی چالاککردنی تۆ: ${generatedOTP}`);
-            document.getElementById('auth-step-1').style.display = 'none';
-            document.getElementById('auth-step-2').style.display = 'block';
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).then(() => {
+                closeLoginModal();
+            }).catch(err => {
+                alert('هەڵەیەک ڕوویدا لە چوونەژوورەوە: ' + err.message);
+            });
         }
 
-        function verifyOTPCode() {
-            if (document.getElementById('otp-input').value === generatedOTP) {
-                const userData = { name: document.getElementById('u-name').value, phone: document.getElementById('u-phone').value };
-                localStorage.setItem('qazi_user', JSON.stringify(userData));
-                document.getElementById('loginModal').style.display = 'none';
-                updateUserBadge();
-                switchView('sell');
-            } else { alert("کۆدەکە هەڵەیە، دووبارە هەوڵبدەرەوە"); }
+        function signOutUser() {
+            sessionStorage.removeItem('qazi_2fa_verified');
+            auth.signOut().then(() => goToMarket());
         }
+
+        // یەکەم جار چوونەژوورەوە: دروستکردنی دۆکیومێنتی بەکارهێنەر ئەگەر بوونی نەبێت
+        async function ensureUserDoc(user) {
+            const ref = db.collection('users').doc(user.uid);
+            const snap = await ref.get();
+            if (!snap.exists) {
+                const newDoc = {
+                    name: user.displayName || 'بەکارهێنەر',
+                    email: user.email,
+                    photoURL: user.photoURL || '',
+                    bio: '',
+                    coverColor: COVER_COLORS[0],
+                    role: 'customer',
+                    roleStatus: 'none',
+                    totpEnabled: false,
+                    theme: localStorage.getItem('qazi_theme') || 'light',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                await ref.set(newDoc);
+                return newDoc;
+            }
+            return snap.data();
+        }
+
+        // گوێگری گۆڕانی دۆخی چوونەژوورەوە
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            if (user) {
+                currentUserDoc = await ensureUserDoc(user);
+                if (currentUserDoc.theme) applyTheme(currentUserDoc.theme, false);
+
+                if (currentUserDoc.totpEnabled && sessionStorage.getItem('qazi_2fa_verified') !== user.uid) {
+                    document.getElementById('twoFAModal').style.display = 'flex';
+                } else {
+                    document.getElementById('twoFAModal').style.display = 'none';
+                }
+            } else {
+                currentUserDoc = null;
+                document.getElementById('twoFAModal').style.display = 'none';
+            }
+            updateUserBadge();
+        });
 
         function updateUserBadge() {
-            const user = JSON.parse(localStorage.getItem('qazi_user'));
-            if(user) {
-                const badge = document.getElementById('user-badge');
-                badge.innerText = `👤 ${user.name}`;
+            const badge = document.getElementById('user-badge');
+            const avatarBtn = document.getElementById('avatarBtn');
+            const avatarImg = document.getElementById('avatarBtnImg');
+            const profileLink = document.getElementById('drawer-profile-link');
+            const logoutLink = document.getElementById('drawer-logout-link');
+
+            if (currentUser && currentUserDoc) {
+                badge.innerText = `👤 ${currentUserDoc.name}` + (currentUserDoc.role === 'admin' ? ' (ئەدمین)' : currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved' ? ' (فرۆشیار)' : '');
                 badge.style.display = 'inline-block';
+                avatarBtn.style.display = 'block';
+                avatarImg.src = currentUserDoc.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(currentUserDoc.name || 'U');
+                profileLink.style.display = 'block';
+                logoutLink.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+                avatarBtn.style.display = 'none';
+                profileLink.style.display = 'none';
+                logoutLink.style.display = 'none';
             }
         }
 
-        async function uploadImages(files) {
-            const urls = [];
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
-                const path = `products/${Date.now()}_${i}_${safeName}`;
-                const { error } = await supabase.storage.from('product-images').upload(path, file);
-                if (error) throw error;
-                const { data } = supabase.storage.from('product-images').getPublicUrl(path);
-                urls.push(data.publicUrl);
+        // ===================== داواکردنی بوون بە فرۆشیار → بۆ پانێڵی ئەدمین =====================
+        function renderBecomeSellerBox() {
+            const box = document.getElementById('become-seller-box');
+            if (!currentUserDoc) return;
+            if (currentUserDoc.roleStatus === 'pending') {
+                box.innerHTML = `<div class="role-status-box">⏳ داواکاریەکەت نێردرا و چاوەڕوانی پەسندکردنی ئەدمینە. تکایە کەمێک چاوەڕێ بکە.</div>`;
+            } else if (currentUserDoc.roleStatus === 'rejected') {
+                box.innerHTML = `<div class="role-status-box">🚫 داواکاریەکەت ڕەتکراوەتەوە. دەتوانیت دووبارە هەوڵبدەیتەوە.</div>
+                    <button class="btn-submit" onclick="requestSellerRole()">دووبارە داواکردن</button>`;
+            } else {
+                box.innerHTML = `<div class="role-status-box ok">بۆ ئەوەی بتوانیت کاڵا بڵاو بکەیتەوە، پێویستە ببیتە فرۆشیاری پشتڕاستکراو. داواکارییەکەت دەگاتە ئەدمین بۆ پەسندکردن.</div>
+                    <button class="btn-submit" onclick="requestSellerRole()">🛍️ داواکردنی بوون بە فرۆشیار</button>`;
             }
-            return urls;
         }
 
-        async function handleProductSubmit(e) {
+        async function requestSellerRole() {
+            if (!currentUser) return;
+            await db.collection('roleRequests').add({
+                uid: currentUser.uid,
+                name: currentUserDoc.name,
+                email: currentUserDoc.email,
+                requestedRole: 'seller',
+                status: 'pending',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            await db.collection('users').doc(currentUser.uid).update({ roleStatus: 'pending' });
+            currentUserDoc.roleStatus = 'pending';
+            renderBecomeSellerBox();
+        }
+
+        function handleProductSubmit(e) {
             e.preventDefault();
+            if (!currentUser || !currentUserDoc || currentUserDoc.role !== 'seller' || currentUserDoc.roleStatus !== 'approved') {
+                alert('تەنها فرۆشیارە پەسندکراوەکان دەتوانن کاڵا بڵاو بکەنەوە.');
+                return;
+            }
             const files = document.getElementById('p-file').files;
-            if (files.length === 0) { alert('تکایە لانیکەم یەک وێنە هەڵبژێرە'); return; }
+            const imageArray = [];
+            let filesRead = 0;
 
-            const submitBtn = document.querySelector('#product-form .btn-submit');
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'بارکردنی وێنەکان... چاوەڕوان بە';
-
-            try {
-                const imageUrls = await uploadImages(files);
-                await saveProduct(imageUrls);
-            } catch (err) {
-                console.error(err);
-                alert('هەڵەیەک ڕوویدا لە کاتی ناردنی پۆستەکە. تکایە دووبارە هەوڵبدەرەوە.');
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'ناردنی ڕەشنووس بۆ ئەدمین';
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    imageArray.push(reader.result);
+                    filesRead++;
+                    
+                    if (filesRead === files.length) {
+                        saveProduct(imageArray);
+                    }
+                }
+                reader.readAsDataURL(files[i]);
             }
         }
 
         async function saveProduct(images) {
-            const submitBtn = document.querySelector('#product-form .btn-submit');
             const newProduct = {
-                owner_name: document.getElementById('ownerName').value,
+                ownerId: currentUser.uid,
+                ownerName: document.getElementById('ownerName').value || currentUserDoc.name,
                 title: document.getElementById('p-title').value,
                 subcategory: document.getElementById('p-subcat').value,
                 description: document.getElementById('p-desc').value || 'هیچ شیکردنەوەیەک نییە',
@@ -679,22 +904,12 @@
                 address: document.getElementById('p-address').value,
                 plan: document.getElementById('p-plan').value,
                 images: images,
-                status: 'pending'
+                status: 'pending',
+                deleted: false,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             };
-
-            const { error } = await supabase.from('products').insert(newProduct);
-
-            if (error) {
-                console.error(error);
-                alert('هەڵەیەک ڕوویدا لە پاشەکەوتکردنی زانیاری. تکایە دووبارە هەوڵبدەرەوە.');
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'ناردنی ڕەشنووس بۆ ئەدمین';
-                return;
-            }
-
+            await db.collection('products').add(newProduct);
             document.getElementById('product-form').reset();
-            submitBtn.disabled = false;
-            submitBtn.innerText = 'ناردنی ڕەشنووس بۆ ئەدمین';
             document.getElementById('payModal').style.display = 'flex';
         }
 
@@ -712,29 +927,15 @@
             renderMarket(subCatName);
         }
 
-        let currentProducts = []; // کاش دەکات بۆ کارکردنی showProductDetails بەبێ نوێ داواکردن لە داتابەیس
-
         async function renderMarket(filterSub = null, searchTerm = '') {
             const grid = document.getElementById('market-products-grid');
             grid.innerHTML = `<div class="no-data">⏳ چاوەڕوان بە...</div>`;
 
-            const nowIso = new Date().toISOString();
-            let query = supabase.from('products')
-                .select('*')
-                .eq('status', 'active')
-                .or(`expiry_time.is.null,expiry_time.gt.${nowIso}`);
+            const snap = await db.collection('products').where('status', '==', 'active').where('deleted', '==', false).get();
+            currentProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
 
-            if (filterSub) query = query.eq('subcategory', filterSub);
-
-            const { data, error } = await query;
-
-            if (error) {
-                console.error(error);
-                grid.innerHTML = `<div class="no-data">هەڵەیەک لە هێنانی کاڵاکان ڕوویدا. تکایە دووبارە هەوڵبدەرەوە.</div>`;
-                return;
-            }
-
-            let activeProducts = data || [];
+            let activeProducts = currentProducts.filter(p => !p.expiryTime || (p.expiryTime.toMillis ? p.expiryTime.toMillis() : p.expiryTime) > Date.now());
+            if (filterSub) activeProducts = activeProducts.filter(p => p.subcategory === filterSub);
 
             if (searchTerm) {
                 const term = searchTerm.toLowerCase();
@@ -750,8 +951,6 @@
                 return isBVip - isAVip;
             });
 
-            currentProducts = activeProducts;
-
             if(activeProducts.length === 0) {
                 grid.innerHTML = `<div class="no-data">✨ هیچ بەرهەمێک لەم بەشەدا نەدۆزرایەوە.</div>`;
                 return;
@@ -762,7 +961,7 @@
                 const displayImg = p.images && p.images.length > 0 ? p.images[0] : (p.image || '');
                 const displayCity = p.city ? "📍 " + p.city : "📍 لۆکاڵی";
                 return `
-                    <div class="product-card ${isVip ? 'vip-card' : ''}" onclick="showProductDetails(${p.id})">
+                    <div class="product-card ${isVip ? 'vip-card' : ''}" onclick="showProductDetails('${p.id}')">
                         <span class="product-city-badge">${displayCity}</span>
                         ${isVip ? `<span class="vip-badge">🌟 VIP</span>` : ''}
                         <div class="product-img-wrapper">
@@ -775,7 +974,7 @@
                             </div>
                             <div class="product-meta">
                                 <span class="product-price">${p.price}</span>
-                                <button class="btn-buy" onclick="event.stopPropagation(); showProductDetails(${p.id});">بینینی وردەکاری</button>
+                                <button class="btn-buy" onclick="event.stopPropagation(); showProductDetails('${p.id}');">بینینی وردەکاری</button>
                             </div>
                         </div>
                     </div>
@@ -786,6 +985,8 @@
         function showProductDetails(id) {
             let p = currentProducts.find(prod => prod.id === id);
             if(!p) return;
+            currentDetailOwnerId = p.ownerId || null;
+            document.getElementById('modal-detail-seller-btn').style.display = currentDetailOwnerId ? 'block' : 'none';
 
             const swiperWrapper = document.getElementById('modal-swiper-wrapper');
             const images = p.images ? p.images : [p.image];
@@ -848,6 +1049,251 @@
             }
         }
 
+        // ===================== دۆخی تاریک / ڕووناک =====================
+        function applyTheme(theme, persist = true) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeToggleBtn').innerText = theme === 'dark' ? '☀️' : '🌙';
+            if (persist) localStorage.setItem('qazi_theme', theme);
+        }
+
+        function toggleTheme() {
+            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            if (currentUser) db.collection('users').doc(currentUser.uid).update({ theme: next }).catch(() => {});
+        }
+
+        function loadInitialTheme() {
+            applyTheme(localStorage.getItem('qazi_theme') || 'light', false);
+        }
+
+        // ===================== ڕێکخستنی پرۆفایل =====================
+        function openProfileModal() {
+            if (!currentUser || !currentUserDoc) return;
+            document.getElementById('profile-name').value = currentUserDoc.name || '';
+            document.getElementById('profile-bio').value = currentUserDoc.bio || '';
+            document.getElementById('profile-avatar-preview').src = currentUserDoc.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(currentUserDoc.name || 'U');
+
+            const swatchBox = document.getElementById('cover-swatches');
+            swatchBox.innerHTML = COVER_COLORS.map(c => `<div class="cover-swatch ${currentUserDoc.coverColor === c ? 'selected' : ''}" style="background:${c}" onclick="selectCoverColor('${c}', event)"></div>`).join('');
+
+            renderTwoFAStatus();
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+            document.getElementById('twofa-setup-box').style.display = 'none';
+            pendingTotpSecret = null;
+        }
+
+        let selectedCoverColor = null;
+        function selectCoverColor(c, evt) {
+            selectedCoverColor = c;
+            document.querySelectorAll('.cover-swatch').forEach(el => el.classList.remove('selected'));
+            evt.target.classList.add('selected');
+        }
+
+        function handleAvatarChange(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            // چاककردنی قەبارەی وێنە بۆ ژێر ١٥٠×١٥٠ پیکسڵ تاوەکو قەبارەی بەڵگەنامەی Firestore زۆر نەبێت
+            const img = new Image();
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const size = 150;
+                    canvas.width = size; canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, size, size);
+                    const compressed = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('profile-avatar-preview').src = compressed;
+                    document.getElementById('profile-avatar-preview').dataset.newAvatar = compressed;
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function saveProfile() {
+            if (!currentUser) return;
+            const updates = {
+                name: document.getElementById('profile-name').value || currentUserDoc.name,
+                bio: document.getElementById('profile-bio').value
+            };
+            if (selectedCoverColor) updates.coverColor = selectedCoverColor;
+            const newAvatar = document.getElementById('profile-avatar-preview').dataset.newAvatar;
+            if (newAvatar) updates.photoURL = newAvatar;
+
+            await db.collection('users').doc(currentUser.uid).update(updates);
+            Object.assign(currentUserDoc, updates);
+            updateUserBadge();
+            closeProfileModal();
+        }
+
+        // ===================== فرۆشیارە پشتڕاستکراوەکان (دایرێکتۆری) =====================
+        async function showSellersDirectory() {
+            switchView('sellers');
+            const grid = document.getElementById('sellers-grid');
+            grid.innerHTML = `<div class="no-data">⏳ چاوەڕوان بە...</div>`;
+            const snap = await db.collection('users').where('role', '==', 'seller').where('roleStatus', '==', 'approved').get();
+            const sellers = snap.docs.map(d => ({ uid: d.id, ...d.data() }));
+            if (sellers.length === 0) {
+                grid.innerHTML = `<div class="no-data">✨ هێشتا هیچ فرۆشیارێکی پشتڕاستکراو نییە.</div>`;
+                return;
+            }
+            grid.innerHTML = sellers.map(s => `
+                <div class="product-card" onclick="showSellerProfile('${s.uid}')" style="text-align:center; padding:26px 18px;">
+                    <img src="${s.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(s.name)}" style="width:70px; height:70px; border-radius:50%; object-fit:cover; margin:0 auto 14px;">
+                    <div class="product-title">${s.name}</div>
+                    <div class="product-cat" style="margin-top:6px;">${(s.bio || '').slice(0, 60)}</div>
+                </div>
+            `).join('');
+        }
+
+        // ===================== پرۆفایلی گشتی فرۆشیار =====================
+        async function showSellerProfile(uid) {
+            if (!uid) return;
+            switchView('profile');
+            const userSnap = await db.collection('users').doc(uid).get();
+            if (!userSnap.exists) return;
+            const s = userSnap.data();
+
+            document.getElementById('profile-cover').style.background = s.coverColor ? `linear-gradient(135deg, ${s.coverColor}, #111827)` : 'linear-gradient(135deg,#079455,#0b7a46)';
+            document.getElementById('profile-view-avatar').src = s.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(s.name);
+            document.getElementById('profile-view-name').innerText = s.name;
+            document.getElementById('profile-view-role').innerText = s.role === 'seller' ? '🛍️ فرۆشیاری پشتڕاستکراو' : 'بەکارهێنەر';
+            document.getElementById('profile-view-bio').innerText = s.bio || 'هیچ بایۆیەک نییە.';
+
+            const prodSnap = await db.collection('products').where('ownerId', '==', uid).where('status', '==', 'active').where('deleted', '==', false).get();
+            const grid = document.getElementById('profile-products-grid');
+            const prods = prodSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            currentProducts = currentProducts.concat(prods.filter(p => !currentProducts.some(cp => cp.id === p.id)));
+            if (prods.length === 0) {
+                grid.innerHTML = `<div class="no-data">هیچ کاڵایەکی چالاک نییە.</div>`;
+                return;
+            }
+            grid.innerHTML = prods.map(p => `
+                <div class="product-card" onclick="showProductDetails('${p.id}')">
+                    <div class="product-img-wrapper"><img src="${p.images && p.images[0] ? p.images[0] : ''}" class="product-img" loading="lazy"></div>
+                    <div class="product-info">
+                        <div><div class="product-cat">${p.subcategory}</div><div class="product-title">${p.title}</div></div>
+                        <div class="product-meta"><span class="product-price">${p.price}</span></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ===================== 2FA — TOTP (RFC 6238) بەکارهێنانی Web Crypto، بەبێ هیچ کتێبخانەیەکی دەرەکی =====================
+        // تێبینی: ئەمە پێداچوونەوەیەکی ئەپلیکەیشنە (client-side)، نەک enforcement فەرمی Firebase.
+        // MFA فەرمی بە شێوازی SMS پێویستی بە پلانی Blaze و کارتی بانک هەیە. ئەمە ڕێگایەکی بەخۆڕایی و بێ کارتە.
+        const b32chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+
+        function generateBase32Secret(len = 20) {
+            const bytes = new Uint8Array(len);
+            crypto.getRandomValues(bytes);
+            let secret = '';
+            for (let i = 0; i < len; i++) secret += b32chars[bytes[i] % 32];
+            return secret;
+        }
+
+        function base32ToBytes(base32) {
+            let bits = '';
+            for (const c of base32.toUpperCase().replace(/=+$/, '')) {
+                const val = b32chars.indexOf(c);
+                if (val === -1) continue;
+                bits += val.toString(2).padStart(5, '0');
+            }
+            const bytes = [];
+            for (let i = 0; i + 8 <= bits.length; i += 8) bytes.push(parseInt(bits.substr(i, 8), 2));
+            return new Uint8Array(bytes);
+        }
+
+        async function hmacSha1(keyBytes, msgBytes) {
+            const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: 'SHA-1' }, false, ['sign']);
+            const sig = await crypto.subtle.sign('HMAC', key, msgBytes);
+            return new Uint8Array(sig);
+        }
+
+        function counterToBytes(counter) {
+            const buf = new ArrayBuffer(8);
+            const view = new DataView(buf);
+            view.setUint32(4, counter);
+            return new Uint8Array(buf);
+        }
+
+        async function computeTOTP(secretBase32, timeStep = 30, digits = 6, offset = 0) {
+            const counter = Math.floor(Date.now() / 1000 / timeStep) + offset;
+            const keyBytes = base32ToBytes(secretBase32);
+            const hmac = await hmacSha1(keyBytes, counterToBytes(counter));
+            const codeOffset = hmac[hmac.length - 1] & 0xf;
+            const binCode = ((hmac[codeOffset] & 0x7f) << 24) | ((hmac[codeOffset + 1] & 0xff) << 16) | ((hmac[codeOffset + 2] & 0xff) << 8) | (hmac[codeOffset + 3] & 0xff);
+            return (binCode % (10 ** digits)).toString().padStart(digits, '0');
+        }
+
+        async function verifyTOTP(code, secretBase32) {
+            for (const offset of [0, -1, 1]) { // ڕێگری لە جیاوازی کاتی مۆبایل/کۆمپیوتەر
+                if (await computeTOTP(secretBase32, 30, 6, offset) === code) return true;
+            }
+            return false;
+        }
+
+        async function renderTwoFAStatus() {
+            const statusText = document.getElementById('twofa-status-text');
+            const btn = document.getElementById('twofa-toggle-btn');
+            if (currentUserDoc.totpEnabled) {
+                statusText.innerText = '✅ 2FA چالاکە بۆ ئەم هەژمارە.';
+                btn.innerText = 'ناچالاککردنی 2FA';
+                btn.style.background = 'var(--accent-red)';
+                btn.onclick = disable2FA;
+            } else {
+                statusText.innerText = 'هێشتا 2FA چالاک نییە.';
+                btn.innerText = 'چالاککردنی 2FA';
+                btn.style.background = 'var(--accent-green)';
+                btn.onclick = start2FASetup;
+            }
+        }
+
+        function start2FASetup() {
+            pendingTotpSecret = generateBase32Secret();
+            document.getElementById('twofa-secret-display').innerText = pendingTotpSecret;
+            document.getElementById('twofa-setup-box').style.display = 'block';
+        }
+
+        async function confirm2FASetup() {
+            const code = document.getElementById('twofa-confirm-input').value.trim();
+            if (!pendingTotpSecret) return;
+            const ok = await verifyTOTP(code, pendingTotpSecret);
+            if (!ok) { alert('کۆدەکە هەڵەیە، دووبارە هەوڵبدەرەوە.'); return; }
+            await db.collection('users').doc(currentUser.uid).collection('private').doc('security').set({ totpSecret: pendingTotpSecret });
+            await db.collection('users').doc(currentUser.uid).update({ totpEnabled: true });
+            currentUserDoc.totpEnabled = true;
+            pendingTotpSecret = null;
+            document.getElementById('twofa-setup-box').style.display = 'none';
+            renderTwoFAStatus();
+            alert('2FA بە سەرکەوتوویی چالاککرا!');
+        }
+
+        async function disable2FA() {
+            if (!confirm('دڵنیایت لە ناچالاککردنی 2FA؟')) return;
+            await db.collection('users').doc(currentUser.uid).collection('private').doc('security').delete();
+            await db.collection('users').doc(currentUser.uid).update({ totpEnabled: false });
+            currentUserDoc.totpEnabled = false;
+            renderTwoFAStatus();
+        }
+
+        async function verifyLogin2FA() {
+            const code = document.getElementById('twofa-login-input').value.trim();
+            const secSnap = await db.collection('users').doc(currentUser.uid).collection('private').doc('security').get();
+            if (!secSnap.exists) { document.getElementById('twoFAModal').style.display = 'none'; return; }
+            const ok = await verifyTOTP(code, secSnap.data().totpSecret);
+            if (!ok) { alert('کۆدەکە هەڵەیە.'); return; }
+            sessionStorage.setItem('qazi_2fa_verified', currentUser.uid);
+            document.getElementById('twoFAModal').style.display = 'none';
+        }
+
+        // ===================== دەستپێکردن =====================
+        loadInitialTheme();
         updateUserBadge();
         renderMarket();
     </script>
