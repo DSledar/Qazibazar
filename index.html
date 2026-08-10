@@ -3,280 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Qazibazar | قازی بازار - سەکۆی مۆدێرنی بەرهەمی لۆکاڵی</title>
+    <title>Qazibazar | پانێڵی بەڕێوەبردنی گشتی</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
     <style>
         :root {
-            --bg-main: #fcfcfd;
+            --bg-main: #f8fafc;
+            --sidebar-bg: #0f172a;
+            --sidebar-text: #94a3b8;
             --surface: #ffffff;
-            --text-dark: #090d16;
-            --text-muted: #667085;
-            --accent-green: #079455;
-            --accent-red: #d92d20;
-            --accent-gold: #eab308;
-            --border-subtle: #f2f4f7;
-            --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
-            --shadow-md: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --brand-ink: #090d16; /* هەمیشە تاریکە، گۆڕان بە دۆخی تاریک/ڕووناک ناکات — بۆ دوگمە سەرەکییەکان */
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --primary: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border: #e2e8f0;
+            --radius: 12px;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg-main); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; letter-spacing: -0.2px; }
-        
-        header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 14px 6%; background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 100;
-        }
-        .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-        
-        .kurdish-flag { 
-            width: 34px; height: 21px; border-radius: 4px; overflow: hidden; 
-            display: flex; flex-direction: column; position: relative; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15); animation: waveMoving 1.2s ease-in-out infinite alternate; transform-origin: left center;
-        }
-        .flag-red { flex: 1; background: var(--accent-red); }
-        .flag-white { flex: 1; background: #ffffff; }
-        .flag-green { flex: 1; background: var(--accent-green); }
-        .flag-sun { position: absolute; width: 7px; height: 7px; background: #fab814; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        
-        @keyframes waveMoving { 0% { transform: rotate(0deg) skewY(-3deg) scaleY(0.95); } 100% { transform: rotate(2deg) skewY(4deg) scaleY(1.05); } }
-
-        .logo-text h1 { font-size: 19px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; }
-        .logo-text p { font-size: 9px; color: var(--accent-green); font-weight: 700; letter-spacing: 0.5px; margin-top: -2px; }
-        
-        .nav-left { display: flex; gap: 14px; align-items: center; }
-        .btn-add-product { background: var(--brand-ink); color: #fff; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.2s, background 0.2s; }
-        .btn-add-product:hover { background: #1d2939; transform: translateY(-1px); }
-        .user-badge { color: var(--accent-green); font-size: 13px; font-weight: 700; background: #ecfdf3; padding: 6px 14px; border-radius: var(--radius-md); display: none; }
-
-        .menu-toggle { background: #f2f4f7; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; width: 40px; height: 40px; border-radius: var(--radius-md); }
-        .menu-toggle span { width: 18px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: 0.2s; }
-        .menu-toggle:hover { background: #eaecf0; }
-
-        .nav-drawer { position: fixed; top: 0; left: -360px; width: 360px; height: 100%; background: var(--surface); box-shadow: var(--shadow-md); z-index: 999; padding: 30px 20px; display: flex; flex-direction: column; gap: 24px; overflow-y: auto; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .nav-drawer.open { left: 0; }
-        .drawer-overlay { opacity: 0; visibility: hidden; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9, 13, 22, 0.3); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 998; transition: all 0.3s ease; }
-        .drawer-overlay.open { opacity: 1; visibility: visible; }
-        
-        .drawer-header-area { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 15px; margin-bottom: 5px; }
-        .drawer-close-btn { background: #f2f4f7; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
-        .drawer-close-btn:hover { background: #eaecf0; color: var(--text-dark); }
-
-        .menu-main-title { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; padding-right: 5px; opacity: 0.9; }
-        .accordion-container { display: flex; flex-direction: column; gap: 8px; }
-        .accordion-item { background: #f9fafb; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); }
-        .accordion-header { width: 100%; background: none; border: none; outline: none; text-align: right; padding: 14px 16px; font-size: 14px; font-weight: 700; color: #344054; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
-        .accordion-header:hover { background: #f2f4f7; color: var(--text-dark); }
-        .accordion-header span { font-size: 16px; color: var(--text-muted); transition: transform 0.2s; }
-        .accordion-panel { max-height: 0; overflow: hidden; background: #ffffff; transition: max-height 0.25s ease-out; display: flex; flex-direction: column; }
-        .accordion-panel a { padding: 11px 24px; text-decoration: none; color: #475467; font-size: 13px; font-weight: 500; border-bottom: 1px solid #f9fafb; transition: all 0.2s; }
-        .accordion-panel a:hover { background: #fdfaf2; color: var(--text-dark); padding-right: 28px; }
-        .accordion-item.active .accordion-panel { border-top: 1px solid var(--border-subtle); }
-        .more-option { color: var(--accent-green) !important; font-weight: 700 !important; }
-        .drawer-info-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; padding: 0 5px; }
-
-        .main-container { max-width: 1300px; margin: 40px auto; padding: 0 5%; }
-        .view-section { display: none; }
-        .view-section.active { display: block; }
-
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 350px;
-        }
-        .search-input {
-            width: 100%;
-            padding: 10px 40px 10px 15px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-subtle);
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-            background: #fff;
-        }
-        .search-input:focus { border-color: var(--text-dark); }
-        .search-icon { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); color: var(--text-muted); width: 18px; height: 18px; }
-
-        .top-action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 10px; }
-        .btn-back { background: #f2f4f7; color: var(--text-dark); border: none; padding: 8px 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; text-decoration: none; }
-        .btn-back:hover { background: #eaecf0; }
-
-        .grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 32px; }
-        
-        .product-card { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease; cursor: pointer; }
-        .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: #dee2e6; }
-        
-        .product-img-wrapper { width: 100%; height: 240px; overflow: hidden; background: #f9fafb; position: relative; }
-        .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .product-card:hover .product-img { transform: scale(1.04); }
-        
-        .product-city-badge { position: absolute; top: 14px; right: 14px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 5px 12px; border-radius: 30px; font-size: 11.5px; font-weight: 700; color: var(--text-dark); box-shadow: var(--shadow-sm); z-index: 2; }
-        .vip-badge { position: absolute; top: 14px; left: 14px; background: var(--accent-gold); color: #000; padding: 5px 14px; border-radius: 30px; font-size: 11px; font-weight: 800; box-shadow: var(--shadow-sm); z-index: 2; animation: pulseGlow 2s infinite; }
-        @keyframes pulseGlow { 0% { opacity: 0.9; } 50% { opacity: 1; box-shadow: 0 0 10px rgba(234, 179, 8, 0.5); } 100% { opacity: 0.9; } }
-        .product-card.vip-card { border: 1.5px solid var(--accent-gold); }
-
-        .product-info { padding: 22px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-cat { font-size: 11px; color: var(--accent-green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .product-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text-dark); line-height: 1.4; }
-        .product-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto; }
-        .product-price { color: var(--text-dark); font-weight: 800; font-size: 17px; }
-        
-        .btn-buy { background: var(--brand-ink); color: #fff; border: none; padding: 10px 18px; border-radius: var(--radius-md); font-weight: 700; font-size: 12.5px; text-decoration: none; text-align: center; box-shadow: var(--shadow-sm); }
-
-        .form-box { max-width: 540px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border-subtle); padding: 40px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
-        .form-box h2 { margin-bottom: 24px; font-weight: 800; font-size: 20px; letter-spacing: -0.5px; }
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #344054; }
-        .form-control { width: 100%; background: #f9fafb; border: 1px solid #d0d5dd; padding: 12px 14px; border-radius: var(--radius-md); color: var(--text-dark); font-size: 14px; }
-        .form-control:focus { outline: none; border-color: var(--text-dark); background: #fff; box-shadow: 0 0 0 4px rgba(9, 13, 22, 0.05); }
-        .btn-submit { width: 100%; background: var(--brand-ink); color: #fff; border: none; padding: 14px; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; font-size: 14px; margin-top: 10px; }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9, 13, 22, 0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: var(--surface); border: 1px solid var(--border-subtle); padding: 35px; border-radius: var(--radius-lg); max-width: 400px; width: 92%; text-align: center; box-shadow: var(--shadow-md); position: relative; }
-        .close-modal-btn { position: absolute; top: 15px; left: 15px; background: #f2f4f7; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; color: var(--text-muted); z-index: 10; display: flex; align-items: center; justify-content: center; }
-
-        /* سیستەمی نوێی مۆداڵی وردەکاری کاڵاکان لەگەڵ Swiper Zoom Slider */
-        .detail-modal-card { max-width: 600px; width: 92%; background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; position: relative; animation: modalFade 0.3s ease; }
-        @keyframes modalFade { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
-        /* زیادکردنی ماکسیمەم بەرزی بۆ مۆداڵەکە تاوەکو لە شاشە گەورەکاندا زۆر درێژ نەبێتەوە */
-        .detail-modal-card { max-height: 90vh; }
-
-        .swiper-container-wrapper { width: 100%; height: 340px; position: relative; background: #f9fafb; overflow: hidden; }
-        .swiper { width: 100%; height: 100%; }
-        .swiper-slide { overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .swiper-button-next, .swiper-button-prev { color: var(--text-dark) !important; background: rgba(255, 255, 255, 0.7); width: 36px !important; height: 36px !important; border-radius: 50%; box-shadow: var(--shadow-sm); backdrop-filter: blur(4px); }
-        .swiper-button-next::after, .swiper-button-prev::after { font-size: 14px !important; font-weight: bold; }
-        .swiper-pagination-bullet-active { background: var(--text-dark) !important; }
-        
-        .detail-body { padding: 30px; text-align: right; flex-grow: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--text-muted) var(--border-subtle); }
-        .detail-body::-webkit-scrollbar { width: 8px; }
-        .detail-body::-webkit-scrollbar-track { background: var(--border-subtle); border-radius: 10px; }
-        .detail-body::-webkit-scrollbar-thumb { background-color: var(--text-muted); border-radius: 10px; border: 2px solid var(--border-subtle); }
-        .detail-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; color: var(--text-dark); }
-        .detail-price { font-size: 20px; font-weight: 800; color: var(--accent-green); margin-bottom: 15px; }
-        .detail-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; background: #f9fafb; padding: 15px; border-radius: var(--radius-md); }
-        .detail-grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; border-top: 1px solid var(--border-subtle); padding-top: 15px; }
-        .info-tag { font-size: 13px; color: #344054; font-weight: 600; }
-
-        .no-data { text-align: center; color: var(--text-muted); padding: 80px 0; grid-column: 1 / -1; font-size: 14px; font-weight: 500; }
-
-        /* ===================== دۆخی تاریک (Dark Mode) ===================== */
         html[data-theme="dark"] {
-            --bg-main: #0b0f19;
-            --surface: #131a2a;
-            --text-dark: #f2f4f7;
-            --text-muted: #98a2b3;
-            --border-subtle: #232b3d;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-            --shadow-md: 0 12px 20px -4px rgba(0,0,0,0.5);
+            --bg-main: #0b0f19; --surface: #131a2a; --text-dark: #f2f4f7; --text-muted: #98a2b3; --border: #232b3d;
         }
-        html[data-theme="dark"] .search-input,
-        html[data-theme="dark"] .form-control { background: #0f1524; color: var(--text-dark); border-color: #232b3d; }
-        html[data-theme="dark"] .accordion-item { background: #0f1524; border-color: #232b3d; }
-        html[data-theme="dark"] .accordion-panel { background: #131a2a; }
-        html[data-theme="dark"] .accordion-panel a { border-color: #1b2233; color: #c3c9d4; }
-        html[data-theme="dark"] header { background: rgba(11,15,25,0.85); }
-        html[data-theme="dark"] .menu-toggle, html[data-theme="dark"] .btn-back, html[data-theme="dark"] .drawer-close-btn, html[data-theme="dark"] .close-modal-btn { background: #1b2233; color: #dfe3ea; }
-        html[data-theme="dark"] .product-img-wrapper, html[data-theme="dark"] .detail-desc { background: #0f1524; }
-        html[data-theme="dark"] .user-badge { background: rgba(7,148,85,0.18); }
-        html[data-theme="dark"] .product-city-badge { background: rgba(19,26,42,0.85); color: #f2f4f7; }
-        html[data-theme="dark"] .swiper-button-next, html[data-theme="dark"] .swiper-button-prev { background: rgba(19,26,42,0.85); color: #f2f4f7 !important; }
-        html[data-theme="dark"] .role-status-box { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.35); color: #fcd34d; }
-        html[data-theme="dark"] .role-status-box.ok { background: rgba(7,148,85,0.15); border-color: rgba(7,148,85,0.4); color: #6ee7b7; }
-        html[data-theme="dark"] .otp-secret-box { background: #0f1524; border-color: #333f57; color: #f2f4f7; }
-        html[data-theme="dark"] #modal-detail-seller-btn { background: rgba(67,56,202,0.18) !important; color: #a5b4fc !important; }
-        html * { transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+        html[data-theme="dark"] th { background: #0f1524; }
+        html[data-theme="dark"] .secure-input { background: #0f1524; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-dark); display: flex; min-height: 100vh; }
 
-        .theme-toggle-btn { background: #f2f4f7; border: none; width: 40px; height: 40px; border-radius: var(--radius-md); cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; }
-        html[data-theme="dark"] .theme-toggle-btn { background: #1b2233; }
+        .login-wrapper { position: fixed; inset: 0; background: #090d16; display: flex; justify-content: center; align-items: center; z-index: 9999; }
+        .login-card { background: #1e293b; padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #334155; }
+        .secure-input { width: 100%; background: #0f172a; border: 1px solid #334155; padding: 14px; border-radius: var(--radius); color: #fff; font-size: 18px; text-align: center; margin-bottom: 20px; outline: none; }
+        .btn-google-admin { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; border: none; padding: 14px; border-radius: var(--radius); font-weight: 700; font-size: 14px; cursor: pointer; color: #1e293b; }
 
-        /* ===================== بەکارهێنەر / پرۆفایل ===================== */
-        .avatar-btn { width: 38px; height: 38px; border-radius: 50%; overflow: hidden; border: 2px solid var(--border-subtle); cursor: pointer; display: none; background: #eaecf0; flex-shrink: 0; }
-        .avatar-btn img { width: 100%; height: 100%; object-fit: cover; }
-        .btn-google { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background: #fff; border: 1px solid #d0d5dd; padding: 12px; border-radius: var(--radius-md); font-weight: 700; font-size: 14px; cursor: pointer; color: #1e293b; }
-        .btn-google:hover { background: #f9fafb; }
-        .role-status-box { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 14px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; line-height: 1.6; margin-bottom: 16px; text-align: right; }
-        .role-status-box.ok { background: #ecfdf3; border-color: #a6f4c5; color: #065f46; }
+        .sidebar { width: 260px; background: var(--sidebar-bg); color: #fff; padding: 25px 20px; display: flex; flex-direction: column; gap: 30px; }
+        .sidebar .brand { font-size: 20px; font-weight: 800; border-bottom: 1px solid #1e293b; padding-bottom: 20px; display:flex; justify-content:space-between; align-items:center; }
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .nav-links li a { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: var(--sidebar-text); text-decoration: none; font-weight: 500; border-radius: var(--radius); cursor: pointer; }
+        .nav-links li.active a { background: #1e293b; color: #fff; }
+        .admin-me { margin-top: auto; border-top: 1px solid #1e293b; padding-top: 16px; font-size: 12px; color: var(--sidebar-text); display: flex; flex-direction: column; gap: 8px; }
+        .admin-me button { background: #1e293b; color: #fca5a5; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 12px; }
 
-        .avatar-upload-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 18px; }
-        .avatar-upload-wrap img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-subtle); background: #eaecf0; }
-        .cover-swatches { display: flex; gap: 8px; justify-content: center; margin-bottom: 10px; }
-        .cover-swatch { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
-        .cover-swatch.selected { border-color: var(--text-dark); }
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px; }
+        .theme-btn-admin { background: var(--surface); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 16px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 24px; margin-bottom: 40px; }
+        .stat-card { background: var(--surface); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .stat-card .value { font-size: 32px; font-weight: 800; }
 
-        /* ===================== پرۆفایلی گشتی فرۆشیار ===================== */
-        .seller-cover { height: 110px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-        .seller-card-wrap { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); max-width: 720px; margin: 0 auto 30px; }
-        .seller-header { padding: 0 26px 24px; margin-top: -42px; display: flex; align-items: flex-end; gap: 16px; }
-        .seller-avatar-lg { width: 84px; height: 84px; border-radius: 50%; border: 4px solid var(--surface); object-fit: cover; background: #eaecf0; }
-        .seller-name-lg { font-weight: 800; font-size: 19px; }
-        .seller-bio { padding: 0 26px 22px; font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
-        .seller-badge-role { display: inline-block; background: #ecfdf3; color: var(--accent-green); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 4px; }
+        .table-container { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow-x: auto; padding-top: 10px; }
+        .table-header-area { display: flex; justify-content: space-between; align-items: center; padding: 15px 24px; border-bottom: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; text-align: right; min-width: 1000px; }
+        th { background: #f8fafc; padding: 16px 24px; font-size: 13px; font-weight: 700; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+        td { padding: 16px 24px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
 
-        .otp-secret-box { background: #f9fafb; border: 1px dashed #d0d5dd; padding: 14px; border-radius: var(--radius-md); font-family: monospace; font-size: 14px; letter-spacing: 2px; text-align: center; word-break: break-all; margin-bottom: 14px; }
+        .prod-info { display: flex; align-items: center; gap: 15px; }
+        .img-gallery-container { display: flex; gap: 4px; flex-wrap: wrap; max-width: 120px; }
+        .prod-img { width: 52px; height: 52px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; }
+        .prod-name { font-weight: 700; font-size: 15px; }
+        .user-details { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.6; }
 
-        /* ===================== متمانەپێکراوی و ڕێکخستنی وەڵامدەرەوە بۆ هەموو جۆرە مۆبایلێک ===================== */
+        .plan-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+        .plan-standard { background: #f1f5f9; color: #475467; }
+        .plan-vip { background: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-active { background: #d1fae5; color: #065f46; }
+        .status-expired { background: #fee2e2; color: #991b1b; }
+        .status-rejected { background: #f1f5f9; color: #475467; }
+        .status-sold { background: #e0f2fe; color: #0369a1; }
+        .status-trash { background: #fee2e2; color: #ef4444; }
+
+        .role-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+        .role-admin { background: #ede9fe; color: #6d28d9; }
+        .role-seller { background: #d1fae5; color: #065f46; }
+        .role-customer { background: #f1f5f9; color: #475467; }
+        .role-select { border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px; font-size: 12px; font-weight: 700; background: var(--surface); color: var(--text-dark); }
+
+        .actions-cell { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-action { border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; }
+        .btn-app { background: #e6f4ea; color: var(--success); }
+        .btn-app:hover { background: var(--success); color: #fff; }
+        .btn-rej { background: #fce8e6; color: var(--danger); }
+        .btn-rej:hover { background: var(--danger); color: #fff; }
+        .btn-del { background: #f1f5f9; color: var(--text-muted); }
+        .btn-del:hover { background: var(--danger); color: #fff; }
+        .btn-view-main { background: var(--primary); color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+
+        .access-denied { position: fixed; inset: 0; background: #090d16; color: #fff; display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 9998; }
+        .access-denied button { background: #fca5a5; color: #450a0a; border: none; padding: 12px 22px; border-radius: 10px; font-weight: 800; cursor: pointer; }
+
+        /* ===================== زیادکردنی کاڵا لەلایەن ئەدمینەوە ===================== */
+        .btn-add-new { background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 13px; white-space: nowrap; }
+        .btn-add-new:hover { background: #4338ca; }
+        .admin-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 1200; align-items: center; justify-content: center; padding: 20px; }
+        .admin-modal-overlay.open { display: flex; }
+        .admin-modal-box { background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 28px; position: relative; }
+        .admin-modal-box h3 { margin-bottom: 18px; font-size: 17px; font-weight: 800; padding-left: 30px; }
+        .admin-form-group { margin-bottom: 14px; }
+        .admin-form-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--text-muted); }
+        .admin-form-control { width: 100%; background: var(--bg-main); border: 1px solid var(--border); padding: 12px 14px; border-radius: var(--radius); color: var(--text-dark); font-size: 16px; }
+        .admin-form-control:focus { outline: none; border-color: var(--primary); }
+        .admin-modal-close { position: absolute; top: 18px; left: 18px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-weight: bold; color: var(--text-muted); }
+        .btn-submit-admin { width: 100%; background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 14px; margin-top: 8px; }
+        .btn-submit-admin:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* ===================== شاراوەیی و متمانەپێکراوی زیاتر لەسەر مۆبایل ===================== */
         html, body { max-width: 100%; overflow-x: hidden; }
-        input, select, textarea, button { font-size: 16px; } /* ڕێگری لە زووم خۆکاری iOS کاتی کلیک لەسەر ئینپووت */
+        input, select, textarea, button { font-size: 16px; } /* لادان لە زووم خۆکاری لە iOS کاتی کلیک لەسەر ئینپووت */
         button, a { touch-action: manipulation; }
-        .nav-drawer, .detail-body, .table-container { -webkit-overflow-scrolling: touch; }
-        .nav-drawer { height: 100%; height: 100dvh; }
-        .modal { height: 100%; height: 100dvh; }
-        .modal-content, .form-box { max-height: 92vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-        header { flex-wrap: wrap; row-gap: 8px; }
-
+        .table-container { -webkit-overflow-scrolling: touch; }
         @supports (padding: max(0px)) {
-            header { padding-top: max(14px, env(safe-area-inset-top)); padding-left: max(6%, env(safe-area-inset-left)); padding-right: max(6%, env(safe-area-inset-right)); }
-            .nav-drawer { padding-top: max(30px, env(safe-area-inset-top)); padding-left: max(20px, env(safe-area-inset-left)); }
-            .modal-content, .detail-modal-card { margin-bottom: env(safe-area-inset-bottom); }
+            .sidebar { padding-top: max(25px, env(safe-area-inset-top)); padding-right: max(20px, env(safe-area-inset-right)); }
+            .main-content { padding-top: max(30px, env(safe-area-inset-top)); }
         }
 
-        @media (max-width: 640px) {
-            header { padding: 12px 4%; gap: 8px; }
-            .logo-text h1 { font-size: 16px; }
-            .logo-text p { font-size: 8px; }
-            .nav-left { gap: 8px; }
-            .btn-add-product { padding: 9px 14px; font-size: 12px; }
-            .user-badge { display: none !important; }
-            #headerAdminBtn { padding: 8px 10px; font-size: 12px; }
-            .nav-drawer { width: 88vw; max-width: 340px; left: -100vw; }
-            .main-container { margin: 24px auto; padding: 0 4%; }
-            .grid-products { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
-            .product-img-wrapper { height: 160px; }
-            .product-info { padding: 14px; }
-            .product-title { font-size: 13.5px; margin-bottom: 10px; }
-            .product-price { font-size: 14px; }
-            .btn-buy { padding: 8px 12px; font-size: 11px; }
-            .form-box { padding: 22px; }
-            .swiper-container-wrapper { height: 260px; }
-            .detail-modal-card { width: 96%; }
-            .top-action-bar { flex-wrap: wrap; }
-            .search-container { max-width: 100%; order: 3; flex: 1 1 100%; }
+        .hamburger-admin { display: none; }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 999; }
+        .sidebar-overlay.open { display: block; }
+
+        @media (max-width: 900px) {
+            .hamburger-admin { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; font-size: 18px; flex-shrink: 0; }
+            .sidebar {
+                position: fixed; top: 0; right: -280px; width: 260px; max-width: 82vw; height: 100%; height: 100dvh;
+                z-index: 1000; transition: right 0.3s ease; box-shadow: -10px 0 30px rgba(0,0,0,0.3); overflow-y: auto;
+            }
+            .sidebar.open { right: 0; }
+            .main-content { padding: 20px 16px; width: 100%; }
+            .top-header { flex-wrap: wrap; gap: 10px; }
+            .top-header h1 { font-size: 17px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+            .stat-card { padding: 16px; }
+            .stat-card .value { font-size: 22px; }
+            table { min-width: 720px; }
+            .table-header-area { flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+            .admin-modal-box { max-width: 94vw; padding: 22px; }
         }
-        @media (max-width: 380px) {
-            .grid-products { grid-template-columns: 1fr 1fr; }
-            .kurdish-flag { width: 28px; height: 17px; }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            th, td { padding: 12px 14px; font-size: 12.5px; }
+            .btn-action { padding: 6px 10px; font-size: 11px; }
+            .btn-add-new, .btn-view-main { font-size: 12px; padding: 9px 14px; }
         }
     </style>
 
-    <!-- ===================== Firebase SDK (Free Spark plan – no credit card) ===================== -->
+    <!-- Firebase SDK — پلانی Spark (بەخۆڕایی، بێ کارتی بانک) -->
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
     <script>
-        // 🔑 لێرە زانیارییەکانی پڕۆژەکەت لە Firebase Console دابنێ:
-        // Firebase Console → Project settings → General → Your apps → SDK setup and configuration
+        // 🔑 هەمان زانیارییەکانی Firebase Config کە لە index.html بەکارهێنراون لێرەش دابنێ
         const firebaseConfig = {
                 apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
                 authDomain: "qazibazar.firebaseapp.com",
@@ -292,645 +167,410 @@
 </head>
 <body>
 
-    <header>
-        <div class="logo-area" onclick="goToMarket()">
-            <div class="kurdish-flag"><div class="flag-red"></div><div class="flag-white"><div class="flag-sun"></div></div><div class="flag-green"></div></div>
-            <div class="logo-text"><h1>Qazibazar</h1><p>MADE IN KURDISTAN</p></div>
-        </div>
-        <div class="nav-left">
-            <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="گۆڕینی دۆخی ڕووناکی/تاریک">🌙</button>
-            <a href="admin.html" id="headerAdminBtn" style="display:none; background:#4338ca; color:#fff; text-decoration:none; padding: 8px 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; align-items:center;">🛠️ پانێڵی ئەدمین</a>
-            <span id="user-badge" class="user-badge">👤 لۆگینە</span>
-            <button class="avatar-btn" id="avatarBtn" onclick="openProfileModal()" title="پرۆفایلەکەم"><img id="avatarBtnImg" src=""></button>
-            <button class="btn-add-product" onclick="checkLoginBeforeSell()">+ بڵاوکردنەوەی کاڵا</button>
-            <button class="menu-toggle" onclick="toggleDrawer()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
-
-    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-
-    <aside class="nav-drawer" id="navDrawer">
-        <div class="drawer-header-area">
-            <button class="btn-back" onclick="toggleDrawer()" style="padding: 5px 12px; font-size: 11px;">↩ گەڕانەوە</button>
-            <button class="drawer-close-btn" onclick="toggleDrawer()">✕</button>
-        </div>
-        
-        <h3 class="menu-main-title">پۆلێنە گشتییەکان</h3>
-        <div class="accordion-container">
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">پۆشاک و جلوبەرگ <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('جلوبەرگی کوردی پیاوانە')">جلوبەرگی کوردی پیاوانە</a>
-                    <a href="#" onclick="filterSubCat('جلوبەرگی کوردی ئافرەتانە')">جلوبەرگی کوردی ئافرەتانە</a>
-                    <a href="#" onclick="filterSubCat('کڵاش و پێڵاوی دەستچن')">کڵاش و پێڵاوی دەستچن</a>
-                    <a href="#" onclick="filterSubCat('پۆشاکی مۆدێرنی کلتووری')">پۆشاکی مۆدێرنی کلتووری</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە جلوبەرگ')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">خۆراک و خواردەمەنی <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('هەنگوینی سروشتی')">هەنگوینی سروشتی</a>
-                    <a href="#" onclick="filterSubCat('وشکەوات و چەرەسات')">وشکەوات و چەرەسات</a>
-                    <a href="#" onclick="filterSubCat('دۆشاو و مرەبا')">دۆشاو و مرەبا</a>
-                    <a href="#" onclick="filterSubCat('گژوگیای کوێستان')">گژوگیای کوێستان</a>
-                    <a href="#" onclick="filterSubCat('برنج و دانەوێڵە')">برنج و دانەوێڵە</a>
-                    <a href="#" onclick="filterSubCat('نانی تیرێ و شیرینی')">نانی تیرێ و شیرینی</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە خۆراک')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کاری دەستی و هونەر <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('تابلۆی شێوەکاری')">تابلۆی شێوەکاری</a>
-                    <a href="#" onclick="filterSubCat('خەتخۆشی و شێعر')">خەتخۆشی و شێعری کوردی</a>
-                    <a href="#" onclick="filterSubCat('پەیکەرتاشی و تاشین')">پەیکەرتاشی و تاشین</a>
-                    <a href="#" onclick="filterSubCat('کەرەستەی خۆشنووسی')">کەرەستەی خۆشنووسی</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە کاری دەستی')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کەرەستەی ناوماڵ و دیزاین <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('فەرش و جاجم و بەڕە')">فەرش و جاجم و بەڕە</a>
-                    <a href="#" onclick="filterSubCat('پیشەسازی دار')">پیشەسازی دار و دارتاشی</a>
-                    <a href="#" onclick="filterSubCat('گڵکاری و سیرامیک')">گڵکاری و دەفری قوڕین</a>
-                    <a href="#" onclick="filterSubCat('دیکۆراتی کلتووری')">دیکۆراتی کلتووری</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە کەرەستەی ناوماڵ')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">جوانکاری و تەندروستی سروشتی <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('صابوونی سروشتی')">صابوونی سروشتی</a>
-                    <a href="#" onclick="filterSubCat('ڕۆنە سروشتییەکان')">ڕۆنە سروشتییەکان</a>
-                    <a href="#" onclick="filterSubCat('گیراوە گژوگیاییەکان')">گیراوە گژوگیاییەکان</a>
-                    <a href="#" onclick="filterSubCat('مەرهەمی ئۆرگانیک')">مەرهەمی ئۆرگانیک</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە جوانکاری')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کتێب و ڕۆشنبیری <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('دیوانی شاعیران')">دیوانی شاعیران</a>
-                    <a href="#" onclick="filterSubCat('مێژوو و جوگرافیا')">مێژوو و جوگرافیا</a>
-                    <a href="#" onclick="filterSubCat('ڕۆمان و ئەدەبیات')">ڕۆمان و ئەدەبیات</a>
-                    <a href="#" onclick="filterSubCat('فێربوونی زمان')">فێربوونی زمان</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە کتێب')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">ئامێرە مۆسیقییەکان <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('دەف و بازنە')">دەف و بازنە</a>
-                    <a href="#" onclick="filterSubCat('تەمبوور و تار')">تەمبوور و تار</a>
-                    <a href="#" onclick="filterSubCat('شمشاڵ و نەی')">شمشاڵ و نەی</a>
-                    <a href="#" onclick="filterSubCat('کەرەستەی ئامێرەکان')">کەرەستەی ئامێرەکان</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە ئامێری مۆسیقا')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">گەشتوگوزار و ئەزموونی لۆکاڵی <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('گەشتی شاخەوانی')">گەشتی شاخەوانی</a>
-                    <a href="#" onclick="filterSubCat('کۆتێج و کەپر')">کۆتێج و کەپر</a>
-                    <a href="#" onclick="filterSubCat('ڕێبەری گەشتیاری')">ڕێبەری گەشتیاری</a>
-                    <a href="#" onclick="filterSubCat('گەشتی شوێنەوار')">گەشتی شوێنەوار</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە گەشتوگوزار')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کشتوکاڵ و باخداری <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('تۆوی ڕەسەن')">تۆوی ڕەسەن</a>
-                    <a href="#" onclick="filterSubCat('نەمامی وەرزی')">نەمامی وەرزی</a>
-                    <a href="#" onclick="filterSubCat('پەینی سروشتی')">پەینی سروشتی</a>
-                    <a href="#" onclick="filterSubCat('ئامرازی باخداری')">ئامرازی باخداری</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە کشتوکاڵ')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">دیاری و سوغاتی ئامادەکراو <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('سێتی پیاوانە')">سێتی پیاوانە</a>
-                    <a href="#" onclick="filterSubCat('سێتی ئافرەتانە')">سێتی ئافرەتانە</a>
-                    <a href="#" onclick="filterSubCat('پاکێجی سوغات')">پاکێجی سوغات</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە دیاری')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کایەکلێ و یارییە کلتوورییەکان <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('تەختەنەرد و شەترەنج')">تەختەنەرد و شەترەنج</a>
-                    <a href="#" onclick="filterSubCat('یاری لۆکاڵی سەر مێز')">یاری لۆکاڵی سەر مێز</a>
-                    <a href="#" onclick="filterSubCat('بووکەڵەی قوماشی')">بووکەڵەی قوماشی</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە یارییەکان')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کەرەستەی پیشەگەران و وەستاکان <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('ئامرازی دارتاشی')">ئامرازی دارتاشی</a>
-                    <a href="#" onclick="filterSubCat('کەرەستەی چنین')">کەرەستەی چنین</a>
-                    <a href="#" onclick="filterSubCat('ئامرازی گڵکاری')">ئامرازی گڵکاری</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە پیشەگەری')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">وەرزش و سەرکێشی چیا <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('پێداویستی کامپین')">پێداویستی کامپین</a>
-                    <a href="#" onclick="filterSubCat('گۆچانی شاخەوانی')">گۆچانی شاخەوانی</a>
-                    <a href="#" onclick="filterSubCat('جلی شاخەوانی')">جلی شاخەوانی</a>
-                    <a href="#" onclick="filterSubCat('چادر و کیسەی خەو')">چادر و کیسەی خەو</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە شاخەوانی')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">خشڵ و زێڕینگەرانی <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('ملوانکە و بازنە')">ملوانکە و بازنە</a>
-                    <a href="#" onclick="filterSubCat('کڵاوی مرواری')">کڵاوی مرواری</a>
-                    <a href="#" onclick="filterSubCat('کەمەربەندی زیو')">کەمەربەندی زیو</a>
-                    <a href="#" onclick="filterSubCat('تەسبێحی نایاب')">تەسبێحی نایاب</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە خشڵ')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کەرەستەی بیناسازی لۆکاڵی <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('بەردی سروشتی')">بەردی سروشتی</a>
-                    <a href="#" onclick="filterSubCat('گڵی سوور')">گڵی سوور</a>
-                    <a href="#" onclick="filterSubCat('خەڵووزی سروشتی')">خەڵووزی سروشتی</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە بیناسازی')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">کۆکەرەوە و شتی کۆن (ئەنتیك) <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('دراوی کۆن')">دراوی کۆن</a>
-                    <a href="#" onclick="filterSubCat('ڕادیۆ و گرامافۆن')">ڕادیۆ و گرامافۆن</a>
-                    <a href="#" onclick="filterSubCat('کەرەستەی مسین')">کەرەستەی مسین</a>
-                    <a href="#" onclick="filterSubCat('وێنەی دەگمەن')">وێنەی دەگمەن</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە ئەنتیکە')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">بۆن و عەترە کلتوورییەکان <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('عەتری مێخەک')">عەتری مێخەک</a>
-                    <a href="#" onclick="filterSubCat('بۆنخۆشکەری ماڵ')">بۆنخۆشکەری ماڵ</a>
-                    <a href="#" onclick="filterSubCat('بخوور و دووکەڵ')">بخوور و دووکەڵ</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە بۆن وعەتر')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <button class="accordion-header" onclick="toggleAccordion(this)">خزمەتگوزارییە لۆکاڵییەکان <span>+</span></button>
-                <div class="accordion-panel">
-                    <a href="#" onclick="filterSubCat('شێفی لۆکاڵی')">شێفی لۆکاڵی</a>
-                    <a href="#" onclick="filterSubCat('فۆتۆگرافەری کلتووری')">فۆتۆگرافەری کلتووری</a>
-                    <a href="#" onclick="filterSubCat('وەستای چاککردنەوە')">وەستای چاککردنەوە</a>
-                    <a href="#" class="more-option" onclick="filterSubCat('هیتر لە خزمەتگوزاری')">هیتر لەم پۆلێنە...</a>
-                </div>
-            </div>
-
-        </div>
-        <hr style="border:none; border-top:1px solid var(--border-subtle); margin:10px 0;">
-        <div>
-            <h3 class="menu-main-title" style="margin-bottom:6px;">دەربارەی ئێمە</h3>
-            <h3 class="menu-main-title" style="margin-top:6px;">هەژمار</h3>
-            <div class="accordion-container" style="margin-bottom:6px;">
-                <a href="#" class="more-option" style="padding: 11px 5px; display:block; text-decoration:none;" onclick="event.preventDefault(); toggleDrawer(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
-                <a href="#" id="drawer-profile-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#475467; font-size:13px; font-weight:600;" onclick="event.preventDefault(); toggleDrawer(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
-                <a href="admin.html" id="drawer-admin-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#4338ca; font-size:13px; font-weight:700;">🛠️ چوونە پانێڵی ئەدمین</a>
-                <a href="#" id="drawer-logout-link" style="padding: 11px 5px; display:none; text-decoration:none; color:var(--accent-red); font-size:13px; font-weight:700;" onclick="event.preventDefault(); toggleDrawer(); signOutUser();">🚪 چوونەدەرەوە</a>
-            </div>
-
-            <p class="drawer-info-text">قازی بازار سەکۆیەکی بازرگانی پێشەنگە لە کوردستان بۆ بەیەکەوەبەستنی فرۆشیارانی بەرهەمی لۆکاڵی و کڕیاران بە خێراترین شێوازی دیجیتاڵی.</p>
-        </div>
-    </aside>
-
-    <div class="main-container">
-        <section id="view-market" class="view-section active">
-            <div class="top-action-bar">
-                <div id="filter-title" style="font-weight: 800; font-size: 18px;">🔥 نوێترین بەرهەمەکان</div>
-                <div class="search-container">
-                    <input type="text" id="market-search" class="search-input" placeholder="گەڕان بۆ کاڵا..." oninput="renderMarket(currentFilter, this.value)">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </div>
-                <button id="btn-global-back" class="btn-back" onclick="goToMarket()" style="display:none;">↩ گەڕانەوە بۆ لاپەڕەی سەرەکی</button>
-            </div>
-            <div class="grid-products" id="market-products-grid"></div>
-        </section>
-
-        <section id="view-sell" class="view-section">
-            <div class="top-action-bar">
-                <h2>بڵاوکردنەوەی بەرهەمی نوێ</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
-            </div>
-            <div class="form-box" style="margin-top:10px;">
-                <form id="product-form" onsubmit="handleProductSubmit(event)">
-                    <div class="form-group"><label>ناوی فرۆشیار</label><input type="text" id="ownerName" class="form-control" placeholder="ناوی تەواوی خۆت بنووسە..." required></div>
-                    <div class="form-group"><label>ناوی بەرهەم</label><input type="text" id="p-title" class="form-control" placeholder="بۆ نموونە: هەنگوینی سروشتی کوێستان" required></div>
-                    <div class="form-group"><label>ژێر پۆلێن (Subcategory)</label><input type="text" id="p-subcat" class="form-control" placeholder="بۆ نموونە: جل و بەرگ" required></div>
-                    <div class="form-group"><label>شیکردنەوە و تێبینی بەرهەم</label><textarea id="p-desc" class="form-control" rows="3" placeholder="تایبەتمەندییەکان و وردەکاری کاڵاکەت بنووسە..."></textarea></div>
-                    <div class="form-group"><label>نرخ بە ژمارەی ئینگلیزی (دینار یان دۆلار)</label><input type="text" id="p-price" class="form-control" placeholder="٢٥,٠٠٠ دینار" required></div>
-                    <div class="form-group"><label>ژمارەی مۆبایل (واتسئەپی لەسەربێ)</label><input type="tel" id="p-phone" class="form-control" placeholder="0770XXXXXXX" required></div>
-                    
-                    <!-- بەشی هەڵبژاردنی شار یان نووسینی شاری تر -->
-                    <div class="form-group">
-                        <label>شارەکەت هەڵبژێره (یان شاری تر بنووسە)</label>
-                        <input type="text" id="p-city" list="cities-list" class="form-control" placeholder="بۆ نموونە: سلێمانی" required>
-                        <datalist id="cities-list">
-                            <option value="سلێمانی">
-                            <option value="هەولێر">
-                            <option value="هەڵەبجە">    
-                            <option value="کەرکوک">
-                            <option value="دهۆک">
-                        </datalist>
-                    </div>
-
-                    <!-- بەشی ناونیشان بە شێوازی تایپ -->
-                    <div class="form-group">
-                        <label>ناونیشانی ورد (بە تایپ بنووسە)</label>
-                        <input type="text" id="p-address" class="form-control" placeholder="بۆ نموونە: گەڕەکی ڕزگاری، نزیک مزگەوتی گەورە" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>وێنەکانی بەرهەم (دەتوانیت چەند دانەیەک پێکەوە هەڵبژێریت)</label>
-                        <input type="file" id="p-file" class="form-control" accept="image/*" multiple required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label style="color: var(--accent-green);">💎 جۆری ڕیکلام و ماوەی مانەوەی پۆست:</label>
-                        <select id="p-plan" class="form-control" style="font-weight: 700;">
-                            <option value="standard_1">پۆستی ئاسایی - ١ مانگ (٥،٠٠٠ دینار)</option>
-                            <option value="standard_2">پۆستی ئاسایی - ٢ مانگ (٩,٠٠٠ دینار)</option>
-                            <option value="vip_1">🌟 ڕیکلامی VIP (هەمیشە لە سەرەوە) - ١ مانگ (١٣,٠٠٠ دینار)</option>
-                            <option value="vip_2">🌟 ڕیکلامی VIP (هەمیشە لە سەرەوە) - ٢ مانگ (٢٥,٠٠٠ دینار)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn-submit">ناردنی ڕەشنووس بۆ ئەدمین</button>
-                </form>
-            </div>
-        </section>
-
-        <section id="view-become-seller" class="view-section">
-            <div class="top-action-bar">
-                <h2>بوون بە فرۆشیار</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
-            </div>
-            <div class="form-box" style="margin-top:10px;" id="become-seller-box"></div>
-        </section>
-
-        <section id="view-sellers" class="view-section">
-            <div class="top-action-bar">
-                <h2>🛍️ فرۆشیارە پشتڕاستکراوەکان</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
-            </div>
-            <div class="grid-products" id="sellers-grid"></div>
-        </section>
-
-        <section id="view-profile" class="view-section">
-            <div class="top-action-bar">
-                <h2>پرۆفایلی فرۆشیار</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
-            </div>
-            <div class="seller-card-wrap">
-                <div class="seller-cover" id="profile-cover" style="background: linear-gradient(135deg,#079455,#0b7a46);"></div>
-                <div class="seller-header">
-                    <img class="seller-avatar-lg" id="profile-view-avatar" src="">
-                    <div>
-                        <div class="seller-name-lg" id="profile-view-name"></div>
-                        <span class="seller-badge-role" id="profile-view-role"></span>
-                    </div>
-                </div>
-                <p class="seller-bio" id="profile-view-bio"></p>
-            </div>
-            <div class="grid-products" id="profile-products-grid"></div>
-        </section>
-    </div>
-
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <button class="close-modal-btn" onclick="closeLoginModal()">✕</button>
-            <h3 style="font-weight: 800; margin-bottom: 6px; margin-top: 10px;">چوونەژوورەوە بۆ قازی بازار</h3>
-            <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:20px;">بە هەژمارەکەی گووگڵ خۆت تۆمار بکە، پارادا و سادەیە.</p>
-            <button class="btn-google" onclick="signInWithGoogle()">
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-card">
+            <h2 style="color:#fff; margin-bottom:6px;">قازی بازار ئەدمین</h2>
+            <p style="color:#94a3b8; font-size:12.5px; margin-bottom:20px;">تەنها هەژمارە پەسندکراوەکانی ئەدمین دەتوانن بچنە ژوورەوە.</p>
+            <button class="btn-google-admin" onclick="adminSignIn()">
                 <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.3 4.4-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35 26.8 36 24 36c-5.3 0-9.8-3.3-11.4-7.9l-6.5 5C9.6 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3C40.6 36.2 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
                 چوونەژوورەوە بە Google
             </button>
-            <button class="btn-back" onclick="closeLoginModal()" style="width: 100%; justify-content: center; margin-top: 15px;">↩ پاشگەزبوونەوە و گەڕانەوە</button>
         </div>
     </div>
 
-    <!-- مۆداڵی داواکردنی کۆدی 2FA لە کاتی چوونەژوورەوە -->
-    <div class="modal" id="twoFAModal">
-        <div class="modal-content">
-            <h3 style="font-weight: 800; margin-bottom: 6px; margin-top: 10px;">🔐 دووهەنگاوی پاراستن</h3>
-            <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:16px;">کۆدی ٦ ژمارەیی لە ئەپی Authenticator خۆت بنووسە.</p>
-            <input type="text" id="twofa-login-input" class="form-control" style="text-align:center; font-size:22px; font-weight:bold; letter-spacing:6px; margin-bottom:15px;" maxlength="6" placeholder="000000">
-            <button class="btn-submit" onclick="verifyLogin2FA()">پشتڕاستکردنەوە</button>
-            <button class="btn-back" onclick="signOutUser()" style="width: 100%; justify-content: center; margin-top: 15px;">↩ چوونەدەرەوە</button>
-        </div>
+    <div id="access-denied-screen" class="access-denied" style="display:none;">
+        <h2>🚫 ڕێگەت پێنەدراوە</h2>
+        <p style="color:#cbd5e1; max-width:360px;">ئەم هەژمارە ڕەگی ئەدمینی نییە. داوا لە ئەدمینێکی تر بکە ڕۆڵی ئەدمینت بۆ زیاد بکات لە کۆلێکشنی users لە Firestore Console.</p>
+        <button onclick="auth.signOut()">چوونەدەرەوە</button>
     </div>
 
-    <!-- مۆداڵی ڕێکخستنی پرۆفایل -->
-    <div class="modal" id="profileModal">
-        <div class="modal-content" style="max-width:460px; text-align:right;">
-            <button class="close-modal-btn" onclick="closeProfileModal()">✕</button>
-            <h3 style="font-weight: 800; margin-bottom: 18px; margin-top: 10px; text-align:center;">ڕێکخستنی پرۆفایل</h3>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleAdminSidebar()"></div>
 
-            <div class="avatar-upload-wrap">
-                <img id="profile-avatar-preview" src="">
-                <input type="file" id="profile-avatar-file" accept="image/*" onchange="handleAvatarChange(event)">
+    <aside class="sidebar" id="sidebar" style="display:none;">
+        <div class="brand"><span>قازی بازار 💼</span><button class="theme-btn-admin" onclick="toggleAdminTheme()" id="adminThemeBtn">🌙</button></div>
+        <ul class="nav-links">
+            <li class="active" id="nav-general" onclick="switchView('main')"><a>📊 بەڕێوەبردنی گشتی</a></li>
+            <li id="nav-users" onclick="switchView('users')"><a>👥 بەکارهێنەران</a></li>
+            <li id="nav-requests" onclick="switchView('requests')"><a>🛎️ داواکاری فرۆشیاربوون <span id="req-badge" style="background:var(--danger); color:#fff; border-radius:20px; padding:1px 8px; font-size:11px; margin-right:6px; display:none;">0</span></a></li>
+            <li id="nav-trash" onclick="switchView('trash')"><a>🗑️ ئەرشیفی سڕدراوەکان</a></li>
+            <li><a href="index.html" target="_blank" style="color: var(--sidebar-text);">🌐 بینینی ماڵپەڕی کڕیاران</a></li>
+        </ul>
+        <div class="admin-me">
+            <span id="admin-me-name"></span>
+            <button onclick="auth.signOut()">🚪 چوونەدەرەوە</button>
+        </div>
+    </aside>
+
+    <main class="main-content" id="mainContent" style="display:none;">
+        <div class="top-header">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <button class="hamburger-admin" id="adminHamburgerBtn" onclick="toggleAdminSidebar()">☰</button>
+                <h1 id="page-title">ڕاپۆرتی کاتەکان و داهات</h1>
             </div>
+            <div id="live-time" style="font-weight:700;"></div>
+        </div>
 
-            <div class="form-group"><label>ناوی نیشاندان</label><input type="text" id="profile-name" class="form-control"></div>
-            <div class="form-group"><label>بایۆگرافیا / سەبارەت بە خۆت</label><textarea id="profile-bio" class="form-control" rows="3" placeholder="چەند دەربارەی خۆت و کاڵاکانت بنووسە..."></textarea></div>
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card" onclick="switchView('main')"><span>کۆی گشتی کاڵاکان</span><span class="value" id="stat-total">0</span></div>
+            <div class="stat-card" onclick="switchView('main')"><span>ڕیکلامی چالاکی VIP</span><span class="value" id="stat-vip" style="color:var(--warning);">0</span></div>
+            <div class="stat-card" onclick="switchView('main')"><span>کاڵا فرۆشراوەکان</span><span class="value" id="stat-sold" style="color:var(--primary);">0</span></div>
+            <div class="stat-card" onclick="switchView('users')"><span>کۆی بەکارهێنەران</span><span class="value" id="stat-users" style="color:var(--primary);">0</span></div>
+            <div class="stat-card" onclick="switchView('trash')" style="border-left: 4px solid var(--danger);"><span>کاڵا سڕدراوەکان 🗑️</span><span class="value" id="stat-deleted" style="color:var(--danger);">0</span></div>
+            <div class="stat-card"><span>داهاتی قبوڵکراو</span><span class="value" id="stat-revenue" style="color:var(--success);">0 د.ع</span></div>
+        </div>
 
-            <div class="form-group">
-                <label>ڕەنگی سەرپەڕە (Cover)</label>
-                <div id="cover-preview-strip" style="height:36px; border-radius:10px; margin-bottom:10px; background:#079455;"></div>
-                <div class="cover-swatches" id="cover-swatches"></div>
-            </div>
-
-            <hr style="border:none; border-top:1px solid var(--border-subtle); margin: 18px 0;">
-
-            <div class="form-group">
-                <label>🔐 دووهەنگاوی پاراستن (2FA)</label>
-                <div id="twofa-status-text" style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px;"></div>
-                <button type="button" class="btn-submit" id="twofa-toggle-btn" style="background:var(--accent-green);" onclick="start2FASetup()">چالاککردنی 2FA</button>
-                <div id="twofa-setup-box" style="display:none; margin-top:14px;">
-                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">ئەم کۆدە بخە ناو ئەپی Google Authenticator یان Authy:</p>
-                    <div class="otp-secret-box" id="twofa-secret-display"></div>
-                    <input type="text" id="twofa-confirm-input" class="form-control" placeholder="کۆدی ٦ ژمارەیی بنووسە بۆ پشتڕاستکردنەوە" maxlength="6" style="text-align:center; letter-spacing:4px; margin-bottom:10px;">
-                    <button type="button" class="btn-submit" onclick="confirm2FASetup()">پشتڕاستکردنەوە و چالاککردن</button>
+        <div class="table-container" id="products-table-container">
+            <div class="table-header-area">
+                <h3 id="table-title">لیستی پۆستە نێردراوەکان</h3>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button id="btn-add-product-admin" class="btn-add-new" onclick="openAddProductModal()">➕ زیادکردنی کاڵای نوێ</button>
+                    <button id="btn-back-main" class="btn-view-main" style="display: none;" onclick="switchView('main')">⬅️ گەڕانەوە بۆ پۆستە سەرەکییەکان</button>
                 </div>
             </div>
-
-            <button class="btn-submit" style="margin-top:20px;" onclick="saveProfile()">پاشەکەوتکردن</button>
-            <button type="button" class="btn-back" style="width:100%; justify-content:center; margin-top:10px;" onclick="closeProfileModal(); showSellerProfile(currentUser.uid);">👁️ بینینی پرۆفایلی گشتیم</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>زانیاری بەرهەم و خاوەنەکەی</th>
+                        <th>نرخی فرۆشتن</th>
+                        <th>پلانی داواکراو / بڕی داهات</th>
+                        <th id="th-status-time">دۆخ / ماوەی ماوە</th>
+                        <th>کردارەکان (Actions)</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body"></tbody>
+            </table>
         </div>
-    </div>
 
-    <div class="modal" id="payModal">
-        <div class="modal-content">
-            <h3 style="font-weight:800; margin-bottom:12px;">📥 پۆستەکە نێردرا</h3>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">بۆ چالاککردنی کاڵاکەت، بڕی پارەی پلانەکە بنێرە بۆ فاستپێی فەرمی:</p>
-            <div style="background:#f9fafb; border:1px solid var(--border-subtle); padding:12px; border-radius:var(--radius-md); margin-bottom:18px; font-size:13.5px; font-weight:bold;">
-                📱 FastPay / Fib : 0750 123 4567
-            </div>
-            <button class="btn-submit" onclick="closePayModal()">تێگەیشتم و گەڕانەوە بۆ مارکێت</button>
+        <div class="table-container" id="users-table-container" style="display:none;">
+            <div class="table-header-area"><h3>هەموو بەکارهێنەرەکان</h3></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>بەکارهێنەر</th>
+                        <th>ئیمەیل</th>
+                        <th>ڕۆڵ</th>
+                        <th>دۆخی داواکاری</th>
+                        <th>2FA</th>
+                        <th>کردارەکان</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body"></tbody>
+            </table>
         </div>
-    </div>
 
-    <div class="modal" id="productDetailModal">
-        <div class="detail-modal-card">
-            <button class="btn-back" onclick="closeDetailModal()" style="position: absolute; top: 20px; right: 20px; z-index: 999; padding: 12px 20px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); color: var(--text-dark); font-weight: 800; font-size: 14px;">↩ گەڕانەوە</button>
-            
-            <div class="swiper-container-wrapper">
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper" id="modal-swiper-wrapper">
-                        </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
+        <div class="table-container" id="requests-table-container" style="display:none;">
+            <div class="table-header-area"><h3>داواکارییە چاوەڕوانەکان بۆ بوون بە فرۆشیار</h3></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>بەکارهێنەر</th>
+                        <th>ئیمەیل</th>
+                        <th>ڕۆڵی داواکراو</th>
+                        <th>کردارەکان</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-table-body"></tbody>
+            </table>
+        </div>
+    </main>
 
-            <div class="detail-body">
-                <div id="modal-detail-title" class="detail-title"></div>
-                <div id="modal-detail-price" class="detail-price"></div>
-                <div id="modal-detail-desc" class="detail-desc"></div>
-                <div class="detail-grid-info">
-                    <div class="info-tag">📁 بەش: <span id="modal-detail-cat" style="font-weight:700; color:var(--accent-green);"></span></div>
-                    <div class="info-tag">📍 جۆری پۆست: <span id="modal-detail-type" style="font-weight:700;"></span></div>
+    <div class="admin-modal-overlay" id="addProductModal" onclick="if(event.target===this) closeAddProductModal()">
+        <div class="admin-modal-box">
+            <button class="admin-modal-close" onclick="closeAddProductModal()">✕</button>
+            <h3>➕ زیادکردنی کاڵای نوێ (لەلایەن ئەدمینەوە)</h3>
+            <form id="admin-product-form" onsubmit="handleAdminProductSubmit(event)">
+                <div class="admin-form-group"><label>ناوی فرۆشیار</label><input type="text" id="ap-ownerName" class="admin-form-control" placeholder="ناوی فرۆشیار یان دوکان" required></div>
+                <div class="admin-form-group"><label>ناوی بەرهەم</label><input type="text" id="ap-title" class="admin-form-control" required></div>
+                <div class="admin-form-group"><label>ژێر پۆلێن (Subcategory)</label><input type="text" id="ap-subcat" class="admin-form-control" placeholder="بۆ نموونە: جل و بەرگ" required></div>
+                <div class="admin-form-group"><label>شیکردنەوە</label><textarea id="ap-desc" class="admin-form-control" rows="3" placeholder="تایبەتمەندی و وردەکاری کاڵاکە..."></textarea></div>
+                <div class="admin-form-group"><label>نرخ</label><input type="text" id="ap-price" class="admin-form-control" placeholder="٢٥,٠٠٠ دینار" required></div>
+                <div class="admin-form-group"><label>ژمارەی واتسئەپ</label><input type="tel" id="ap-phone" class="admin-form-control" placeholder="0770XXXXXXX" required></div>
+                <div class="admin-form-group"><label>شار</label><input type="text" id="ap-city" class="admin-form-control" placeholder="بۆ نموونە: سلێمانی" required></div>
+                <div class="admin-form-group"><label>ناونیشانی ورد</label><input type="text" id="ap-address" class="admin-form-control" required></div>
+                <div class="admin-form-group"><label>وێنەکانی بەرهەم</label><input type="file" id="ap-file" class="admin-form-control" accept="image/*" multiple required></div>
+                <div class="admin-form-group">
+                    <label>جۆری ڕیکلام و ماوەی مانەوە</label>
+                    <select id="ap-plan" class="admin-form-control">
+                        <option value="standard_1">پۆستی ئاسایی - ١ مانگ</option>
+                        <option value="standard_2">پۆستی ئاسایی - ٢ مانگ</option>
+                        <option value="vip_1">🌟 VIP - ١ مانگ</option>
+                        <option value="vip_2">🌟 VIP - ٢ مانگ</option>
+                    </select>
                 </div>
-                <button id="modal-detail-seller-btn" class="btn-submit" style="display:block; width:100%; background:#eef2ff; color:#4338ca; margin-bottom: 10px;" onclick="showSellerProfile(currentDetailOwnerId)">👤 بینینی پرۆفایلی فرۆشیار</button>
-                <a id="modal-detail-wa-btn" href="#" target="_blank" class="btn-submit" style="display:block; text-align:center; text-decoration:none; background:#25d366; margin-bottom: 10px;">💬 ڕاستەوخۆ داوا بکە لە واتسئەپ</a>
-                <a id="modal-detail-call-btn" href="#" class="btn-submit" style="display:block; text-align:center; text-decoration:none; background:var(--brand-ink); margin-bottom: 10px;">📞 پەیوەندی بکە: <span id="modal-detail-phone-num"></span></a>
-                <button class="btn-back" onclick="closeDetailModal()" style="width: 100%; justify-content: center;">↩ داخستن و گەڕانەوە بۆ مارکێت</button>
-            </div>
+                <div class="admin-form-group">
+                    <label>دۆخی کاڵا دوای زیادکردن</label>
+                    <select id="ap-status" class="admin-form-control">
+                        <option value="active">✅ چالاک (دەرکەوتن لە مارکێت دەستبەجێ)</option>
+                        <option value="pending">⏳ چاوەڕوان (پێویستی بە پەسندکردن هەیە)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit-admin">زیادکردنی کاڵا</button>
+            </form>
         </div>
     </div>
 
     <script>
-        let mySwiperInstance = null; // پاراستنی سەکۆی سکڕۆڵەرەکە
-        let currentFilter = null;
+        document.getElementById('live-time').innerText = new Date().toLocaleDateString('ku-Arab');
 
-        // ===================== دۆخی بەکارهێنەری چوونەژوورەوەکراو =====================
-        let currentUser = null;       // firebase.auth() user object
-        let currentUserDoc = null;    // Firestore users/{uid} data
-        let currentProducts = [];     // کاشی کاڵا چالاکەکان (بۆ خێراتر بوونی مۆداڵی وردەکاری)
-        let currentDetailOwnerId = null;
-        let pendingTotpSecret = null; // کاتی سێتئەپکردنی 2FA
-        const COVER_COLORS = ['#079455', '#4338ca', '#d92d20', '#eab308', '#0369a1', '#111827'];
+        const planDetails = {
+            'standard_1': { name: 'ئاسایی (١ مانگ)', price: 5000, hours: 720, vip: false },
+            'standard_2': { name: 'ئاسایی (٢ مانگ)', price: 9000, hours: 1440, vip: false },
+            'vip_1': { name: '🌟 VIP (١ مانگ)', price: 13000, hours: 720, vip: true },
+            'vip_2': { name: '🌟 VIP (٢ مانگ)', price: 25000, hours: 1440, vip: true }
+        };
 
-        function toggleDrawer() {
-            document.getElementById('navDrawer').classList.toggle('open');
-            document.getElementById('drawerOverlay').classList.toggle('open');
+        let currentView = 'main';
+        let allProducts = [];
+        let allUsers = [];
+        let allRequests = [];
+
+        // ===================== چوونەژوورەوە + پشتڕاستکردنەوەی ڕۆڵی ئەدمین =====================
+        function adminSignIn() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(err => alert('هەڵە: ' + err.message));
         }
 
-        function toggleAccordion(element) {
-            const item = element.parentElement;
-            const panel = item.querySelector('.accordion-panel');
-            const icon = element.querySelector('span');
-            
-            document.querySelectorAll('.accordion-item').forEach(el => {
-                if (el !== item && el.classList.contains('active')) {
-                    el.classList.remove('active');
-                    el.querySelector('.accordion-panel').style.maxHeight = null;
-                    el.querySelector('span').textContent = '+';
-                }
-            });
-
-            item.classList.toggle('active');
-            if (item.classList.contains('active')) {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-                icon.textContent = '−';
-            } else {
-                panel.style.maxHeight = null;
-                icon.textContent = '+';
-            }
+        function applyAdminTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('adminThemeBtn').innerText = theme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('qazi_admin_theme', theme);
         }
-
-        function goToMarket() {
-            currentFilter = null;
-            document.getElementById('market-search').value = '';
-            document.getElementById('view-sell').classList.remove('active');
-            document.getElementById('view-market').classList.add('active');
-            document.getElementById('btn-global-back').style.display = 'none';
-            document.getElementById('filter-title').innerText = '🔥 نوێترین بەرهەمەکان';
-            renderMarket();
+        function toggleAdminTheme() {
+            applyAdminTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         }
+        applyAdminTheme(localStorage.getItem('qazi_admin_theme') || 'light');
 
-        function switchView(viewName) {
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            document.getElementById(`view-${viewName}`).classList.add('active');
-        }
+        auth.onAuthStateChanged(async (user) => {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('access-denied-screen').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'none';
 
-        // ===================== چوونەژوورەوە / دەرچوون =====================
-        function checkLoginBeforeSell() {
-            if (!currentUser) {
-                document.getElementById('loginModal').style.display = 'flex';
+            if (!user) {
+                document.getElementById('login-screen').style.display = 'flex';
                 return;
             }
-            if (currentUserDoc && currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved') {
-                document.getElementById('ownerName').value = currentUserDoc.name;
-                switchView('sell');
-            } else {
-                renderBecomeSellerBox();
-                switchView('become-seller');
+            const snap = await db.collection('users').doc(user.uid).get();
+            const data = snap.exists ? snap.data() : null;
+
+            if (!data || data.role !== 'admin') {
+                document.getElementById('access-denied-screen').style.display = 'flex';
+                return;
             }
-        }
 
-        function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
-
-        function signInWithGoogle() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).then(() => {
-                closeLoginModal();
-            }).catch(err => {
-                alert('هەڵەیەک ڕوویدا لە چوونەژوورەوە: ' + err.message);
-            });
-        }
-
-        function signOutUser() {
-            sessionStorage.removeItem('qazi_2fa_verified');
-            auth.signOut().then(() => goToMarket());
-        }
-
-        // یەکەم جار چوونەژوورەوە: دروستکردنی دۆکیومێنتی بەکارهێنەر ئەگەر بوونی نەبێت
-        async function ensureUserDoc(user) {
-            const ref = db.collection('users').doc(user.uid);
-            const snap = await ref.get();
-            if (!snap.exists) {
-                const newDoc = {
-                    name: user.displayName || 'بەکارهێنەر',
-                    email: user.email,
-                    photoURL: user.photoURL || '',
-                    bio: '',
-                    coverColor: COVER_COLORS[0],
-                    role: 'customer',
-                    roleStatus: 'none',
-                    totpEnabled: false,
-                    theme: localStorage.getItem('qazi_theme') || 'light',
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                await ref.set(newDoc);
-                return newDoc;
-            }
-            return snap.data();
-        }
-
-        // گوێگری گۆڕانی دۆخی چوونەژوورەوە
-        auth.onAuthStateChanged(async (user) => {
-            currentUser = user;
-            if (user) {
-                currentUserDoc = await ensureUserDoc(user);
-                if (currentUserDoc.theme) applyTheme(currentUserDoc.theme, false);
-
-                if (currentUserDoc.totpEnabled && sessionStorage.getItem('qazi_2fa_verified') !== user.uid) {
-                    document.getElementById('twoFAModal').style.display = 'flex';
-                } else {
-                    document.getElementById('twoFAModal').style.display = 'none';
-                }
-            } else {
-                currentUserDoc = null;
-                document.getElementById('twoFAModal').style.display = 'none';
-            }
-            updateUserBadge();
+            document.getElementById('sidebar').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('admin-me-name').innerText = '👤 ' + (data.name || user.email);
+            setInterval(checkExpired, 15000);
+            loadDashboardData();
         });
 
-        function updateUserBadge() {
-            const badge = document.getElementById('user-badge');
-            const avatarBtn = document.getElementById('avatarBtn');
-            const avatarImg = document.getElementById('avatarBtnImg');
-            const profileLink = document.getElementById('drawer-profile-link');
-            const logoutLink = document.getElementById('drawer-logout-link');
-            const adminDrawerLink = document.getElementById('drawer-admin-link');
-            const adminHeaderBtn = document.getElementById('headerAdminBtn');
+        // ===================== سایدبار لەسەر مۆبایل (drawer) =====================
+        function toggleAdminSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('open');
+        }
+        function closeAdminSidebarMobile() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('open');
+        }
 
-            if (currentUser && currentUserDoc) {
-                badge.innerText = `👤 ${currentUserDoc.name}` + (currentUserDoc.role === 'admin' ? ' (ئەدمین)' : currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved' ? ' (فرۆشیار)' : '');
-                badge.style.display = 'inline-block';
-                avatarBtn.style.display = 'block';
-                avatarImg.src = currentUserDoc.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(currentUserDoc.name || 'U');
-                profileLink.style.display = 'block';
-                logoutLink.style.display = 'block';
-                const isAdmin = currentUserDoc.role === 'admin';
-                adminDrawerLink.style.display = isAdmin ? 'block' : 'none';
-                adminHeaderBtn.style.display = isAdmin ? 'flex' : 'none';
-            } else {
-                badge.style.display = 'none';
-                avatarBtn.style.display = 'none';
-                profileLink.style.display = 'none';
-                logoutLink.style.display = 'none';
-                adminDrawerLink.style.display = 'none';
-                adminHeaderBtn.style.display = 'none';
+        function switchView(view) {
+            currentView = view;
+            closeAdminSidebarMobile();
+            document.getElementById('btn-add-product-admin').style.display = (view === 'main') ? 'flex' : 'none';
+            document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
+            document.getElementById('stats-grid').style.display = (view === 'users' || view === 'requests') ? 'none' : 'grid';
+            document.getElementById('products-table-container').style.display = (view === 'main' || view === 'trash') ? 'block' : 'none';
+            document.getElementById('users-table-container').style.display = (view === 'users') ? 'block' : 'none';
+            document.getElementById('requests-table-container').style.display = (view === 'requests') ? 'block' : 'none';
+
+            if (view === 'main') {
+                document.getElementById('nav-general').classList.add('active');
+                document.getElementById('page-title').innerText = "ڕاپۆرتی کاتەکان و داهات";
+                document.getElementById('table-title').innerText = "لیستی پۆستە نێردراوەکان";
+                document.getElementById('th-status-time').innerText = "دۆخ / ماوەی ماوە";
+                document.getElementById('btn-back-main').style.display = 'none';
+            } else if (view === 'trash') {
+                document.getElementById('nav-trash').classList.add('active');
+                document.getElementById('page-title').innerText = "ئەرشیفی سڕدراوەکان و ڕەتکراوەکان";
+                document.getElementById('table-title').innerText = "تەواوی دیتەیڵی کاڵا سڕدراوەکان 🗑️";
+                document.getElementById('th-status-time').innerText = "کاتی سڕینەوە";
+                document.getElementById('btn-back-main').style.display = 'block';
+            } else if (view === 'users') {
+                document.getElementById('nav-users').classList.add('active');
+                document.getElementById('page-title').innerText = "بەڕێوەبردنی بەکارهێنەران";
+            } else if (view === 'requests') {
+                document.getElementById('nav-requests').classList.add('active');
+                document.getElementById('page-title').innerText = "داواکارییەکانی فرۆشیاربوون";
             }
+            loadDashboardData();
         }
 
-        // ===================== داواکردنی بوون بە فرۆشیار → بۆ پانێڵی ئەدمین =====================
-        function renderBecomeSellerBox() {
-            const box = document.getElementById('become-seller-box');
-            if (!currentUserDoc) return;
-            if (currentUserDoc.roleStatus === 'pending') {
-                box.innerHTML = `<div class="role-status-box">⏳ داواکاریەکەت نێردرا و چاوەڕوانی پەسندکردنی ئەدمینە. تکایە کەمێک چاوەڕێ بکە.</div>`;
-            } else if (currentUserDoc.roleStatus === 'rejected') {
-                box.innerHTML = `<div class="role-status-box">🚫 داواکاریەکەت ڕەتکراوەتەوە. دەتوانیت دووبارە هەوڵبدەیتەوە.</div>
-                    <button class="btn-submit" onclick="requestSellerRole()">دووبارە داواکردن</button>`;
-            } else {
-                box.innerHTML = `<div class="role-status-box ok">بۆ ئەوەی بتوانیت کاڵا بڵاو بکەیتەوە، پێویستە ببیتە فرۆشیاری پشتڕاستکراو. داواکارییەکەت دەگاتە ئەدمین بۆ پەسندکردن.</div>
-                    <button class="btn-submit" onclick="requestSellerRole()">🛍️ داواکردنی بوون بە فرۆشیار</button>`;
+        // ===================== باربوونی داتا =====================
+        async function loadDashboardData() {
+            const [prodSnap, trashSnap, userSnap, reqSnap] = await Promise.all([
+                db.collection('products').where('deleted', '==', false).get(),
+                db.collection('products').where('deleted', '==', true).get(),
+                db.collection('users').get(),
+                db.collection('roleRequests').where('status', '==', 'pending').get()
+            ]);
+
+            allProducts = prodSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            const trashProducts = trashSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            allUsers = userSnap.docs.map(d => ({ uid: d.id, ...d.data() }));
+            allRequests = reqSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+            let totalRevenue = 0;
+            allProducts.forEach(p => { if (p.status === 'active' && planDetails[p.plan]) totalRevenue += planDetails[p.plan].price; });
+
+            document.getElementById('stat-total').innerText = allProducts.length;
+            document.getElementById('stat-vip').innerText = allProducts.filter(p => p.status === 'active' && p.plan && p.plan.startsWith('vip')).length;
+            document.getElementById('stat-sold').innerText = allProducts.filter(p => p.status === 'sold').length;
+            document.getElementById('stat-users').innerText = allUsers.length;
+            document.getElementById('stat-deleted').innerText = trashProducts.length;
+            document.getElementById('stat-revenue').innerText = totalRevenue.toLocaleString() + " د.ع";
+
+            const reqBadge = document.getElementById('req-badge');
+            if (allRequests.length > 0) { reqBadge.style.display = 'inline-block'; reqBadge.innerText = allRequests.length; }
+            else reqBadge.style.display = 'none';
+
+            if (currentView === 'main' || currentView === 'trash') renderProductsTable(currentView === 'main' ? allProducts : trashProducts);
+            if (currentView === 'users') renderUsersTable();
+            if (currentView === 'requests') renderRequestsTable();
+        }
+
+        function renderProductsTable(targetData) {
+            const tbody = document.getElementById('admin-table-body');
+            if (targetData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px;">هیچ پۆستێک لێرەدا نییە.</td></tr>`;
+                return;
             }
+            tbody.innerHTML = targetData.map(p => {
+                let planKey = p.plan || 'standard_1';
+                let planInfo = planDetails[planKey] || planDetails['standard_1'];
+                let expiryOrTrashText = '';
+
+                if (currentView === 'main') {
+                    if (p.status === 'active' && p.expiryTime) {
+                        let daysLeft = Math.round((p.expiryTime - Date.now()) / (1000 * 60 * 60 * 24));
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--success); font-weight:700;">⌛ ${daysLeft > 0 ? daysLeft : 0} ڕۆژ ماوە</span>`;
+                    } else if (p.status === 'expired') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--danger); font-weight:700;">❌ بەسەرچوو</span>`;
+                    } else if (p.status === 'rejected') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--danger); font-weight:700;">🚫 ڕەتکراوەتەوە</span>`;
+                    } else if (p.status === 'sold') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--primary); font-weight:700;">🤝 فرۆشراوە</span>`;
+                    }
+                } else {
+                    let deleteDate = p.deletedAt ? new Date(p.deletedAt).toLocaleString('ku-Arab') : "نادیار";
+                    expiryOrTrashText = `<br><span style="font-size:11px; color:var(--danger); font-weight:700;">📅 ${deleteDate}</span>`;
+                }
+
+                let imgHtml = '';
+                if (p.images && Array.isArray(p.images) && p.images.length > 0) {
+                    imgHtml = p.images.map(img => `<img src="${img}" class="prod-img" loading="lazy" onclick="window.open('${img}')">`).join('');
+                } else {
+                    imgHtml = `<img src="${p.image || 'https://via.placeholder.com/150'}" class="prod-img" loading="lazy">`;
+                }
+
+                let ownerName = p.ownerName || "نادیار";
+                let whatsappNum = p.whatsapp || "تۆمار نەکراوە";
+                let sellerCity = p.city || "نادیار";
+                let sellerAddress = p.address || "تۆمار نەکراوە";
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="prod-info">
+                                <div class="img-gallery-container">${imgHtml}</div>
+                                <div>
+                                    <div class="prod-name">${p.title}</div>
+                                    <div class="user-details">
+                                        👤 <b>خاوەن کاڵا:</b> ${ownerName}<br>
+                                        📱 <b>واتسئەپ:</b> ${whatsappNum}<br>
+                                        📍 <b>ناونیشان:</b> ${sellerCity} - ${sellerAddress}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="font-weight:700;">${p.price}</td>
+                        <td><span class="plan-badge ${planInfo.vip ? 'plan-vip' : 'plan-standard'}">${planInfo.name} - ${planInfo.price.toLocaleString()} د.ع</span></td>
+                        <td><span class="status-badge ${currentView === 'main' ? 'status-' + p.status : 'status-trash'}">${currentView === 'main' ? p.status.toUpperCase() : 'DELETED'}</span>${expiryOrTrashText}</td>
+                        <td>
+                            <div class="actions-cell">
+                                ${currentView === 'main' ? `
+                                    ${p.status === 'pending' ? `
+                                        <button class="btn-action btn-app" onclick="approveProduct('${p.id}')">✅ ئەکتیڤکردن</button>
+                                        <button class="btn-action btn-rej" onclick="rejectProduct('${p.id}')">ڕەتکردنەوە</button>
+                                    ` : ''}
+                                    <button class="btn-action btn-del" onclick="deleteProduct('${p.id}')">سڕینەوە</button>
+                                ` : `
+                                    <button class="btn-action btn-app" onclick="restoreProduct('${p.id}')">🔄 گەڕاندنەوە</button>
+                                    <button class="btn-action btn-rej" onclick="permaDeleteProduct('${p.id}')">🔥 سڕینەوەی هەمیشەیی</button>
+                                `}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
-        async function requestSellerRole() {
-            if (!currentUser) return;
-            await db.collection('roleRequests').add({
-                uid: currentUser.uid,
-                name: currentUserDoc.name,
-                email: currentUserDoc.email,
-                requestedRole: 'seller',
-                status: 'pending',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-            await db.collection('users').doc(currentUser.uid).update({ roleStatus: 'pending' });
-            currentUserDoc.roleStatus = 'pending';
-            renderBecomeSellerBox();
+        function renderUsersTable() {
+            const tbody = document.getElementById('users-table-body');
+            if (allUsers.length === 0) { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px;">هیچ بەکارهێنەرێک نییە.</td></tr>`; return; }
+            tbody.innerHTML = allUsers.map(u => `
+                <tr>
+                    <td>
+                        <div class="prod-info">
+                            <img src="${u.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(u.name || 'U')}" class="prod-img" style="border-radius:50%;">
+                            <div><div class="prod-name">${u.name || 'نادیار'}</div></div>
+                        </div>
+                    </td>
+                    <td>${u.email || '-'}</td>
+                    <td>
+                        <select class="role-select" onchange="setUserRole('${u.uid}', this.value)">
+                            <option value="customer" ${u.role === 'customer' ? 'selected' : ''}>کڕیار</option>
+                            <option value="seller" ${u.role === 'seller' ? 'selected' : ''}>فرۆشیار</option>
+                            <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>ئەدمین</option>
+                        </select>
+                    </td>
+                    <td><span class="role-badge role-${u.role || 'customer'}">${u.roleStatus || 'none'}</span></td>
+                    <td>${u.totpEnabled ? '🔐 چالاکە' : '—'}</td>
+                    <td><div class="actions-cell"><button class="btn-action btn-del" onclick="removeUser('${u.uid}')">سڕینەوە</button></div></td>
+                </tr>
+            `).join('');
         }
 
-        // وردکردنەوەی وێنە پێش هەڵگرتن — خێراتر و متمانەپێکراوتر لەسەر ئینتەرنێتی مۆبایل،
-        // هەروەها ڕێگری لە ڕووبەرووبوونەوە لەگەڵ سنووری قەبارەی بەڵگەنامەی Firestore (١ مێگابایت)
+        function renderRequestsTable() {
+            const tbody = document.getElementById('requests-table-body');
+            if (allRequests.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:30px;">هیچ داواکارییەکی چاوەڕوان نییە.</td></tr>`; return; }
+            tbody.innerHTML = allRequests.map(r => `
+                <tr>
+                    <td class="prod-name">${r.name}</td>
+                    <td>${r.email}</td>
+                    <td><span class="role-badge role-seller">${r.requestedRole}</span></td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="btn-action btn-app" onclick="approveRequest('${r.id}', '${r.uid}', '${r.requestedRole}')">✅ پەسندکردن</button>
+                            <button class="btn-action btn-rej" onclick="rejectRequest('${r.id}', '${r.uid}')">ڕەتکردنەوە</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // ===================== زیادکردنی کاڵای نوێ لەلایەن ئەدمینەوە =====================
+        function openAddProductModal() {
+            document.getElementById('admin-product-form').reset();
+            document.getElementById('addProductModal').classList.add('open');
+        }
+        function closeAddProductModal() {
+            document.getElementById('addProductModal').classList.remove('open');
+        }
+
+        // وردکردنەوەی وێنە پێش هەڵگرتن — بۆ خێراتر و متمانەپێکراوتر بوونی بارکردن لەسەر ئینتەرنێتی مۆبایل
+        // و بۆ ڕێگریکردن لە ڕووبەرووبوونەوە لەگەڵ سنووری قەبارەی بەڵگەنامەی Firestore
         function compressImageFile(file, maxDim = 1280, quality = 0.72) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -956,443 +596,113 @@
             });
         }
 
-        async function handleProductSubmit(e) {
+        async function handleAdminProductSubmit(e) {
             e.preventDefault();
-            if (!currentUser || !currentUserDoc || currentUserDoc.role !== 'seller' || currentUserDoc.roleStatus !== 'approved') {
-                alert('تەنها فرۆشیارە پەسندکراوەکان دەتوانن کاڵا بڵاو بکەنەوە.');
-                return;
-            }
-            const files = document.getElementById('p-file').files;
+            const files = document.getElementById('ap-file').files;
             if (!files.length) { alert('تکایە لانیکەم یەک وێنە هەڵبژێرە.'); return; }
 
-            const submitBtn = document.querySelector('#product-form button[type="submit"]');
-            const originalBtnText = submitBtn.innerText;
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
             submitBtn.disabled = true;
-            submitBtn.innerText = '⏳ وردکردنەوەی وێنەکان...';
+            submitBtn.innerText = '⏳ چاوەڕوان بە...';
 
             try {
-                const imageArray = [];
-                for (const file of files) {
-                    imageArray.push(await compressImageFile(file));
-                }
-                submitBtn.innerText = '⏳ ناردن...';
-                await saveProduct(imageArray);
+                const images = [];
+                for (const file of files) images.push(await compressImageFile(file));
+
+                const planKey = document.getElementById('ap-plan').value;
+                const planInfo = planDetails[planKey];
+                const status = document.getElementById('ap-status').value;
+
+                const newProduct = {
+                    ownerId: auth.currentUser ? auth.currentUser.uid : null,
+                    ownerName: document.getElementById('ap-ownerName').value,
+                    title: document.getElementById('ap-title').value,
+                    subcategory: document.getElementById('ap-subcat').value,
+                    description: document.getElementById('ap-desc').value || 'هیچ شیکردنەوەیەک نییە',
+                    price: document.getElementById('ap-price').value,
+                    whatsapp: document.getElementById('ap-phone').value,
+                    city: document.getElementById('ap-city').value,
+                    address: document.getElementById('ap-address').value,
+                    plan: planKey,
+                    images: images,
+                    status: status,
+                    deleted: false,
+                    addedByAdmin: true,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                if (status === 'active') newProduct.expiryTime = Date.now() + (planInfo.hours * 60 * 60 * 1000);
+
+                await db.collection('products').add(newProduct);
+                closeAddProductModal();
+                switchView('main');
+                loadDashboardData();
             } catch (err) {
-                alert('هەڵەیەک ڕوویدا لە بارکردنی وێنەکان، تکایە دووبارە هەوڵبدەرەوە: ' + err.message);
+                alert('هەڵەیەک ڕوویدا لە زیادکردنی کاڵاکە: ' + err.message);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerText = originalBtnText;
+                submitBtn.innerText = originalText;
             }
         }
 
-        async function saveProduct(images) {
-            const newProduct = {
-                ownerId: currentUser.uid,
-                ownerName: document.getElementById('ownerName').value || currentUserDoc.name,
-                title: document.getElementById('p-title').value,
-                subcategory: document.getElementById('p-subcat').value,
-                description: document.getElementById('p-desc').value || 'هیچ شیکردنەوەیەک نییە',
-                price: document.getElementById('p-price').value,
-                whatsapp: document.getElementById('p-phone').value,
-                city: document.getElementById('p-city').value,
-                address: document.getElementById('p-address').value,
-                plan: document.getElementById('p-plan').value,
-                images: images,
-                status: 'pending',
-                deleted: false,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-            await db.collection('products').add(newProduct);
-            document.getElementById('product-form').reset();
-            document.getElementById('payModal').style.display = 'flex';
-        }
-
-        function closePayModal() {
-            document.getElementById('payModal').style.display = 'none';
-            goToMarket();
-        }
-
-        function filterSubCat(subCatName) {
-            toggleDrawer();
-            currentFilter = subCatName;
-            document.getElementById('market-search').value = '';
-            document.getElementById('btn-global-back').style.display = 'flex';
-            document.getElementById('filter-title').innerText = `📂 بەش: ${subCatName}`;
-            renderMarket(subCatName);
-        }
-
-        async function renderMarket(filterSub = null, searchTerm = '') {
-            const grid = document.getElementById('market-products-grid');
-            grid.innerHTML = `<div class="no-data">⏳ چاوەڕوان بە...</div>`;
-
-            const snap = await db.collection('products').where('status', '==', 'active').where('deleted', '==', false).get();
-            currentProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-
-            let activeProducts = currentProducts.filter(p => !p.expiryTime || (p.expiryTime.toMillis ? p.expiryTime.toMillis() : p.expiryTime) > Date.now());
-            if (filterSub) activeProducts = activeProducts.filter(p => p.subcategory === filterSub);
-
-            if (searchTerm) {
-                const term = searchTerm.toLowerCase();
-                activeProducts = activeProducts.filter(p => 
-                    p.title.toLowerCase().includes(term) || 
-                    (p.description && p.description.toLowerCase().includes(term))
-                );
-            }
-
-            activeProducts.sort((a, b) => {
-                const isAVip = a.plan && a.plan.startsWith('vip') ? 1 : 0;
-                const isBVip = b.plan && b.plan.startsWith('vip') ? 1 : 0;
-                return isBVip - isAVip;
+        // ===================== کردارەکانی کاڵا =====================
+        async function approveProduct(id) {
+            const p = allProducts.find(x => x.id === id);
+            if (!p) return;
+            const planInfo = planDetails[p.plan || 'standard_1'];
+            await db.collection('products').doc(id).update({
+                status: 'active',
+                expiryTime: Date.now() + (planInfo.hours * 60 * 60 * 1000)
             });
-
-            if(activeProducts.length === 0) {
-                grid.innerHTML = `<div class="no-data">✨ هیچ بەرهەمێک لەم بەشەدا نەدۆزرایەوە.</div>`;
-                return;
+            loadDashboardData();
+        }
+        async function rejectProduct(id) {
+            await db.collection('products').doc(id).update({ status: 'rejected', deleted: true, deletedAt: Date.now() });
+            loadDashboardData();
+        }
+        async function deleteProduct(id) {
+            if (!confirm('بۆ ئەرشیفی سڕدراوەکان بگوازرێتەوە؟')) return;
+            await db.collection('products').doc(id).update({ deleted: true, deletedAt: Date.now() });
+            loadDashboardData();
+        }
+        async function restoreProduct(id) {
+            await db.collection('products').doc(id).update({ deleted: false, status: 'pending', deletedAt: firebase.firestore.FieldValue.delete() });
+            loadDashboardData();
+        }
+        async function permaDeleteProduct(id) {
+            if (!confirm('ئایا دڵنیایت لە سڕینەوەی هەمیشەیی؟ ئەم پۆستە بە هیچ جۆرێک ناگەڕێتەوە!')) return;
+            await db.collection('products').doc(id).delete();
+            loadDashboardData();
+        }
+        async function checkExpired() {
+            const now = Date.now();
+            const expiredOnes = allProducts.filter(p => p.status === 'active' && p.expiryTime && now > p.expiryTime);
+            for (const p of expiredOnes) {
+                await db.collection('products').doc(p.id).update({ status: 'expired' });
             }
-
-            grid.innerHTML = activeProducts.map(p => {
-                const isVip = p.plan && p.plan.startsWith('vip');
-                const displayImg = p.images && p.images.length > 0 ? p.images[0] : (p.image || '');
-                const displayCity = p.city ? "📍 " + p.city : "📍 لۆکاڵی";
-                return `
-                    <div class="product-card ${isVip ? 'vip-card' : ''}" onclick="showProductDetails('${p.id}')">
-                        <span class="product-city-badge">${displayCity}</span>
-                        ${isVip ? `<span class="vip-badge">🌟 VIP</span>` : ''}
-                        <div class="product-img-wrapper">
-                            <img src="${displayImg}" class="product-img" loading="lazy">
-                        </div>
-                        <div class="product-info">
-                            <div>
-                                <div class="product-cat">${p.subcategory}</div>
-                                <div class="product-title">${p.title}</div>
-                            </div>
-                            <div class="product-meta">
-                                <span class="product-price">${p.price}</span>
-                                <button class="btn-buy" onclick="event.stopPropagation(); showProductDetails('${p.id}');">بینینی وردەکاری</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            if (expiredOnes.length > 0) loadDashboardData();
         }
 
-        function showProductDetails(id) {
-            let p = currentProducts.find(prod => prod.id === id);
-            if(!p) return;
-            currentDetailOwnerId = p.ownerId || null;
-            document.getElementById('modal-detail-seller-btn').style.display = currentDetailOwnerId ? 'block' : 'none';
-
-            const swiperWrapper = document.getElementById('modal-swiper-wrapper');
-            const images = p.images ? p.images : [p.image];
-
-            // دروستکردنی پێکهاتەی وێنەکان بە کڵاسی فەرمی Swiper Zoom
-            swiperWrapper.innerHTML = images.map(img => `
-                <div class="swiper-slide">
-                    <div class="swiper-zoom-container">
-                        <img src="${img}">
-                    </div>
-                </div>
-            `).join('');
-
-            // لەناوبردنی کۆپی پێشوو ئەگەر هەبێت بۆ ڕێگریکردن لە لێکترازانی سکڕۆڵ
-            if (mySwiperInstance) {
-                mySwiperInstance.destroy(true, true);
-            }
-
-            // خستنەگەڕی سەکۆی مۆدێرنی Swiper بۆ گۆڕین و زوومکردنی ڕەسەن
-            mySwiperInstance = new Swiper('.mySwiper', {
-                zoom: {
-                    maxRatio: 3, // ڕێژەی زوومکردن سێ هێندە بۆ بینینی ناو وێنەکە
-                    toggle: true // بە دووجار کلیک خێرا زووم دەبێتەوە
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                grabCursor: true
-            });
-
-            document.getElementById('modal-detail-title').innerText = p.title;
-            document.getElementById('modal-detail-price').innerText = "نرخ: " + p.price;
-            
-            // پیشاندانی شیکردنەوە بە زانیاری تەواوی شوێن و ناونیشانەوە
-            let locationInfo = p.city ? `\n\n📍 شوێن: ${p.city} - ${p.address || ''}` : '';
-            document.getElementById('modal-detail-desc').innerText = (p.description || 'هیچ شیکردنەوەیەک نییە.') + locationInfo;
-            
-            document.getElementById('modal-detail-cat').innerText = p.subcategory;
-            document.getElementById('modal-detail-type').innerText = p.plan && p.plan.startsWith('vip') ? "🌟 VIP" : "ئاسایی";
-            
-            const whatsappText = encodeURIComponent(`سڵاو، لە پەیجی Qazibazarم بۆ کڕینی:\n📦 کاڵا: ${p.title}\n💰 نرخ: ${p.price}`);
-            document.getElementById('modal-detail-wa-btn').href = `https://wa.me/${p.whatsapp}?text=${whatsappText}`;
-            
-            // ڕێکخستنی دوگمەی پەیوەندی تەلەفۆنی
-            document.getElementById('modal-detail-call-btn').href = `tel:${p.whatsapp}`;
-            document.getElementById('modal-detail-phone-num').innerText = p.whatsapp;
-
-            document.getElementById('productDetailModal').style.display = 'flex';
+        // ===================== کردارەکانی بەکارهێنەر و ڕۆڵ =====================
+        async function setUserRole(uid, role) {
+            await db.collection('users').doc(uid).update({ role, roleStatus: role === 'customer' ? 'none' : 'approved' });
+            loadDashboardData();
         }
-
-        function closeDetailModal() {
-            document.getElementById('productDetailModal').style.display = 'none';
-            if (mySwiperInstance) {
-                mySwiperInstance.zoom.out(); // گەڕانەوەی زووم بۆ دۆخی ئاسایی لە کاتی داخستندا
-            }
+        async function removeUser(uid) {
+            if (!confirm('دڵنیایت لە سڕینەوەی ئەم بەکارهێنەرە لە بنکەدراوە؟ (هەژماری Google خۆی ناسڕدرێتەوە)')) return;
+            await db.collection('users').doc(uid).delete();
+            loadDashboardData();
         }
-
-        // ===================== دۆخی تاریک / ڕووناک =====================
-        function applyTheme(theme, persist = true) {
-            document.documentElement.setAttribute('data-theme', theme);
-            document.getElementById('themeToggleBtn').innerText = theme === 'dark' ? '☀️' : '🌙';
-            if (persist) localStorage.setItem('qazi_theme', theme);
+        async function approveRequest(reqId, uid, role) {
+            await db.collection('roleRequests').doc(reqId).update({ status: 'approved' });
+            await db.collection('users').doc(uid).update({ role, roleStatus: 'approved' });
+            loadDashboardData();
         }
-
-        function toggleTheme() {
-            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            applyTheme(next);
-            if (currentUser) db.collection('users').doc(currentUser.uid).update({ theme: next }).catch(() => {});
+        async function rejectRequest(reqId, uid) {
+            await db.collection('roleRequests').doc(reqId).update({ status: 'rejected' });
+            await db.collection('users').doc(uid).update({ roleStatus: 'rejected' });
+            loadDashboardData();
         }
-
-        function loadInitialTheme() {
-            applyTheme(localStorage.getItem('qazi_theme') || 'light', false);
-        }
-
-        // ===================== ڕێکخستنی پرۆفایل =====================
-        function openProfileModal() {
-            if (!currentUser || !currentUserDoc) return;
-            document.getElementById('profile-name').value = currentUserDoc.name || '';
-            document.getElementById('profile-bio').value = currentUserDoc.bio || '';
-            document.getElementById('profile-avatar-preview').src = currentUserDoc.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(currentUserDoc.name || 'U');
-
-            const swatchBox = document.getElementById('cover-swatches');
-            swatchBox.innerHTML = COVER_COLORS.map(c => `<div class="cover-swatch ${currentUserDoc.coverColor === c ? 'selected' : ''}" style="background:${c}" onclick="selectCoverColor('${c}', event)"></div>`).join('');
-            selectedCoverColor = currentUserDoc.coverColor || COVER_COLORS[0];
-            document.getElementById('cover-preview-strip').style.background = `linear-gradient(135deg, ${selectedCoverColor}, #111827)`;
-
-            renderTwoFAStatus();
-            document.getElementById('profileModal').style.display = 'flex';
-        }
-
-        function closeProfileModal() {
-            document.getElementById('profileModal').style.display = 'none';
-            document.getElementById('twofa-setup-box').style.display = 'none';
-            pendingTotpSecret = null;
-        }
-
-        let selectedCoverColor = null;
-        function selectCoverColor(c, evt) {
-            selectedCoverColor = c;
-            document.querySelectorAll('.cover-swatch').forEach(el => el.classList.remove('selected'));
-            evt.target.classList.add('selected');
-            document.getElementById('cover-preview-strip').style.background = `linear-gradient(135deg, ${c}, #111827)`;
-        }
-
-        function handleAvatarChange(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            // چاککردنی قەبارەی وێنە بۆ ژێر ١٥٠×١٥٠ پیکسڵ تاوەکو قەبارەی بەڵگەنامەی Firestore زۆر نەبێت
-            const img = new Image();
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const size = 150;
-                    canvas.width = size; canvas.height = size;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, size, size);
-                    const compressed = canvas.toDataURL('image/jpeg', 0.8);
-                    document.getElementById('profile-avatar-preview').src = compressed;
-                    document.getElementById('profile-avatar-preview').dataset.newAvatar = compressed;
-                };
-                img.src = ev.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        async function saveProfile() {
-            if (!currentUser) return;
-            const updates = {
-                name: document.getElementById('profile-name').value || currentUserDoc.name,
-                bio: document.getElementById('profile-bio').value
-            };
-            if (selectedCoverColor) updates.coverColor = selectedCoverColor;
-            const newAvatar = document.getElementById('profile-avatar-preview').dataset.newAvatar;
-            if (newAvatar) updates.photoURL = newAvatar;
-
-            await db.collection('users').doc(currentUser.uid).update(updates);
-            Object.assign(currentUserDoc, updates);
-            updateUserBadge();
-            closeProfileModal();
-        }
-
-        // ===================== فرۆشیارە پشتڕاستکراوەکان (دایرێکتۆری) =====================
-        async function showSellersDirectory() {
-            switchView('sellers');
-            const grid = document.getElementById('sellers-grid');
-            grid.innerHTML = `<div class="no-data">⏳ چاوەڕوان بە...</div>`;
-            const snap = await db.collection('users').where('role', '==', 'seller').where('roleStatus', '==', 'approved').get();
-            const sellers = snap.docs.map(d => ({ uid: d.id, ...d.data() }));
-            if (sellers.length === 0) {
-                grid.innerHTML = `<div class="no-data">✨ هێشتا هیچ فرۆشیارێکی پشتڕاستکراو نییە.</div>`;
-                return;
-            }
-            grid.innerHTML = sellers.map(s => `
-                <div class="product-card" onclick="showSellerProfile('${s.uid}')" style="text-align:center; padding:26px 18px;">
-                    <img src="${s.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(s.name)}" style="width:70px; height:70px; border-radius:50%; object-fit:cover; margin:0 auto 14px;">
-                    <div class="product-title">${s.name}</div>
-                    <div class="product-cat" style="margin-top:6px;">${(s.bio || '').slice(0, 60)}</div>
-                </div>
-            `).join('');
-        }
-
-        // ===================== پرۆفایلی گشتی فرۆشیار =====================
-        async function showSellerProfile(uid) {
-            if (!uid) return;
-            switchView('profile');
-            const userSnap = await db.collection('users').doc(uid).get();
-            if (!userSnap.exists) return;
-            const s = userSnap.data();
-
-            document.getElementById('profile-cover').style.background = s.coverColor ? `linear-gradient(135deg, ${s.coverColor}, #111827)` : 'linear-gradient(135deg,#079455,#0b7a46)';
-            document.getElementById('profile-view-avatar').src = s.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(s.name);
-            document.getElementById('profile-view-name').innerText = s.name;
-            document.getElementById('profile-view-role').innerText = s.role === 'seller' ? '🛍️ فرۆشیاری پشتڕاستکراو' : 'بەکارهێنەر';
-            document.getElementById('profile-view-bio').innerText = s.bio || 'هیچ بایۆیەک نییە.';
-
-            const prodSnap = await db.collection('products').where('ownerId', '==', uid).where('status', '==', 'active').where('deleted', '==', false).get();
-            const grid = document.getElementById('profile-products-grid');
-            const prods = prodSnap.docs.map(d => ({ id: d.id, ...d.data() }));
-            currentProducts = currentProducts.concat(prods.filter(p => !currentProducts.some(cp => cp.id === p.id)));
-            if (prods.length === 0) {
-                grid.innerHTML = `<div class="no-data">هیچ کاڵایەکی چالاک نییە.</div>`;
-                return;
-            }
-            grid.innerHTML = prods.map(p => `
-                <div class="product-card" onclick="showProductDetails('${p.id}')">
-                    <div class="product-img-wrapper"><img src="${p.images && p.images[0] ? p.images[0] : ''}" class="product-img" loading="lazy"></div>
-                    <div class="product-info">
-                        <div><div class="product-cat">${p.subcategory}</div><div class="product-title">${p.title}</div></div>
-                        <div class="product-meta"><span class="product-price">${p.price}</span></div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ===================== 2FA — TOTP (RFC 6238) بەکارهێنانی Web Crypto، بەبێ هیچ کتێبخانەیەکی دەرەکی =====================
-        // تێبینی: ئەمە پێداچوونەوەیەکی ئەپلیکەیشنە (client-side)، نەک enforcement فەرمی Firebase.
-        // MFA فەرمی بە شێوازی SMS پێویستی بە پلانی Blaze و کارتی بانک هەیە. ئەمە ڕێگایەکی بەخۆڕایی و بێ کارتە.
-        const b32chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
-
-        function generateBase32Secret(len = 20) {
-            const bytes = new Uint8Array(len);
-            crypto.getRandomValues(bytes);
-            let secret = '';
-            for (let i = 0; i < len; i++) secret += b32chars[bytes[i] % 32];
-            return secret;
-        }
-
-        function base32ToBytes(base32) {
-            let bits = '';
-            for (const c of base32.toUpperCase().replace(/=+$/, '')) {
-                const val = b32chars.indexOf(c);
-                if (val === -1) continue;
-                bits += val.toString(2).padStart(5, '0');
-            }
-            const bytes = [];
-            for (let i = 0; i + 8 <= bits.length; i += 8) bytes.push(parseInt(bits.substr(i, 8), 2));
-            return new Uint8Array(bytes);
-        }
-
-        async function hmacSha1(keyBytes, msgBytes) {
-            const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: 'SHA-1' }, false, ['sign']);
-            const sig = await crypto.subtle.sign('HMAC', key, msgBytes);
-            return new Uint8Array(sig);
-        }
-
-        function counterToBytes(counter) {
-            const buf = new ArrayBuffer(8);
-            const view = new DataView(buf);
-            view.setUint32(4, counter);
-            return new Uint8Array(buf);
-        }
-
-        async function computeTOTP(secretBase32, timeStep = 30, digits = 6, offset = 0) {
-            const counter = Math.floor(Date.now() / 1000 / timeStep) + offset;
-            const keyBytes = base32ToBytes(secretBase32);
-            const hmac = await hmacSha1(keyBytes, counterToBytes(counter));
-            const codeOffset = hmac[hmac.length - 1] & 0xf;
-            const binCode = ((hmac[codeOffset] & 0x7f) << 24) | ((hmac[codeOffset + 1] & 0xff) << 16) | ((hmac[codeOffset + 2] & 0xff) << 8) | (hmac[codeOffset + 3] & 0xff);
-            return (binCode % (10 ** digits)).toString().padStart(digits, '0');
-        }
-
-        async function verifyTOTP(code, secretBase32) {
-            for (const offset of [0, -1, 1]) { // ڕێگری لە جیاوازی کاتی مۆبایل/کۆمپیوتەر
-                if (await computeTOTP(secretBase32, 30, 6, offset) === code) return true;
-            }
-            return false;
-        }
-
-        async function renderTwoFAStatus() {
-            const statusText = document.getElementById('twofa-status-text');
-            const btn = document.getElementById('twofa-toggle-btn');
-            if (currentUserDoc.totpEnabled) {
-                statusText.innerText = '✅ 2FA چالاکە بۆ ئەم هەژمارە.';
-                btn.innerText = 'ناچالاککردنی 2FA';
-                btn.style.background = 'var(--accent-red)';
-                btn.onclick = disable2FA;
-            } else {
-                statusText.innerText = 'هێشتا 2FA چالاک نییە.';
-                btn.innerText = 'چالاککردنی 2FA';
-                btn.style.background = 'var(--accent-green)';
-                btn.onclick = start2FASetup;
-            }
-        }
-
-        function start2FASetup() {
-            pendingTotpSecret = generateBase32Secret();
-            document.getElementById('twofa-secret-display').innerText = pendingTotpSecret;
-            document.getElementById('twofa-setup-box').style.display = 'block';
-        }
-
-        async function confirm2FASetup() {
-            const code = document.getElementById('twofa-confirm-input').value.trim();
-            if (!pendingTotpSecret) return;
-            const ok = await verifyTOTP(code, pendingTotpSecret);
-            if (!ok) { alert('کۆدەکە هەڵەیە، دووبارە هەوڵبدەرەوە.'); return; }
-            await db.collection('users').doc(currentUser.uid).collection('private').doc('security').set({ totpSecret: pendingTotpSecret });
-            await db.collection('users').doc(currentUser.uid).update({ totpEnabled: true });
-            currentUserDoc.totpEnabled = true;
-            pendingTotpSecret = null;
-            document.getElementById('twofa-setup-box').style.display = 'none';
-            renderTwoFAStatus();
-            alert('2FA بە سەرکەوتوویی چالاککرا!');
-        }
-
-        async function disable2FA() {
-            if (!confirm('دڵنیایت لە ناچالاککردنی 2FA؟')) return;
-            await db.collection('users').doc(currentUser.uid).collection('private').doc('security').delete();
-            await db.collection('users').doc(currentUser.uid).update({ totpEnabled: false });
-            currentUserDoc.totpEnabled = false;
-            renderTwoFAStatus();
-        }
-
-        async function verifyLogin2FA() {
-            const code = document.getElementById('twofa-login-input').value.trim();
-            const secSnap = await db.collection('users').doc(currentUser.uid).collection('private').doc('security').get();
-            if (!secSnap.exists) { document.getElementById('twoFAModal').style.display = 'none'; return; }
-            const ok = await verifyTOTP(code, secSnap.data().totpSecret);
-            if (!ok) { alert('کۆدەکە هەڵەیە.'); return; }
-            sessionStorage.setItem('qazi_2fa_verified', currentUser.uid);
-            document.getElementById('twoFAModal').style.display = 'none';
-        }
-
-        // ===================== دەستپێکردن =====================
-        loadInitialTheme();
-        updateUserBadge();
-        renderMarket();
     </script>
 </body>
 </html>
