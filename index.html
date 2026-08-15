@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qazibazar | قازی بازار - سەکۆی مۆدێرنی بەرهەمی لۆکاڵی</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&family=Noto+Sans+Arabic:wght@400;500;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -26,7 +26,7 @@
             --brand-ink: #090d16; /* هەمیشە تاریکە، گۆڕان بە دۆخی تاریک/ڕووناک ناکات — بۆ دوگمە سەرەکییەکان */
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Vazirmatn', 'Noto Sans Arabic', 'Noto Naskh Arabic', Tahoma, sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-main); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; letter-spacing: -0.2px; }
         
         header { 
@@ -55,7 +55,7 @@
         .nav-left { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; }
         .btn-add-product { background: var(--brand-ink); color: #fff; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.2s, background 0.2s; flex-shrink: 0; white-space: nowrap; }
         .btn-add-product:hover { background: #1d2939; transform: translateY(-1px); }
-        .user-badge { color: var(--accent-green); font-size: 13px; font-weight: 700; background: #ecfdf3; padding: 6px 14px; border-radius: var(--radius-md); display: none; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 1; }
+        .user-badge { color: var(--accent-green); font-size: 13px; font-weight: 700; background: #ecfdf3; padding: 6px 14px; border-radius: var(--radius-md); display: none; white-space: nowrap; flex-shrink: 0; }
 
         .menu-toggle { background: #f2f4f7; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; width: 40px; height: 40px; border-radius: var(--radius-md); flex-shrink: 0; }
         .menu-toggle span { width: 18px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: 0.2s; }
@@ -234,7 +234,7 @@
             .nav-left { gap: 8px; }
             .btn-add-product { padding: 9px 14px; font-size: 12px; }
             #headerAdminBtn { padding: 8px 12px; font-size: 12px; }
-            .user-badge { max-width: 90px; font-size: 11.5px; padding: 6px 10px; }
+            .user-badge { max-width: 90px; font-size: 11.5px; padding: 6px 10px; overflow: hidden; text-overflow: ellipsis; }
             .grid-products { grid-template-columns: 1fr 1fr; gap: 12px; }
             .main-container { padding: 0 4%; }
             .modal-content { width: 94%; padding: 24px 18px; max-height: 88vh; overflow-y: auto; }
@@ -257,14 +257,14 @@
     <script>
         // 🔑 لێرە زانیارییەکانی پڕۆژەکەت لە Firebase Console دابنێ:
         // Firebase Console → Project settings → General → Your apps → SDK setup and configuration
-        const firebaseConfig = {
-  apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
-  authDomain: "qazibazar.firebaseapp.com",
-  projectId: "qazibazar",
-  storageBucket: "qazibazar.firebasestorage.app",
-  messagingSenderId: "668390534465",
-  appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
-};
+           const firebaseConfig = {
+      apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
+      authDomain: "qazibazar.firebaseapp.com",
+      projectId: "qazibazar",
+      storageBucket: "qazibazar.firebasestorage.app",
+      messagingSenderId: "668390534465",
+      appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
+    };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
@@ -502,10 +502,10 @@
             <h3 class="menu-main-title" style="margin-bottom:6px;">دەربارەی ئێمە</h3>
             <h3 class="menu-main-title" style="margin-top:6px;">هەژمار</h3>
             <div class="accordion-container" style="margin-bottom:6px;">
-                <a href="#" class="more-option" style="padding: 11px 5px; display:block; text-decoration:none;" onclick="event.preventDefault(); toggleDrawer(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
-                <a href="#" id="drawer-profile-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#475467; font-size:13px; font-weight:600;" onclick="event.preventDefault(); toggleDrawer(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
+                <a href="#" class="more-option" style="padding: 11px 5px; display:block; text-decoration:none;" onclick="event.preventDefault(); closeDrawerOnly(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
+                <a href="#" id="drawer-profile-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#475467; font-size:13px; font-weight:600;" onclick="event.preventDefault(); closeDrawerOnly(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
                 <a href="admin.html" id="drawer-admin-link" style="padding: 11px 5px; display:none; text-decoration:none; color:#4338ca; font-size:13px; font-weight:700;">🛠️ چوونە پانێڵی ئەدمین</a>
-                <a href="#" id="drawer-logout-link" style="padding: 11px 5px; display:none; text-decoration:none; color:var(--accent-red); font-size:13px; font-weight:700;" onclick="event.preventDefault(); toggleDrawer(); signOutUser();">🚪 چوونەدەرەوە</a>
+                <a href="#" id="drawer-logout-link" style="padding: 11px 5px; display:none; text-decoration:none; color:var(--accent-red); font-size:13px; font-weight:700;" onclick="event.preventDefault(); closeDrawerOnly(); signOutUser();">🚪 چوونەدەرەوە</a>
             </div>
 
             <p class="drawer-info-text">قازی بازار سەکۆیەکی بازرگانی پێشەنگە لە کوردستان بۆ بەیەکەوەبەستنی فرۆشیارانی بەرهەمی لۆکاڵی و کڕیاران بە خێراترین شێوازی دیجیتاڵی.</p>
@@ -530,13 +530,13 @@
         <section id="view-sell" class="view-section">
             <div class="top-action-bar">
                 <h2>بڵاوکردنەوەی بەرهەمی نوێ</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
+                <button class="btn-back" onclick="qaziGoBack()">↩ گەڕانەوە بۆ مارکێت</button>
             </div>
             <div class="form-box" style="margin-top:10px;">
                 <form id="product-form" onsubmit="handleProductSubmit(event)">
                     <div class="form-group"><label>ناوی فرۆشیار</label><input type="text" id="ownerName" class="form-control" placeholder="ناوی تەواوی خۆت بنووسە..." required></div>
                     <div class="form-group"><label>ناوی بەرهەم</label><input type="text" id="p-title" class="form-control" placeholder="بۆ نموونە: هەنگوینی سروشتی کوێستان" required></div>
-                    <div class="form-group"><label>ژێر پۆلێن (Subcategory)</label><input type="text" id="p-subcat" class="form-control" placeholder="بۆ نموونە: جل و بەرگ" required></div>
+                    <div class="form-group"><label>ژێر پۆلێن (Subcategory)</label><select id="p-subcat" class="form-control" required><option value="">هەڵبژاردنی ژێر پۆلێن...</option></select></div>
                     <div class="form-group"><label>شیکردنەوە و تێبینی بەرهەم</label><textarea id="p-desc" class="form-control" rows="3" placeholder="تایبەتمەندییەکان و وردەکاری کاڵاکەت بنووسە..."></textarea></div>
                     <div class="form-group"><label>نرخ بە ژمارەی ئینگلیزی (دینار یان دۆلار)</label><input type="text" id="p-price" class="form-control" placeholder="٢٥,٠٠٠ دینار" required></div>
                     <div class="form-group"><label>ژمارەی مۆبایل (واتسئەپی لەسەربێ)</label><input type="tel" id="p-phone" class="form-control" placeholder="0770XXXXXXX" required></div>
@@ -583,7 +583,7 @@
         <section id="view-become-seller" class="view-section">
             <div class="top-action-bar">
                 <h2>بوون بە فرۆشیار</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
+                <button class="btn-back" onclick="qaziGoBack()">↩ گەڕانەوە بۆ مارکێت</button>
             </div>
             <div class="form-box" style="margin-top:10px;" id="become-seller-box"></div>
         </section>
@@ -591,7 +591,7 @@
         <section id="view-sellers" class="view-section">
             <div class="top-action-bar">
                 <h2>🛍️ فرۆشیارە پشتڕاستکراوەکان</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
+                <button class="btn-back" onclick="qaziGoBack()">↩ گەڕانەوە بۆ مارکێت</button>
             </div>
             <div class="grid-products" id="sellers-grid"></div>
         </section>
@@ -599,7 +599,7 @@
         <section id="view-profile" class="view-section">
             <div class="top-action-bar">
                 <h2>پرۆفایلی فرۆشیار</h2>
-                <button class="btn-back" onclick="goToMarket()">↩ گەڕانەوە بۆ مارکێت</button>
+                <button class="btn-back" onclick="qaziGoBack()">↩ گەڕانەوە بۆ مارکێت</button>
             </div>
             <div class="seller-card-wrap">
                 <div class="seller-cover" id="profile-cover" style="background: linear-gradient(135deg,#079455,#0b7a46);"></div>
@@ -675,7 +675,7 @@
             </div>
 
             <button class="btn-submit" style="margin-top:20px;" onclick="saveProfile()">پاشەکەوتکردن</button>
-            <button type="button" class="btn-back" style="width:100%; justify-content:center; margin-top:10px;" onclick="closeProfileModal(); showSellerProfile(currentUser.uid);">👁️ بینینی پرۆفایلی گشتیم</button>
+            <button type="button" class="btn-back" style="width:100%; justify-content:center; margin-top:10px;" onclick="closeProfileModalOnly(); showSellerProfile(currentUser.uid);">👁️ بینینی پرۆفایلی گشتیم</button>
         </div>
     </div>
 
@@ -732,9 +732,114 @@
         let pendingTotpSecret = null; // کاتی سێتئەپکردنی 2FA
         const COVER_COLORS = ['#079455', '#4338ca', '#d92d20', '#eab308', '#0369a1', '#111827'];
 
+        // هەمان پۆلێن و ژێرپۆلێنەکانی مارکێت — بۆ ئەوەی فرۆشیار لە فۆرمی زیادکردنی کاڵا هەڵیبژێرێت
+        const CATEGORY_MAP = {
+            'پۆشاک و جلوبەرگ': ['جلوبەرگی کوردی پیاوانە', 'جلوبەرگی کوردی ئافرەتانە', 'کڵاش و پێڵاوی دەستچن', 'پۆشاکی مۆدێرنی کلتووری', 'هیتر لە جلوبەرگ'],
+            'خۆراک و خواردەمەنی': ['هەنگوینی سروشتی', 'وشکەوات و چەرەسات', 'دۆشاو و مرەبا', 'گژوگیای کوێستان', 'برنج و دانەوێڵە', 'نانی تیرێ و شیرینی', 'هیتر لە خۆراک'],
+            'کاری دەستی و هونەر': ['تابلۆی شێوەکاری', 'خەتخۆشی و شێعر', 'پەیکەرتاشی و تاشین', 'کەرەستەی خۆشنووسی', 'هیتر لە کاری دەستی'],
+            'کەرەستەی ناوماڵ و دیزاین': ['فەرش و جاجم و بەڕە', 'پیشەسازی دار', 'گڵکاری و سیرامیک', 'دیکۆراتی کلتووری', 'هیتر لە کەرەستەی ناوماڵ'],
+            'جوانکاری و تەندروستی سروشتی': ['صابوونی سروشتی', 'ڕۆنە سروشتییەکان', 'گیراوە گژوگیاییەکان', 'مەرهەمی ئۆرگانیک', 'هیتر لە جوانکاری'],
+            'کتێب و ڕۆشنبیری': ['دیوانی شاعیران', 'مێژوو و جوگرافیا', 'ڕۆمان و ئەدەبیات', 'فێربوونی زمان', 'هیتر لە کتێب'],
+            'ئامێرە مۆسیقییەکان': ['دەف و بازنە', 'تەمبوور و تار', 'شمشاڵ و نەی', 'کەرەستەی ئامێرەکان', 'هیتر لە ئامێری مۆسیقا'],
+            'گەشتوگوزار و ئەزموونی لۆکاڵی': ['گەشتی شاخەوانی', 'کۆتێج و کەپر', 'ڕێبەری گەشتیاری', 'گەشتی شوێنەوار', 'هیتر لە گەشتوگوزار'],
+            'کشتوکاڵ و باخداری': ['تۆوی ڕەسەن', 'نەمامی وەرزی', 'پەینی سروشتی', 'ئامرازی باخداری', 'هیتر لە کشتوکاڵ'],
+            'دیاری و سوغاتی ئامادەکراو': ['سێتی پیاوانە', 'سێتی ئافرەتانە', 'پاکێجی سوغات', 'هیتر لە دیاری'],
+            'کایەکلێ و یارییە کلتوورییەکان': ['تەختەنەرد و شەترەنج', 'یاری لۆکاڵی سەر مێز', 'بووکەڵەی قوماشی', 'هیتر لە یارییەکان'],
+            'کەرەستەی پیشەگەران و وەستاکان': ['ئامرازی دارتاشی', 'کەرەستەی چنین', 'ئامرازی گڵکاری', 'هیتر لە پیشەگەری'],
+            'وەرزش و سەرکێشی چیا': ['پێداویستی کامپین', 'گۆچانی شاخەوانی', 'جلی شاخەوانی', 'چادر و کیسەی خەو', 'هیتر لە شاخەوانی'],
+            'خشڵ و زێڕینگەرانی': ['ملوانکە و بازنە', 'کڵاوی مرواری', 'کەمەربەندی زیو', 'تەسبێحی نایاب', 'هیتر لە خشڵ'],
+            'کەرەستەی بیناسازی لۆکاڵی': ['بەردی سروشتی', 'گڵی سوور', 'خەڵووزی سروشتی', 'هیتر لە بیناسازی'],
+            'کۆکەرەوە و شتی کۆن (ئەنتیك)': ['دراوی کۆن', 'ڕادیۆ و گرامافۆن', 'کەرەستەی مسین', 'وێنەی دەگمەن', 'هیتر لە ئەنتیکە'],
+            'بۆن و عەترە کلتوورییەکان': ['عەتری مێخەک', 'بۆنخۆشکەری ماڵ', 'بخوور و دووکەڵ', 'هیتر لە بۆن وعەتر'],
+            'خزمەتگوزارییە لۆکاڵییەکان': ['شێفی لۆکاڵی', 'فۆتۆگرافەری کلتووری', 'وەستای چاککردنەوە', 'هیتر لە خزمەتگوزاری']
+        };
+
+        function populateSubcategorySelect() {
+            const select = document.getElementById('p-subcat');
+            if (!select) return;
+            let html = '<option value="">هەڵبژاردنی ژێر پۆلێن...</option>';
+            for (const cat in CATEGORY_MAP) {
+                html += `<optgroup label="${cat}">`;
+                CATEGORY_MAP[cat].forEach(sub => { html += `<option value="${sub}">${sub}</option>`; });
+                html += `</optgroup>`;
+            }
+            select.innerHTML = html;
+        }
+
+        // ===================== چارەسەری دوگمەی گەڕانەوەی مۆبایل (Back Button) =====================
+        // بێ ئەمە، دوگمەی گەڕانەوەی مۆبایل ڕاستەوخۆ وێبگەڕەکە دادەخات چونکە هیچ history state نییە.
+        // ئێستا هەر مۆداڵ/دراوەر/view-ێک بکرێتەوە، state-ێک زیاد دەکرێت، بۆ ئەوەی دوگمەی گەڕانەوە
+        // تەنها ئەو بەشە دابخات نەک تەواوی سایتەکە.
+        history.replaceState({ qaziApp: false }, '', location.href);
+
+        function qaziPushNav() {
+            history.pushState({ qaziApp: true }, '', location.href);
+        }
+
+        function qaziGoBack() {
+            if (history.state && history.state.qaziApp) {
+                history.back(); // ئەمە popstate ڕادەکات و qaziCloseTopLayer بانگ دەکرێت
+            } else {
+                qaziCloseTopLayer();
+            }
+        }
+
+        function qaziCloseTopLayer() {
+            // یەکەم: مۆداڵی 2FA تایبەتە — داخستنی دەبێتە چوونەدەرەوە، نەک تەنها شاردنەوە
+            const twoFA = document.getElementById('twoFAModal');
+            if (twoFA && twoFA.style.display === 'flex') {
+                auth.signOut();
+                twoFA.style.display = 'none';
+                return;
+            }
+            // دووەم: هەر مۆداڵێکی تری کراوە دابخە
+            const modalIds = ['loginModal', 'productDetailModal', 'profileModal', 'payModal'];
+            for (const id of modalIds) {
+                const el = document.getElementById(id);
+                if (el && (el.style.display === 'flex' || el.style.display === 'block')) {
+                    el.style.display = 'none';
+                    if (id === 'payModal') goToMarket();
+                    if (id === 'profileModal') {
+                        document.getElementById('twofa-setup-box').style.display = 'none';
+                        pendingTotpSecret = null;
+                    }
+                    return;
+                }
+            }
+            // سێیەم: ئەگەر دراوەرەکە کراوەیە دایبخە
+            const drawer = document.getElementById('navDrawer');
+            if (drawer && drawer.classList.contains('open')) {
+                drawer.classList.remove('open');
+                document.getElementById('drawerOverlay').classList.remove('open');
+                return;
+            }
+            // چوارەم: ئەگەر لە view-ێکی جیاواز لە مارکێتین بگەڕێوە بۆ مارکێت
+            const activeSection = document.querySelector('.view-section.active');
+            if (activeSection && activeSection.id !== 'view-market') {
+                goToMarket();
+            }
+        }
+
+        window.addEventListener('popstate', function() {
+            qaziCloseTopLayer();
+        });
+
         function toggleDrawer() {
-            document.getElementById('navDrawer').classList.toggle('open');
-            document.getElementById('drawerOverlay').classList.toggle('open');
+            const isOpening = !document.getElementById('navDrawer').classList.contains('open');
+            if (isOpening) {
+                document.getElementById('navDrawer').classList.add('open');
+                document.getElementById('drawerOverlay').classList.add('open');
+                qaziPushNav();
+            } else {
+                qaziGoBack();
+            }
+        }
+
+        // بۆ ئەو لینکانەی ناو دراوەر کە دراوەرەکە دادەخەن و دەستبەجێ دەچنە شوێنێکی تر —
+        // بێ کارلێکردن لەگەڵ history، بۆ خۆپاراستن لە کێبڕکێ لەگەڵ qaziPushNav
+        function closeDrawerOnly() {
+            document.getElementById('navDrawer').classList.remove('open');
+            document.getElementById('drawerOverlay').classList.remove('open');
         }
 
         function toggleAccordion(element) {
@@ -773,12 +878,14 @@
         function switchView(viewName) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById(`view-${viewName}`).classList.add('active');
+            if (viewName !== 'market') qaziPushNav();
         }
 
         // ===================== چوونەژوورەوە / دەرچوون =====================
         function checkLoginBeforeSell() {
             if (!currentUser) {
                 document.getElementById('loginModal').style.display = 'flex';
+                qaziPushNav();
                 return;
             }
             if (currentUserDoc && currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved') {
@@ -791,7 +898,7 @@
         }
 
         function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
+            qaziGoBack();
         }
 
         function signInWithGoogle() {
@@ -840,6 +947,7 @@
 
                 if (currentUserDoc.totpEnabled && sessionStorage.getItem('qazi_2fa_verified') !== user.uid) {
                     document.getElementById('twoFAModal').style.display = 'flex';
+                    qaziPushNav();
                 } else {
                     document.getElementById('twoFAModal').style.display = 'none';
                 }
@@ -953,15 +1061,15 @@
             await db.collection('products').add(newProduct);
             document.getElementById('product-form').reset();
             document.getElementById('payModal').style.display = 'flex';
+            qaziPushNav();
         }
 
         function closePayModal() {
-            document.getElementById('payModal').style.display = 'none';
-            goToMarket();
+            qaziGoBack();
         }
 
         function filterSubCat(subCatName) {
-            toggleDrawer();
+            closeDrawerOnly();
             currentFilter = subCatName;
             document.getElementById('market-search').value = '';
             document.getElementById('btn-global-back').style.display = 'flex';
@@ -1082,13 +1190,14 @@
             document.getElementById('modal-detail-phone-num').innerText = p.whatsapp;
 
             document.getElementById('productDetailModal').style.display = 'flex';
+            qaziPushNav();
         }
 
         function closeDetailModal() {
-            document.getElementById('productDetailModal').style.display = 'none';
             if (mySwiperInstance) {
                 mySwiperInstance.zoom.out(); // گەڕانەوەی زووم بۆ دۆخی ئاسایی لە کاتی داخستندا
             }
+            qaziGoBack();
         }
 
         // ===================== دۆخی تاریک / ڕووناک =====================
@@ -1122,9 +1231,16 @@
 
             renderTwoFAStatus();
             document.getElementById('profileModal').style.display = 'flex';
+            qaziPushNav();
         }
 
         function closeProfileModal() {
+            qaziGoBack();
+        }
+
+        // بۆ کاتێک پرۆفایل دادەخرێت و دەستبەجێ دەچینە شوێنێکی تر (وەک بینینی پرۆفایلی گشتی) —
+        // بێ کارلێکردن لەگەڵ history، بۆ خۆپاراستن لە کێبڕکێ لەگەڵ qaziPushNav
+        function closeProfileModalOnly() {
             document.getElementById('profileModal').style.display = 'none';
             document.getElementById('twofa-setup-box').style.display = 'none';
             pendingTotpSecret = null;
@@ -1341,6 +1457,7 @@
         loadInitialTheme();
         updateUserBadge();
         renderMarket();
+        populateSubcategorySelect();
     </script>
 </body>
 </html>
