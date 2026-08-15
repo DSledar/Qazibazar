@@ -2,7 +2,7 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qazibazar | پانێڵی بەڕێوەبردنی گشتی</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
@@ -92,58 +92,32 @@
         .access-denied { position: fixed; inset: 0; background: #090d16; color: #fff; display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 9998; }
         .access-denied button { background: #fca5a5; color: #450a0a; border: none; padding: 12px 22px; border-radius: 10px; font-weight: 800; cursor: pointer; }
 
-        /* ===================== زیادکردنی کاڵا لەلایەن ئەدمینەوە ===================== */
-        .btn-add-new { background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 13px; white-space: nowrap; }
-        .btn-add-new:hover { background: #4338ca; }
-        .admin-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 1200; align-items: center; justify-content: center; padding: 20px; }
-        .admin-modal-overlay.open { display: flex; }
-        .admin-modal-box { background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 28px; position: relative; }
-        .admin-modal-box h3 { margin-bottom: 18px; font-size: 17px; font-weight: 800; padding-left: 30px; }
-        .admin-form-group { margin-bottom: 14px; }
-        .admin-form-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--text-muted); }
-        .admin-form-control { width: 100%; background: var(--bg-main); border: 1px solid var(--border); padding: 12px 14px; border-radius: var(--radius); color: var(--text-dark); font-size: 16px; }
-        .admin-form-control:focus { outline: none; border-color: var(--primary); }
-        .admin-modal-close { position: absolute; top: 18px; left: 18px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-weight: bold; color: var(--text-muted); }
-        .btn-submit-admin { width: 100%; background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 14px; margin-top: 8px; }
-        .btn-submit-admin:disabled { opacity: 0.6; cursor: not-allowed; }
+        /* ===================== فۆرمی زیادکردنی کاڵا ===================== */
+        .add-product-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; max-width: 640px; }
+        .form-group { margin-bottom: 16px; text-align: right; }
+        .form-group label { display: block; font-size: 12.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+        .form-control { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-main); color: var(--text-dark); font-size: 14px; outline: none; }
+        .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .btn-admin-submit { width: 100%; background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 14px; margin-top: 6px; }
 
-        /* ===================== شاراوەیی و متمانەپێکراوی زیاتر لەسەر مۆبایل ===================== */
-        html, body { max-width: 100%; overflow-x: hidden; }
-        input, select, textarea, button { font-size: 16px; } /* لادان لە زووم خۆکاری لە iOS کاتی کلیک لەسەر ئینپووت */
-        button, a { touch-action: manipulation; }
-        .table-container { -webkit-overflow-scrolling: touch; }
-        @supports (padding: max(0px)) {
-            .sidebar { padding-top: max(25px, env(safe-area-inset-top)); padding-right: max(20px, env(safe-area-inset-right)); }
-            .main-content { padding-top: max(30px, env(safe-area-inset-top)); }
-        }
-
-        .hamburger-admin { display: none; }
-        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 999; }
-        .sidebar-overlay.open { display: block; }
-
-        @media (max-width: 900px) {
-            .hamburger-admin { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; font-size: 18px; flex-shrink: 0; }
-            .sidebar {
-                position: fixed; top: 0; right: -280px; width: 260px; max-width: 82vw; height: 100%; height: 100dvh;
-                z-index: 1000; transition: right 0.3s ease; box-shadow: -10px 0 30px rgba(0,0,0,0.3); overflow-y: auto;
-            }
-            .sidebar.open { right: 0; }
-            .main-content { padding: 20px 16px; width: 100%; }
-            .top-header { flex-wrap: wrap; gap: 10px; }
-            .top-header h1 { font-size: 17px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+        /* ===================== دڵنیایی لە مۆبایل — هەموو قەبارەکان ===================== */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; flex-direction: row; align-items: center; gap: 14px; padding: 14px 16px; overflow-x: auto; }
+            .sidebar .brand { border-bottom: none; padding-bottom: 0; flex-shrink: 0; }
+            .nav-links { flex-direction: row; gap: 8px; overflow-x: auto; flex-shrink: 0; }
+            .nav-links li a { white-space: nowrap; padding: 10px 12px; font-size: 13px; }
+            .admin-me { margin-top: 0; border-top: none; flex-direction: row; align-items: center; gap: 10px; flex-shrink: 0; }
+            .main-content { padding: 20px 16px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
             .stat-card { padding: 16px; }
-            .stat-card .value { font-size: 22px; }
-            table { min-width: 720px; }
-            .table-header-area { flex-wrap: wrap; gap: 10px; align-items: flex-start; }
-            .admin-modal-box { max-width: 94vw; padding: 22px; }
+            .stat-card .value { font-size: 24px; }
+            .top-header h1 { font-size: 18px; }
+            .add-product-box { padding: 18px; max-width: 100%; }
+            .form-row-2 { grid-template-columns: 1fr; gap: 0; }
         }
-        @media (max-width: 480px) {
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            th, td { padding: 12px 14px; font-size: 12.5px; }
-            .btn-action { padding: 6px 10px; font-size: 11px; }
-            .btn-add-new, .btn-view-main { font-size: 12px; padding: 9px 14px; }
-        }
+        input, textarea, select, button { font-size: 16px; } /* لابردنی زوومی خۆکارانەی Safari/iOS */
+        img { max-width: 100%; }
     </style>
 
     <!-- Firebase SDK — پلانی Spark (بەخۆڕایی، بێ کارتی بانک) -->
@@ -153,13 +127,13 @@
     <script>
         // 🔑 هەمان زانیارییەکانی Firebase Config کە لە index.html بەکارهێنراون لێرەش دابنێ
         const firebaseConfig = {
-                apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
-                authDomain: "qazibazar.firebaseapp.com",
-                projectId: "qazibazar",
-                storageBucket: "qazibazar.firebasestorage.app",
-                messagingSenderId: "668390534465",
-                appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
-            };
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
@@ -184,12 +158,11 @@
         <button onclick="auth.signOut()">چوونەدەرەوە</button>
     </div>
 
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleAdminSidebar()"></div>
-
     <aside class="sidebar" id="sidebar" style="display:none;">
         <div class="brand"><span>قازی بازار 💼</span><button class="theme-btn-admin" onclick="toggleAdminTheme()" id="adminThemeBtn">🌙</button></div>
         <ul class="nav-links">
             <li class="active" id="nav-general" onclick="switchView('main')"><a>📊 بەڕێوەبردنی گشتی</a></li>
+            <li id="nav-add" onclick="switchView('add')"><a>➕ زیادکردنی کاڵا</a></li>
             <li id="nav-users" onclick="switchView('users')"><a>👥 بەکارهێنەران</a></li>
             <li id="nav-requests" onclick="switchView('requests')"><a>🛎️ داواکاری فرۆشیاربوون <span id="req-badge" style="background:var(--danger); color:#fff; border-radius:20px; padding:1px 8px; font-size:11px; margin-right:6px; display:none;">0</span></a></li>
             <li id="nav-trash" onclick="switchView('trash')"><a>🗑️ ئەرشیفی سڕدراوەکان</a></li>
@@ -203,10 +176,7 @@
 
     <main class="main-content" id="mainContent" style="display:none;">
         <div class="top-header">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <button class="hamburger-admin" id="adminHamburgerBtn" onclick="toggleAdminSidebar()">☰</button>
-                <h1 id="page-title">ڕاپۆرتی کاتەکان و داهات</h1>
-            </div>
+            <h1 id="page-title">ڕاپۆرتی کاتەکان و داهات</h1>
             <div id="live-time" style="font-weight:700;"></div>
         </div>
 
@@ -222,10 +192,7 @@
         <div class="table-container" id="products-table-container">
             <div class="table-header-area">
                 <h3 id="table-title">لیستی پۆستە نێردراوەکان</h3>
-                <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <button id="btn-add-product-admin" class="btn-add-new" onclick="openAddProductModal()">➕ زیادکردنی کاڵای نوێ</button>
-                    <button id="btn-back-main" class="btn-view-main" style="display: none;" onclick="switchView('main')">⬅️ گەڕانەوە بۆ پۆستە سەرەکییەکان</button>
-                </div>
+                <button id="btn-back-main" class="btn-view-main" style="display: none;" onclick="switchView('main')">⬅️ گەڕانەوە بۆ پۆستە سەرەکییەکان</button>
             </div>
             <table>
                 <thead>
@@ -239,6 +206,37 @@
                 </thead>
                 <tbody id="admin-table-body"></tbody>
             </table>
+        </div>
+
+        <div class="add-product-box" id="add-product-container" style="display:none;">
+            <h3 style="margin-bottom:18px;">➕ زیادکردنی کاڵای نوێ (ڕاستەوخۆ چالاک دەبێت)</h3>
+            <form id="admin-product-form" onsubmit="handleAdminProductSubmit(event)">
+                <div class="form-row-2">
+                    <div class="form-group"><label>ناوی خاوەن کاڵا / فرۆشیار</label><input type="text" id="ap-owner" class="form-control" required></div>
+                    <div class="form-group"><label>ژمارەی واتسئەپ</label><input type="tel" id="ap-phone" class="form-control" required></div>
+                </div>
+                <div class="form-group"><label>ناونیشانی کاڵا</label><input type="text" id="ap-title" class="form-control" required></div>
+                <div class="form-row-2">
+                    <div class="form-group"><label>جۆری کاڵا (subcategory)</label><input type="text" id="ap-subcat" class="form-control" required></div>
+                    <div class="form-group"><label>نرخ</label><input type="text" id="ap-price" class="form-control" required></div>
+                </div>
+                <div class="form-group"><label>شیکردنەوە</label><textarea id="ap-desc" class="form-control" rows="3"></textarea></div>
+                <div class="form-row-2">
+                    <div class="form-group"><label>شار</label><input type="text" id="ap-city" class="form-control" required></div>
+                    <div class="form-group"><label>ناونیشانی وردتر</label><input type="text" id="ap-address" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label>پلان</label>
+                    <select id="ap-plan" class="form-control">
+                        <option value="standard_1">ئاسایی (١ مانگ)</option>
+                        <option value="standard_2">ئاسایی (٢ مانگ)</option>
+                        <option value="vip_1">🌟 VIP (١ مانگ)</option>
+                        <option value="vip_2">🌟 VIP (٢ مانگ)</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>وێنەکان</label><input type="file" id="ap-file" class="form-control" accept="image/*" multiple required></div>
+                <button type="submit" class="btn-admin-submit">✅ زیادکردن و چالاککردنی ڕاستەوخۆ</button>
+            </form>
         </div>
 
         <div class="table-container" id="users-table-container" style="display:none;">
@@ -273,41 +271,6 @@
             </table>
         </div>
     </main>
-
-    <div class="admin-modal-overlay" id="addProductModal" onclick="if(event.target===this) closeAddProductModal()">
-        <div class="admin-modal-box">
-            <button class="admin-modal-close" onclick="closeAddProductModal()">✕</button>
-            <h3>➕ زیادکردنی کاڵای نوێ (لەلایەن ئەدمینەوە)</h3>
-            <form id="admin-product-form" onsubmit="handleAdminProductSubmit(event)">
-                <div class="admin-form-group"><label>ناوی فرۆشیار</label><input type="text" id="ap-ownerName" class="admin-form-control" placeholder="ناوی فرۆشیار یان دوکان" required></div>
-                <div class="admin-form-group"><label>ناوی بەرهەم</label><input type="text" id="ap-title" class="admin-form-control" required></div>
-                <div class="admin-form-group"><label>ژێر پۆلێن (Subcategory)</label><input type="text" id="ap-subcat" class="admin-form-control" placeholder="بۆ نموونە: جل و بەرگ" required></div>
-                <div class="admin-form-group"><label>شیکردنەوە</label><textarea id="ap-desc" class="admin-form-control" rows="3" placeholder="تایبەتمەندی و وردەکاری کاڵاکە..."></textarea></div>
-                <div class="admin-form-group"><label>نرخ</label><input type="text" id="ap-price" class="admin-form-control" placeholder="٢٥,٠٠٠ دینار" required></div>
-                <div class="admin-form-group"><label>ژمارەی واتسئەپ</label><input type="tel" id="ap-phone" class="admin-form-control" placeholder="0770XXXXXXX" required></div>
-                <div class="admin-form-group"><label>شار</label><input type="text" id="ap-city" class="admin-form-control" placeholder="بۆ نموونە: سلێمانی" required></div>
-                <div class="admin-form-group"><label>ناونیشانی ورد</label><input type="text" id="ap-address" class="admin-form-control" required></div>
-                <div class="admin-form-group"><label>وێنەکانی بەرهەم</label><input type="file" id="ap-file" class="admin-form-control" accept="image/*" multiple required></div>
-                <div class="admin-form-group">
-                    <label>جۆری ڕیکلام و ماوەی مانەوە</label>
-                    <select id="ap-plan" class="admin-form-control">
-                        <option value="standard_1">پۆستی ئاسایی - ١ مانگ</option>
-                        <option value="standard_2">پۆستی ئاسایی - ٢ مانگ</option>
-                        <option value="vip_1">🌟 VIP - ١ مانگ</option>
-                        <option value="vip_2">🌟 VIP - ٢ مانگ</option>
-                    </select>
-                </div>
-                <div class="admin-form-group">
-                    <label>دۆخی کاڵا دوای زیادکردن</label>
-                    <select id="ap-status" class="admin-form-control">
-                        <option value="active">✅ چالاک (دەرکەوتن لە مارکێت دەستبەجێ)</option>
-                        <option value="pending">⏳ چاوەڕوان (پێویستی بە پەسندکردن هەیە)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-submit-admin">زیادکردنی کاڵا</button>
-            </form>
-        </div>
-    </div>
 
     <script>
         document.getElementById('live-time').innerText = new Date().toLocaleDateString('ku-Arab');
@@ -365,25 +328,14 @@
             loadDashboardData();
         });
 
-        // ===================== سایدبار لەسەر مۆبایل (drawer) =====================
-        function toggleAdminSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('open');
-        }
-        function closeAdminSidebarMobile() {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebarOverlay').classList.remove('open');
-        }
-
         function switchView(view) {
             currentView = view;
-            closeAdminSidebarMobile();
-            document.getElementById('btn-add-product-admin').style.display = (view === 'main') ? 'flex' : 'none';
             document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
-            document.getElementById('stats-grid').style.display = (view === 'users' || view === 'requests') ? 'none' : 'grid';
+            document.getElementById('stats-grid').style.display = (view === 'users' || view === 'requests' || view === 'add') ? 'none' : 'grid';
             document.getElementById('products-table-container').style.display = (view === 'main' || view === 'trash') ? 'block' : 'none';
             document.getElementById('users-table-container').style.display = (view === 'users') ? 'block' : 'none';
             document.getElementById('requests-table-container').style.display = (view === 'requests') ? 'block' : 'none';
+            document.getElementById('add-product-container').style.display = (view === 'add') ? 'block' : 'none';
 
             if (view === 'main') {
                 document.getElementById('nav-general').classList.add('active');
@@ -403,6 +355,9 @@
             } else if (view === 'requests') {
                 document.getElementById('nav-requests').classList.add('active');
                 document.getElementById('page-title').innerText = "داواکارییەکانی فرۆشیاربوون";
+            } else if (view === 'add') {
+                document.getElementById('nav-add').classList.add('active');
+                document.getElementById('page-title').innerText = "زیادکردنی کاڵای نوێ";
             }
             loadDashboardData();
         }
@@ -469,9 +424,9 @@
 
                 let imgHtml = '';
                 if (p.images && Array.isArray(p.images) && p.images.length > 0) {
-                    imgHtml = p.images.map(img => `<img src="${img}" class="prod-img" loading="lazy" onclick="window.open('${img}')">`).join('');
+                    imgHtml = p.images.map(img => `<img src="${img}" class="prod-img" onclick="window.open('${img}')">`).join('');
                 } else {
-                    imgHtml = `<img src="${p.image || 'https://via.placeholder.com/150'}" class="prod-img" loading="lazy">`;
+                    imgHtml = `<img src="${p.image || 'https://via.placeholder.com/150'}" class="prod-img">`;
                 }
 
                 let ownerName = p.ownerName || "نادیار";
@@ -560,92 +515,51 @@
             `).join('');
         }
 
-        // ===================== زیادکردنی کاڵای نوێ لەلایەن ئەدمینەوە =====================
-        function openAddProductModal() {
-            document.getElementById('admin-product-form').reset();
-            document.getElementById('addProductModal').classList.add('open');
-        }
-        function closeAddProductModal() {
-            document.getElementById('addProductModal').classList.remove('open');
-        }
-
-        // وردکردنەوەی وێنە پێش هەڵگرتن — بۆ خێراتر و متمانەپێکراوتر بوونی بارکردن لەسەر ئینتەرنێتی مۆبایل
-        // و بۆ ڕێگریکردن لە ڕووبەرووبوونەوە لەگەڵ سنووری قەبارەی بەڵگەنامەی Firestore
-        function compressImageFile(file, maxDim = 1280, quality = 0.72) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        let { width, height } = img;
-                        if (width > maxDim || height > maxDim) {
-                            if (width > height) { height = Math.round(height * (maxDim / width)); width = maxDim; }
-                            else { width = Math.round(width * (maxDim / height)); height = maxDim; }
-                        }
-                        const canvas = document.createElement('canvas');
-                        canvas.width = width; canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', quality));
-                    };
-                    img.onerror = () => reject(new Error('وێنەکە نەخوێندرایەوە'));
-                    img.src = e.target.result;
-                };
-                reader.onerror = () => reject(new Error('هەڵەیەک ڕوویدا لە خوێندنەوەی فایل'));
-                reader.readAsDataURL(file);
-            });
-        }
-
-        async function handleAdminProductSubmit(e) {
+        // ===================== کردارەکانی کاڵا =====================
+        // ===================== زیادکردنی کاڵا ڕاستەوخۆ لەلایەن ئەدمینەوە =====================
+        function handleAdminProductSubmit(e) {
             e.preventDefault();
             const files = document.getElementById('ap-file').files;
-            if (!files.length) { alert('تکایە لانیکەم یەک وێنە هەڵبژێرە.'); return; }
-
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerText;
-            submitBtn.disabled = true;
-            submitBtn.innerText = '⏳ چاوەڕوان بە...';
-
-            try {
-                const images = [];
-                for (const file of files) images.push(await compressImageFile(file));
-
-                const planKey = document.getElementById('ap-plan').value;
-                const planInfo = planDetails[planKey];
-                const status = document.getElementById('ap-status').value;
-
-                const newProduct = {
-                    ownerId: auth.currentUser ? auth.currentUser.uid : null,
-                    ownerName: document.getElementById('ap-ownerName').value,
-                    title: document.getElementById('ap-title').value,
-                    subcategory: document.getElementById('ap-subcat').value,
-                    description: document.getElementById('ap-desc').value || 'هیچ شیکردنەوەیەک نییە',
-                    price: document.getElementById('ap-price').value,
-                    whatsapp: document.getElementById('ap-phone').value,
-                    city: document.getElementById('ap-city').value,
-                    address: document.getElementById('ap-address').value,
-                    plan: planKey,
-                    images: images,
-                    status: status,
-                    deleted: false,
-                    addedByAdmin: true,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            if (!files || files.length === 0) { alert('تکایە لانیکەم یەک وێنە هەڵبژێرە.'); return; }
+            const imageArray = [];
+            let filesRead = 0;
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    imageArray.push(reader.result);
+                    filesRead++;
+                    if (filesRead === files.length) saveAdminProduct(imageArray);
                 };
-                if (status === 'active') newProduct.expiryTime = Date.now() + (planInfo.hours * 60 * 60 * 1000);
-
-                await db.collection('products').add(newProduct);
-                closeAddProductModal();
-                switchView('main');
-                loadDashboardData();
-            } catch (err) {
-                alert('هەڵەیەک ڕوویدا لە زیادکردنی کاڵاکە: ' + err.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = originalText;
+                reader.readAsDataURL(files[i]);
             }
         }
 
-        // ===================== کردارەکانی کاڵا =====================
+        async function saveAdminProduct(images) {
+            const plan = document.getElementById('ap-plan').value;
+            const planInfo = planDetails[plan];
+            const newProduct = {
+                ownerId: auth.currentUser.uid,
+                ownerName: document.getElementById('ap-owner').value,
+                title: document.getElementById('ap-title').value,
+                subcategory: document.getElementById('ap-subcat').value,
+                description: document.getElementById('ap-desc').value || 'هیچ شیکردنەوەیەک نییە',
+                price: document.getElementById('ap-price').value,
+                whatsapp: document.getElementById('ap-phone').value,
+                city: document.getElementById('ap-city').value,
+                address: document.getElementById('ap-address').value,
+                plan: plan,
+                images: images,
+                status: 'active',
+                deleted: false,
+                expiryTime: Date.now() + (planInfo.hours * 60 * 60 * 1000),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            await db.collection('products').add(newProduct);
+            document.getElementById('admin-product-form').reset();
+            alert('✅ کاڵاکە زیادکرا و ڕاستەوخۆ چالاکە لە مارکێت.');
+            switchView('main');
+        }
+
         async function approveProduct(id) {
             const p = allProducts.find(x => x.id === id);
             if (!p) return;
