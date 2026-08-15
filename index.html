@@ -2,7 +2,7 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qazibazar | قازی بازار - سەکۆی مۆدێرنی بەرهەمی لۆکاڵی</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
@@ -30,15 +30,15 @@
         body { background-color: var(--bg-main); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; letter-spacing: -0.2px; }
         
         header { 
-            display: flex; justify-content: space-between; align-items: center; 
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; row-gap: 10px;
             padding: 14px 6%; background: rgba(255, 255, 255, 0.8); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 100;
         }
-        .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0; }
         
         .kurdish-flag { 
-            width: 34px; height: 21px; border-radius: 4px; overflow: hidden; 
+            width: 34px; height: 21px; border-radius: 4px; overflow: hidden; flex-shrink: 0;
             display: flex; flex-direction: column; position: relative; 
             box-shadow: 0 2px 6px rgba(0,0,0,0.15); animation: waveMoving 1.2s ease-in-out infinite alternate; transform-origin: left center;
         }
@@ -49,19 +49,19 @@
         
         @keyframes waveMoving { 0% { transform: rotate(0deg) skewY(-3deg) scaleY(0.95); } 100% { transform: rotate(2deg) skewY(4deg) scaleY(1.05); } }
 
-        .logo-text h1 { font-size: 19px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; }
-        .logo-text p { font-size: 9px; color: var(--accent-green); font-weight: 700; letter-spacing: 0.5px; margin-top: -2px; }
+        .logo-text h1 { font-size: 19px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; white-space: nowrap; }
+        .logo-text p { font-size: 9px; color: var(--accent-green); font-weight: 700; letter-spacing: 0.5px; margin-top: -2px; white-space: nowrap; }
         
-        .nav-left { display: flex; gap: 14px; align-items: center; }
-        .btn-add-product { background: var(--brand-ink); color: #fff; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.2s, background 0.2s; }
+        .nav-left { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; }
+        .btn-add-product { background: var(--brand-ink); color: #fff; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; cursor: pointer; box-shadow: var(--shadow-sm); transition: transform 0.2s, background 0.2s; flex-shrink: 0; white-space: nowrap; }
         .btn-add-product:hover { background: #1d2939; transform: translateY(-1px); }
-        .user-badge { color: var(--accent-green); font-size: 13px; font-weight: 700; background: #ecfdf3; padding: 6px 14px; border-radius: var(--radius-md); display: none; }
+        .user-badge { color: var(--accent-green); font-size: 13px; font-weight: 700; background: #ecfdf3; padding: 6px 14px; border-radius: var(--radius-md); display: none; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 1; }
 
-        .menu-toggle { background: #f2f4f7; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; width: 40px; height: 40px; border-radius: var(--radius-md); }
+        .menu-toggle { background: #f2f4f7; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; width: 40px; height: 40px; border-radius: var(--radius-md); flex-shrink: 0; }
         .menu-toggle span { width: 18px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: 0.2s; }
         .menu-toggle:hover { background: #eaecf0; }
 
-        .nav-drawer { position: fixed; top: 0; left: -360px; width: 360px; height: 100%; background: var(--surface); box-shadow: var(--shadow-md); z-index: 999; padding: 30px 20px; display: flex; flex-direction: column; gap: 24px; overflow-y: auto; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .nav-drawer { position: fixed; top: 0; left: -360px; width: 360px; max-width: 88vw; height: 100%; background: var(--surface); box-shadow: var(--shadow-md); z-index: 999; padding: 30px 20px; display: flex; flex-direction: column; gap: 24px; overflow-y: auto; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .nav-drawer.open { left: 0; }
         .drawer-overlay { opacity: 0; visibility: hidden; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9, 13, 22, 0.3); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 998; transition: all 0.3s ease; }
         .drawer-overlay.open { opacity: 1; visibility: visible; }
@@ -198,7 +198,7 @@
         html[data-theme="dark"] #modal-detail-seller-btn { background: rgba(67,56,202,0.18) !important; color: #a5b4fc !important; }
         html * { transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
 
-        .theme-toggle-btn { background: #f2f4f7; border: none; width: 40px; height: 40px; border-radius: var(--radius-md); cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; }
+        .theme-toggle-btn { background: #f2f4f7; border: none; width: 40px; height: 40px; border-radius: var(--radius-md); cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         html[data-theme="dark"] .theme-toggle-btn { background: #1b2233; }
 
         /* ===================== بەکارهێنەر / پرۆفایل ===================== */
@@ -226,48 +226,28 @@
 
         .otp-secret-box { background: #f9fafb; border: 1px dashed #d0d5dd; padding: 14px; border-radius: var(--radius-md); font-family: monospace; font-size: 14px; letter-spacing: 2px; text-align: center; word-break: break-all; margin-bottom: 14px; }
 
-        /* ===================== متمانەپێکراوی و ڕێکخستنی وەڵامدەرەوە بۆ هەموو جۆرە مۆبایلێک ===================== */
-        html, body { max-width: 100%; overflow-x: hidden; }
-        input, select, textarea, button { font-size: 16px; } /* ڕێگری لە زووم خۆکاری iOS کاتی کلیک لەسەر ئینپووت */
-        button, a { touch-action: manipulation; }
-        .nav-drawer, .detail-body, .table-container { -webkit-overflow-scrolling: touch; }
-        .nav-drawer { height: 100%; height: 100dvh; }
-        .modal { height: 100%; height: 100dvh; }
-        .modal-content, .form-box { max-height: 92vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-        header { flex-wrap: wrap; row-gap: 8px; }
-
-        @supports (padding: max(0px)) {
-            header { padding-top: max(14px, env(safe-area-inset-top)); padding-left: max(6%, env(safe-area-inset-left)); padding-right: max(6%, env(safe-area-inset-right)); }
-            .nav-drawer { padding-top: max(30px, env(safe-area-inset-top)); padding-left: max(20px, env(safe-area-inset-left)); }
-            .modal-content, .detail-modal-card { margin-bottom: env(safe-area-inset-bottom); }
-        }
-
+        /* ===================== دڵنیایی لە مۆبایل — هەموو قەبارەکان ===================== */
         @media (max-width: 640px) {
-            header { padding: 12px 4%; gap: 8px; }
+            header { padding: 12px 4%; }
             .logo-text h1 { font-size: 16px; }
-            .logo-text p { font-size: 8px; }
+            .kurdish-flag { width: 28px; height: 17px; }
             .nav-left { gap: 8px; }
             .btn-add-product { padding: 9px 14px; font-size: 12px; }
+            #headerAdminBtn { padding: 8px 12px; font-size: 12px; }
+            .user-badge { max-width: 90px; font-size: 11.5px; padding: 6px 10px; }
+            .grid-products { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .main-container { padding: 0 4%; }
+            .modal-content { width: 94%; padding: 24px 18px; max-height: 88vh; overflow-y: auto; }
+            .form-box { padding: 20px 16px; }
+        }
+        @media (max-width: 400px) {
+            .logo-text p { display: none; }
             .user-badge { display: none !important; }
-            #headerAdminBtn { padding: 8px 10px; font-size: 12px; }
-            .nav-drawer { width: 88vw; max-width: 340px; left: -100vw; }
-            .main-container { margin: 24px auto; padding: 0 4%; }
-            .grid-products { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
-            .product-img-wrapper { height: 160px; }
-            .product-info { padding: 14px; }
-            .product-title { font-size: 13.5px; margin-bottom: 10px; }
-            .product-price { font-size: 14px; }
-            .btn-buy { padding: 8px 12px; font-size: 11px; }
-            .form-box { padding: 22px; }
-            .swiper-container-wrapper { height: 260px; }
-            .detail-modal-card { width: 96%; }
-            .top-action-bar { flex-wrap: wrap; }
-            .search-container { max-width: 100%; order: 3; flex: 1 1 100%; }
+            .btn-add-product { padding: 9px 12px; font-size: 11.5px; }
+            .grid-products { grid-template-columns: 1fr; }
         }
-        @media (max-width: 380px) {
-            .grid-products { grid-template-columns: 1fr 1fr; }
-            .kurdish-flag { width: 28px; height: 17px; }
-        }
+        input, textarea, select, button { font-size: 16px; } /* لابردنی زوومی خۆکارانەی Safari/iOS لە کاتی داگیرکردنی خانەکان */
+        img { max-width: 100%; }
     </style>
 
     <!-- ===================== Firebase SDK (Free Spark plan – no credit card) ===================== -->
@@ -278,13 +258,13 @@
         // 🔑 لێرە زانیارییەکانی پڕۆژەکەت لە Firebase Console دابنێ:
         // Firebase Console → Project settings → General → Your apps → SDK setup and configuration
         const firebaseConfig = {
-                apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
-                authDomain: "qazibazar.firebaseapp.com",
-                projectId: "qazibazar",
-                storageBucket: "qazibazar.firebasestorage.app",
-                messagingSenderId: "668390534465",
-                appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
-            };
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
@@ -299,7 +279,7 @@
         </div>
         <div class="nav-left">
             <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="گۆڕینی دۆخی ڕووناکی/تاریک">🌙</button>
-            <a href="admin.html" id="headerAdminBtn" style="display:none; background:#4338ca; color:#fff; text-decoration:none; padding: 8px 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; align-items:center;">🛠️ پانێڵی ئەدمین</a>
+            <a href="admin.html" id="headerAdminBtn" style="display:none; background:#4338ca; color:#fff; text-decoration:none; padding: 8px 16px; border-radius: var(--radius-md); font-weight: 700; font-size: 13px; align-items:center; flex-shrink:0; white-space:nowrap;">🛠️ پانێڵی ئەدمین</a>
             <span id="user-badge" class="user-badge">👤 لۆگینە</span>
             <button class="avatar-btn" id="avatarBtn" onclick="openProfileModal()" title="پرۆفایلەکەم"><img id="avatarBtnImg" src=""></button>
             <button class="btn-add-product" onclick="checkLoginBeforeSell()">+ بڵاوکردنەوەی کاڵا</button>
@@ -929,59 +909,27 @@
             renderBecomeSellerBox();
         }
 
-        // وردکردنەوەی وێنە پێش هەڵگرتن — خێراتر و متمانەپێکراوتر لەسەر ئینتەرنێتی مۆبایل،
-        // هەروەها ڕێگری لە ڕووبەرووبوونەوە لەگەڵ سنووری قەبارەی بەڵگەنامەی Firestore (١ مێگابایت)
-        function compressImageFile(file, maxDim = 1280, quality = 0.72) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        let { width, height } = img;
-                        if (width > maxDim || height > maxDim) {
-                            if (width > height) { height = Math.round(height * (maxDim / width)); width = maxDim; }
-                            else { width = Math.round(width * (maxDim / height)); height = maxDim; }
-                        }
-                        const canvas = document.createElement('canvas');
-                        canvas.width = width; canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', quality));
-                    };
-                    img.onerror = () => reject(new Error('وێنەکە نەخوێندرایەوە'));
-                    img.src = e.target.result;
-                };
-                reader.onerror = () => reject(new Error('هەڵەیەک ڕوویدا لە خوێندنەوەی فایل'));
-                reader.readAsDataURL(file);
-            });
-        }
-
-        async function handleProductSubmit(e) {
+        function handleProductSubmit(e) {
             e.preventDefault();
             if (!currentUser || !currentUserDoc || currentUserDoc.role !== 'seller' || currentUserDoc.roleStatus !== 'approved') {
                 alert('تەنها فرۆشیارە پەسندکراوەکان دەتوانن کاڵا بڵاو بکەنەوە.');
                 return;
             }
             const files = document.getElementById('p-file').files;
-            if (!files.length) { alert('تکایە لانیکەم یەک وێنە هەڵبژێرە.'); return; }
+            const imageArray = [];
+            let filesRead = 0;
 
-            const submitBtn = document.querySelector('#product-form button[type="submit"]');
-            const originalBtnText = submitBtn.innerText;
-            submitBtn.disabled = true;
-            submitBtn.innerText = '⏳ وردکردنەوەی وێنەکان...';
-
-            try {
-                const imageArray = [];
-                for (const file of files) {
-                    imageArray.push(await compressImageFile(file));
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    imageArray.push(reader.result);
+                    filesRead++;
+                    
+                    if (filesRead === files.length) {
+                        saveProduct(imageArray);
+                    }
                 }
-                submitBtn.innerText = '⏳ ناردن...';
-                await saveProduct(imageArray);
-            } catch (err) {
-                alert('هەڵەیەک ڕوویدا لە بارکردنی وێنەکان، تکایە دووبارە هەوڵبدەرەوە: ' + err.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = originalBtnText;
+                reader.readAsDataURL(files[i]);
             }
         }
 
@@ -1193,7 +1141,7 @@
         function handleAvatarChange(e) {
             const file = e.target.files[0];
             if (!file) return;
-            // چاککردنی قەبارەی وێنە بۆ ژێر ١٥٠×١٥٠ پیکسڵ تاوەکو قەبارەی بەڵگەنامەی Firestore زۆر نەبێت
+            // چاककردنی قەبارەی وێنە بۆ ژێر ١٥٠×١٥٠ پیکسڵ تاوەکو قەبارەی بەڵگەنامەی Firestore زۆر نەبێت
             const img = new Image();
             const reader = new FileReader();
             reader.onload = (ev) => {
