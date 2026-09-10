@@ -184,6 +184,11 @@
         html[data-theme="dark"] .search-input,
         html[data-theme="dark"] .form-control { background: #0f1524; color: var(--text-dark); border-color: #232b3d; }
         html[data-theme="dark"] .accordion-item { background: #0f1524; border-color: #232b3d; }
+        html[data-theme="dark"] .accordion-header { color: #e4e7ec; }
+        html[data-theme="dark"] .form-group label { color: #98a2b3; }
+        html[data-theme="dark"] .info-tag { color: #d0d5dd; }
+        html[data-theme="dark"] #drawer-profile-link { color: #c3c9d4 !important; }
+        html[data-theme="dark"] #drawer-admin-link { color: #a5b4fc !important; }
         html[data-theme="dark"] .accordion-panel { background: #131a2a; }
         html[data-theme="dark"] .accordion-panel a { border-color: #1b2233; color: #c3c9d4; }
         html[data-theme="dark"] header { background: rgba(11,15,25,0.85); }
@@ -257,14 +262,14 @@
     <script>
         // 🔑 لێرە زانیارییەکانی پڕۆژەکەت لە Firebase Console دابنێ:
         // Firebase Console → Project settings → General → Your apps → SDK setup and configuration
-           const firebaseConfig = {
-      apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
-      authDomain: "qazibazar.firebaseapp.com",
-      projectId: "qazibazar",
-      storageBucket: "qazibazar.firebasestorage.app",
-      messagingSenderId: "668390534465",
-      appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
-    };
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
@@ -770,10 +775,10 @@
         // بێ ئەمە، دوگمەی گەڕانەوەی مۆبایل ڕاستەوخۆ وێبگەڕەکە دادەخات چونکە هیچ history state نییە.
         // ئێستا هەر مۆداڵ/دراوەر/view-ێک بکرێتەوە، state-ێک زیاد دەکرێت، بۆ ئەوەی دوگمەی گەڕانەوە
         // تەنها ئەو بەشە دابخات نەک تەواوی سایتەکە.
-        history.replaceState({ qaziApp: false }, '', location.href);
+        history.replaceState({ qaziApp: false }, '', location.pathname + location.search);
 
         function qaziPushNav() {
-            history.pushState({ qaziApp: true }, '', location.href);
+            history.pushState({ qaziApp: true }, '', '#nav-' + Date.now());
         }
 
         function qaziGoBack() {
@@ -1294,6 +1299,8 @@
 
         // ===================== فرۆشیارە پشتڕاستکراوەکان (دایرێکتۆری) =====================
         async function showSellersDirectory() {
+            document.getElementById('productDetailModal').style.display = 'none';
+            document.getElementById('profileModal').style.display = 'none';
             switchView('sellers');
             const grid = document.getElementById('sellers-grid');
             grid.innerHTML = `<div class="no-data">⏳ چاوەڕوان بە...</div>`;
@@ -1315,6 +1322,9 @@
         // ===================== پرۆفایلی گشتی فرۆشیار =====================
         async function showSellerProfile(uid) {
             if (!uid) return;
+            document.getElementById('productDetailModal').style.display = 'none';
+            document.getElementById('profileModal').style.display = 'none';
+            document.getElementById('loginModal').style.display = 'none';
             switchView('profile');
             const userSnap = await db.collection('users').doc(uid).get();
             if (!userSnap.exists) return;
