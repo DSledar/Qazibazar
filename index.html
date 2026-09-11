@@ -37,17 +37,7 @@
         }
         .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0; }
         
-        .kurdish-flag { 
-            width: 34px; height: 21px; border-radius: 4px; overflow: hidden; flex-shrink: 0;
-            display: flex; flex-direction: column; position: relative; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15); animation: waveMoving 1.2s ease-in-out infinite alternate; transform-origin: left center;
-        }
-        .flag-red { flex: 1; background: var(--accent-red); }
-        .flag-white { flex: 1; background: #ffffff; }
-        .flag-green { flex: 1; background: var(--accent-green); }
-        .flag-sun { position: absolute; width: 7px; height: 7px; background: #fab814; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        
-        @keyframes waveMoving { 0% { transform: rotate(0deg) skewY(-3deg) scaleY(0.95); } 100% { transform: rotate(2deg) skewY(4deg) scaleY(1.05); } }
+        .site-logo-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
 
         .logo-text h1 { font-size: 19px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; white-space: nowrap; }
         .logo-text p { font-size: 9px; color: var(--accent-green); font-weight: 700; letter-spacing: 0.5px; margin-top: -2px; white-space: nowrap; }
@@ -120,6 +110,7 @@
         
         .product-city-badge { position: absolute; top: 14px; right: 14px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 5px 12px; border-radius: 30px; font-size: 11.5px; font-weight: 700; color: var(--text-dark); box-shadow: var(--shadow-sm); z-index: 2; }
         .vip-badge { position: absolute; top: 14px; left: 14px; background: var(--accent-gold); color: #000; padding: 5px 14px; border-radius: 30px; font-size: 11px; font-weight: 800; box-shadow: var(--shadow-sm); z-index: 2; animation: pulseGlow 2s infinite; }
+        .ad-label { background: rgba(0,0,0,0.55); color: #fff; padding: 1px 6px; border-radius: 6px; font-size: 9px; font-weight: 700; letter-spacing: 0.5px; margin-right: 4px; }
         @keyframes pulseGlow { 0% { opacity: 0.9; } 50% { opacity: 1; box-shadow: 0 0 10px rgba(234, 179, 8, 0.5); } 100% { opacity: 0.9; } }
         .product-card.vip-card { border: 1.5px solid var(--accent-gold); }
 
@@ -253,6 +244,26 @@
         }
         input, textarea, select, button { font-size: 16px; } /* لابردنی زوومی خۆکارانەی Safari/iOS لە کاتی داگیرکردنی خانەکان */
         img { max-width: 100%; }
+
+        /* ===================== فووتەر (Footer) ===================== */
+        .site-footer { margin-top: 40px; padding: 28px 6% 22px; text-align: center; border-top: 1px solid rgba(0,0,0,0.08); background: var(--bg-main); color: var(--text-dark); }
+        .site-footer .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 10px; font-size: 12.5px; }
+        .site-footer .footer-links a { color: var(--text-dark); opacity: 0.75; text-decoration: none; cursor: pointer; }
+        .site-footer .footer-links a:hover { opacity: 1; text-decoration: underline; }
+        .site-footer .footer-copy { font-size: 12px; opacity: 0.6; line-height: 1.8; }
+
+        /* ===================== ڕازیبوونی کووکی (Cookie Consent) ===================== */
+        .cookie-banner {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 3000;
+            background: var(--brand-ink, #101828); color: #fff; padding: 16px 5%;
+            display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        }
+        .cookie-banner p { font-size: 12.5px; line-height: 1.7; margin: 0; max-width: 720px; opacity: 0.92; }
+        .cookie-banner .cookie-actions { display: flex; gap: 10px; flex-shrink: 0; }
+        .cookie-banner button { border: none; border-radius: var(--radius-md); padding: 9px 18px; font-weight: 700; font-size: 12.5px; cursor: pointer; }
+        .cookie-btn-accept { background: var(--accent-green); color: #fff; }
+        .cookie-btn-decline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.4) !important; }
     </style>
 
     <!-- ===================== Firebase SDK (Free Spark plan – no credit card) ===================== -->
@@ -279,7 +290,7 @@
 
     <header>
         <div class="logo-area" onclick="goToMarket()">
-            <div class="kurdish-flag"><div class="flag-red"></div><div class="flag-white"><div class="flag-sun"></div></div><div class="flag-green"></div></div>
+            <img src="qazibazar-logo.png" alt="قازی بازار" class="site-logo-img">
             <div class="logo-text"><h1>Qazibazar</h1><p>MADE IN KURDISTAN</p></div>
         </div>
         <div class="nav-left">
@@ -725,7 +736,47 @@
         </div>
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a onclick="goToMarket()">🏠 سەرەکی</a>
+            <a onclick="showSellersDirectory()">🛍️ فرۆشیارەکان</a>
+            <a href="#" onclick="event.preventDefault(); openCookieSettings();">🍪 ڕێکخستنی کووکی</a>
+        </div>
+        <div class="footer-copy">
+            رِیکلام لەم پەڕەیەدا لەلایەن قازی بازار بەڕێوە دەبرێت (ئایتمی VIP بە پیتی "Ad" نیشان دراوە).<br>
+            © <span id="footer-year"></span> Qazi Bazaar (قازی بازار). هەموو مافەکان پارێزراون — All rights reserved. کۆپیکردنی ناوەڕۆک و لۆگۆ ڕێگری لێکراوە.
+        </div>
+    </footer>
+
+    <div class="cookie-banner" id="cookieBanner">
+        <p>🍪 ئێمە کووکی بەکاردەهێنین بۆ باشترکردنی ئەزموونی بەکارهێنین و پاراستنی چوونەژوورەوەکەت لەم ماڵپەڕەدا. بە بەردەوامبوون لە بەکارهێنانی قازی بازار، ڕازیبوونت لەسەر بەکارهێنانی کووکی دەردەبڕیت.</p>
+        <div class="cookie-actions">
+            <button class="cookie-btn-decline" onclick="setCookieConsent(false)">ڕەتکردنەوە</button>
+            <button class="cookie-btn-accept" onclick="setCookieConsent(true)">قبوڵکردن</button>
+        </div>
+    </div>
+
     <script>
+        document.getElementById('footer-year').innerText = new Date().getFullYear();
+        // ===================== ڕازیبوونی کووکی (Cookie Consent) =====================
+        function setCookieConsent(accepted) {
+            localStorage.setItem('qazi_cookie_consent', accepted ? 'accepted' : 'declined');
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+        function openCookieSettings() {
+            document.getElementById('cookieBanner').style.display = 'flex';
+        }
+        (function initCookieBanner() {
+            if (!localStorage.getItem('qazi_cookie_consent')) {
+                document.getElementById('cookieBanner').style.display = 'flex';
+            }
+        })();
+        // ===================== سیکیوریتی: پاراستن لە XSS — هەموو داتای بەکارهێنەر پێش نیشاندان دەشۆردرێت =====================
+        function esc(str) {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+        }
+
         let mySwiperInstance = null; // پاراستنی سەکۆی سکڕۆڵەرەکە
         let currentFilter = null;
 
@@ -1114,22 +1165,22 @@
             grid.innerHTML = activeProducts.map(p => {
                 const isVip = p.plan && p.plan.startsWith('vip');
                 const displayImg = p.images && p.images.length > 0 ? p.images[0] : (p.image || '');
-                const displayCity = p.city ? "📍 " + p.city : "📍 لۆکاڵی";
+                const displayCity = p.city ? "📍 " + esc(p.city) : "📍 لۆکاڵی";
                 return `
-                    <div class="product-card ${isVip ? 'vip-card' : ''}" onclick="showProductDetails('${p.id}')">
+                    <div class="product-card ${isVip ? 'vip-card' : ''}" onclick="showProductDetails('${esc(p.id)}')">
                         <span class="product-city-badge">${displayCity}</span>
-                        ${isVip ? `<span class="vip-badge">🌟 VIP</span>` : ''}
+                        ${isVip ? `<span class="vip-badge">🌟 VIP <span class="ad-label" title="ئەم بەرهەمە بە پارە هەڵبژێردراوە / Sponsored">Ad</span></span>` : ''}
                         <div class="product-img-wrapper">
-                            <img src="${displayImg}" class="product-img" loading="lazy">
+                            <img src="${esc(displayImg)}" class="product-img" loading="lazy">
                         </div>
                         <div class="product-info">
                             <div>
-                                <div class="product-cat">${p.subcategory}</div>
-                                <div class="product-title">${p.title}</div>
+                                <div class="product-cat">${esc(p.subcategory)}</div>
+                                <div class="product-title">${esc(p.title)}</div>
                             </div>
                             <div class="product-meta">
-                                <span class="product-price">${p.price}</span>
-                                <button class="btn-buy" onclick="event.stopPropagation(); showProductDetails('${p.id}');">بینینی وردەکاری</button>
+                                <span class="product-price">${esc(p.price)}</span>
+                                <button class="btn-buy" onclick="event.stopPropagation(); showProductDetails('${esc(p.id)}');">بینینی وردەکاری</button>
                             </div>
                         </div>
                     </div>
@@ -1150,7 +1201,7 @@
             swiperWrapper.innerHTML = images.map(img => `
                 <div class="swiper-slide">
                     <div class="swiper-zoom-container">
-                        <img src="${img}">
+                        <img src="${esc(img)}">
                     </div>
                 </div>
             `).join('');
@@ -1311,10 +1362,10 @@
                 return;
             }
             grid.innerHTML = sellers.map(s => `
-                <div class="product-card" onclick="showSellerProfile('${s.uid}')" style="text-align:center; padding:26px 18px;">
-                    <img src="${s.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(s.name)}" style="width:70px; height:70px; border-radius:50%; object-fit:cover; margin:0 auto 14px;">
-                    <div class="product-title">${s.name}</div>
-                    <div class="product-cat" style="margin-top:6px;">${(s.bio || '').slice(0, 60)}</div>
+                <div class="product-card" onclick="showSellerProfile('${esc(s.uid)}')" style="text-align:center; padding:26px 18px;">
+                    <img src="${esc(s.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(s.name))}" style="width:70px; height:70px; border-radius:50%; object-fit:cover; margin:0 auto 14px;">
+                    <div class="product-title">${esc(s.name)}</div>
+                    <div class="product-cat" style="margin-top:6px;">${esc((s.bio || '').slice(0, 60))}</div>
                 </div>
             `).join('');
         }
@@ -1345,11 +1396,11 @@
                 return;
             }
             grid.innerHTML = prods.map(p => `
-                <div class="product-card" onclick="showProductDetails('${p.id}')">
-                    <div class="product-img-wrapper"><img src="${p.images && p.images[0] ? p.images[0] : ''}" class="product-img" loading="lazy"></div>
+                <div class="product-card" onclick="showProductDetails('${esc(p.id)}')">
+                    <div class="product-img-wrapper"><img src="${esc(p.images && p.images[0] ? p.images[0] : '')}" class="product-img" loading="lazy"></div>
                     <div class="product-info">
-                        <div><div class="product-cat">${p.subcategory}</div><div class="product-title">${p.title}</div></div>
-                        <div class="product-meta"><span class="product-price">${p.price}</span></div>
+                        <div><div class="product-cat">${esc(p.subcategory)}</div><div class="product-title">${esc(p.title)}</div></div>
+                        <div class="product-meta"><span class="product-price">${esc(p.price)}</span></div>
                     </div>
                 </div>
             `).join('');
