@@ -159,13 +159,14 @@
     </div>
 
     <aside class="sidebar" id="sidebar" style="display:none;">
-        <div class="brand"><span>قازی بازار 💼</span><button class="theme-btn-admin" onclick="toggleAdminTheme()" id="adminThemeBtn">🌙</button></div>
+        <div class="brand"><span style="display:flex;align-items:center;gap:9px;"><img src="qazibazar-logo.png" alt="قازی بازار" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;">قازی بازار</span><button class="theme-btn-admin" onclick="toggleAdminTheme()" id="adminThemeBtn">🌙</button></div>
         <ul class="nav-links">
             <li class="active" id="nav-general" onclick="switchView('main')"><a>📊 بەڕێوەبردنی گشتی</a></li>
             <li id="nav-add" onclick="switchView('add')"><a>➕ زیادکردنی کاڵا</a></li>
             <li id="nav-users" onclick="switchView('users')"><a>👥 بەکارهێنەران</a></li>
             <li id="nav-requests" onclick="switchView('requests')"><a>🛎️ داواکاری فرۆشیاربوون <span id="req-badge" style="background:var(--danger); color:#fff; border-radius:20px; padding:1px 8px; font-size:11px; margin-right:6px; display:none;">0</span></a></li>
             <li id="nav-trash" onclick="switchView('trash')"><a>🗑️ ئەرشیفی سڕدراوەکان</a></li>
+            <li id="nav-backup" onclick="switchView('backup')"><a>🗄️ باکئەپ و شیکاری هەفتانە</a></li>
             <li><a href="index.html" target="_blank" style="color: var(--sidebar-text);">🌐 بینینی ماڵپەڕی کڕیاران</a></li>
         </ul>
         <div class="admin-me">
@@ -270,6 +271,25 @@
                 <tbody id="requests-table-body"></tbody>
             </table>
         </div>
+
+        <div class="table-container" id="backup-container" style="display:none;">
+            <div class="table-header-area"><h3>باکئەپ و شیکاری هەفتانە (Weekly Analytics &amp; Backup)</h3></div>
+            <div class="stats-grid" style="margin-bottom:22px;">
+                <div class="stat-card"><span>کاڵای نوێ لە ٧ ڕۆژی ڕابردوودا</span><span class="value" id="backup-week-products" style="color:var(--success);">0</span></div>
+                <div class="stat-card"><span>بەکارهێنەری نوێ لە ٧ ڕۆژی ڕابردوودا</span><span class="value" id="backup-week-users" style="color:var(--success);">0</span></div>
+                <div class="stat-card"><span>کۆی گشتی کاڵاکان</span><span class="value" id="backup-total-products">0</span></div>
+                <div class="stat-card"><span>کۆی گشتی بەکارهێنەران</span><span class="value" id="backup-total-users">0</span></div>
+            </div>
+            <div style="background:var(--card-bg,#fff); border:1px solid var(--border,#e5e7eb); border-radius:var(--radius); padding:22px;">
+                <p style="margin:0 0 6px; font-weight:700;">دابەزاندنی باکئەپی تەواو (XML)</p>
+                <p style="margin:0 0 16px; font-size:13px; color:var(--sidebar-text,#64748b);">
+                    هەموو کاڵاکان، بەکارهێنەران و داواکارییەکان دەخرێنە ناو فایلێکی XML-ەوە کە دەتوانیت هەفتانە دایبەزێنیت و لە شوێنێکی سەلامەتدا هەڵیبگریت.
+                    ئەم پەڕی وێب سێرڤەری خۆی نییە، بۆیە باکئەپ ئۆتۆماتیکی هەفتانە پێویستی بە کرداری دەستی هەیە — تکایە هەفتانە ئەم دوگمەیە دابگرە.
+                </p>
+                <button class="btn-admin-submit" style="width:auto; padding:12px 26px;" onclick="downloadXmlBackup()">⬇️ دابەزاندنی باکئەپی XML</button>
+                <div id="backup-last-generated-wrap" style="margin-top:12px; font-size:12px; color:var(--sidebar-text,#64748b);">کاتی ئامادەکردنی ئەم ڕاپۆرتە: <span id="backup-last-generated">—</span></div>
+            </div>
+        </div>
     </main>
 
     <script>
@@ -281,6 +301,23 @@
             'vip_1': { name: '🌟 VIP (١ مانگ)', price: 13000, hours: 720, vip: true },
             'vip_2': { name: '🌟 VIP (٢ مانگ)', price: 25000, hours: 1440, vip: true }
         };
+
+        // ===================== سیکیوریتی: پاراستن لە XSS — هەموو داتای بەکارهێنەر پێش نیشاندان دەشۆردرێت =====================
+        function esc(str) {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+        }
+        function escXml(str) {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[m]));
+        }
+        function tsToIso(ts) {
+            try { if (ts && typeof ts.toDate === 'function') return ts.toDate().toISOString(); } catch (e) {}
+            return '';
+        }
+        function isWithinDays(ts, days) {
+            try { return !!ts && typeof ts.toMillis === 'function' && (Date.now() - ts.toMillis()) < days * 24 * 60 * 60 * 1000; } catch (e) { return false; }
+        }
 
         let currentView = 'main';
 
@@ -365,11 +402,12 @@
         function switchView(view) {
             currentView = view;
             document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
-            document.getElementById('stats-grid').style.display = (view === 'users' || view === 'requests' || view === 'add') ? 'none' : 'grid';
+            document.getElementById('stats-grid').style.display = (view === 'users' || view === 'requests' || view === 'add' || view === 'backup') ? 'none' : 'grid';
             document.getElementById('products-table-container').style.display = (view === 'main' || view === 'trash') ? 'block' : 'none';
             document.getElementById('users-table-container').style.display = (view === 'users') ? 'block' : 'none';
             document.getElementById('requests-table-container').style.display = (view === 'requests') ? 'block' : 'none';
             document.getElementById('add-product-container').style.display = (view === 'add') ? 'block' : 'none';
+            document.getElementById('backup-container').style.display = (view === 'backup') ? 'block' : 'none';
 
             if (view === 'main') {
                 document.getElementById('nav-general').classList.add('active');
@@ -392,6 +430,9 @@
             } else if (view === 'add') {
                 document.getElementById('nav-add').classList.add('active');
                 document.getElementById('page-title').innerText = "زیادکردنی کاڵای نوێ";
+            } else if (view === 'backup') {
+                document.getElementById('nav-backup').classList.add('active');
+                document.getElementById('page-title').innerText = "باکئەپ و شیکاری هەفتانە";
             }
             loadDashboardData();
         }
@@ -427,6 +468,7 @@
             if (currentView === 'main' || currentView === 'trash') renderProductsTable(currentView === 'main' ? allProducts : trashProducts);
             if (currentView === 'users') renderUsersTable();
             if (currentView === 'requests') renderRequestsTable();
+            if (currentView === 'backup') renderBackupView();
         }
 
         function renderProductsTable(targetData) {
@@ -458,15 +500,15 @@
 
                 let imgHtml = '';
                 if (p.images && Array.isArray(p.images) && p.images.length > 0) {
-                    imgHtml = p.images.map(img => `<img src="${img}" class="prod-img" onclick="window.open('${img}')">`).join('');
+                    imgHtml = p.images.map(img => `<img src="${esc(img)}" class="prod-img" onclick="window.open('${esc(img)}')">`).join('');
                 } else {
-                    imgHtml = `<img src="${p.image || 'https://via.placeholder.com/150'}" class="prod-img">`;
+                    imgHtml = `<img src="${esc(p.image || 'https://via.placeholder.com/150')}" class="prod-img">`;
                 }
 
-                let ownerName = p.ownerName || "نادیار";
-                let whatsappNum = p.whatsapp || "تۆمار نەکراوە";
-                let sellerCity = p.city || "نادیار";
-                let sellerAddress = p.address || "تۆمار نەکراوە";
+                let ownerName = esc(p.ownerName || "نادیار");
+                let whatsappNum = esc(p.whatsapp || "تۆمار نەکراوە");
+                let sellerCity = esc(p.city || "نادیار");
+                let sellerAddress = esc(p.address || "تۆمار نەکراوە");
 
                 return `
                     <tr>
@@ -474,7 +516,7 @@
                             <div class="prod-info">
                                 <div class="img-gallery-container">${imgHtml}</div>
                                 <div>
-                                    <div class="prod-name">${p.title}</div>
+                                    <div class="prod-name">${esc(p.title)}</div>
                                     <div class="user-details">
                                         👤 <b>خاوەن کاڵا:</b> ${ownerName}<br>
                                         📱 <b>واتسئەپ:</b> ${whatsappNum}<br>
@@ -483,7 +525,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td style="font-weight:700;">${p.price}</td>
+                        <td style="font-weight:700;">${esc(p.price)}</td>
                         <td><span class="plan-badge ${planInfo.vip ? 'plan-vip' : 'plan-standard'}">${planInfo.name} - ${planInfo.price.toLocaleString()} د.ع</span></td>
                         <td><span class="status-badge ${currentView === 'main' ? 'status-' + p.status : 'status-trash'}">${currentView === 'main' ? p.status.toUpperCase() : 'DELETED'}</span>${expiryOrTrashText}</td>
                         <td>
@@ -512,21 +554,21 @@
                 <tr>
                     <td>
                         <div class="prod-info">
-                            <img src="${u.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(u.name || 'U')}" class="prod-img" style="border-radius:50%;">
-                            <div><div class="prod-name">${u.name || 'نادیار'}</div></div>
+                            <img src="${esc(u.photoURL || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(u.name || 'U'))}" class="prod-img" style="border-radius:50%;">
+                            <div><div class="prod-name">${esc(u.name || 'نادیار')}</div></div>
                         </div>
                     </td>
-                    <td>${u.email || '-'}</td>
+                    <td>${esc(u.email || '-')}</td>
                     <td>
-                        <select class="role-select" onchange="setUserRole('${u.uid}', this.value)">
+                        <select class="role-select" onchange="setUserRole('${esc(u.uid)}', this.value)">
                             <option value="customer" ${u.role === 'customer' ? 'selected' : ''}>کڕیار</option>
                             <option value="seller" ${u.role === 'seller' ? 'selected' : ''}>فرۆشیار</option>
                             <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>ئەدمین</option>
                         </select>
                     </td>
-                    <td><span class="role-badge role-${u.role || 'customer'}">${u.roleStatus || 'none'}</span></td>
+                    <td><span class="role-badge role-${esc(u.role || 'customer')}">${esc(u.roleStatus || 'none')}</span></td>
                     <td>${u.totpEnabled ? '🔐 چالاکە' : '—'}</td>
-                    <td><div class="actions-cell"><button class="btn-action btn-del" onclick="removeUser('${u.uid}')">سڕینەوە</button></div></td>
+                    <td><div class="actions-cell"><button class="btn-action btn-del" onclick="removeUser('${esc(u.uid)}')">سڕینەوە</button></div></td>
                 </tr>
             `).join('');
         }
@@ -536,17 +578,84 @@
             if (allRequests.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:30px;">هیچ داواکارییەکی چاوەڕوان نییە.</td></tr>`; return; }
             tbody.innerHTML = allRequests.map(r => `
                 <tr>
-                    <td class="prod-name">${r.name}</td>
-                    <td>${r.email}</td>
-                    <td><span class="role-badge role-seller">${r.requestedRole}</span></td>
+                    <td class="prod-name">${esc(r.name)}</td>
+                    <td>${esc(r.email)}</td>
+                    <td><span class="role-badge role-seller">${esc(r.requestedRole)}</span></td>
                     <td>
                         <div class="actions-cell">
-                            <button class="btn-action btn-app" onclick="approveRequest('${r.id}', '${r.uid}', '${r.requestedRole}')">✅ پەسندکردن</button>
-                            <button class="btn-action btn-rej" onclick="rejectRequest('${r.id}', '${r.uid}')">ڕەتکردنەوە</button>
+                            <button class="btn-action btn-app" onclick="approveRequest('${esc(r.id)}', '${esc(r.uid)}', '${esc(r.requestedRole)}')">✅ پەسندکردن</button>
+                            <button class="btn-action btn-rej" onclick="rejectRequest('${esc(r.id)}', '${esc(r.uid)}')">ڕەتکردنەوە</button>
                         </div>
                     </td>
                 </tr>
             `).join('');
+        }
+
+        // ===================== باکئەپ و شیکاری هەفتانە (Weekly Analytics + XML Backup) =====================
+        function renderBackupView() {
+            const newProducts = allProducts.filter(p => isWithinDays(p.createdAt, 7)).length;
+            const newUsers = allUsers.filter(u => isWithinDays(u.createdAt, 7)).length;
+            document.getElementById('backup-week-products').innerText = newProducts;
+            document.getElementById('backup-week-users').innerText = newUsers;
+            document.getElementById('backup-total-products').innerText = allProducts.length;
+            document.getElementById('backup-total-users').innerText = allUsers.length;
+            document.getElementById('backup-last-generated').innerText = new Date().toLocaleString('ku-Arab');
+        }
+
+        function downloadXmlBackup() {
+            const now = new Date().toISOString();
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            xml += `<QaziBazarBackup generatedAt="${escXml(now)}">\n`;
+
+            xml += `  <Products count="${allProducts.length}">\n`;
+            allProducts.forEach(p => {
+                xml += `    <Product id="${escXml(p.id)}">\n`;
+                xml += `      <Title>${escXml(p.title)}</Title>\n`;
+                xml += `      <Price>${escXml(p.price)}</Price>\n`;
+                xml += `      <Subcategory>${escXml(p.subcategory)}</Subcategory>\n`;
+                xml += `      <City>${escXml(p.city)}</City>\n`;
+                xml += `      <Status>${escXml(p.status)}</Status>\n`;
+                xml += `      <Plan>${escXml(p.plan)}</Plan>\n`;
+                xml += `      <OwnerId>${escXml(p.ownerId)}</OwnerId>\n`;
+                xml += `      <OwnerName>${escXml(p.ownerName)}</OwnerName>\n`;
+                xml += `      <Whatsapp>${escXml(p.whatsapp)}</Whatsapp>\n`;
+                xml += `      <CreatedAt>${escXml(tsToIso(p.createdAt))}</CreatedAt>\n`;
+                xml += `    </Product>\n`;
+            });
+            xml += `  </Products>\n`;
+
+            xml += `  <Users count="${allUsers.length}">\n`;
+            allUsers.forEach(u => {
+                xml += `    <User uid="${escXml(u.uid)}">\n`;
+                xml += `      <Name>${escXml(u.name)}</Name>\n`;
+                xml += `      <Email>${escXml(u.email)}</Email>\n`;
+                xml += `      <Role>${escXml(u.role)}</Role>\n`;
+                xml += `      <RoleStatus>${escXml(u.roleStatus)}</RoleStatus>\n`;
+                xml += `      <CreatedAt>${escXml(tsToIso(u.createdAt))}</CreatedAt>\n`;
+                xml += `    </User>\n`;
+            });
+            xml += `  </Users>\n`;
+
+            xml += `  <RoleRequests count="${allRequests.length}">\n`;
+            allRequests.forEach(r => {
+                xml += `    <Request id="${escXml(r.id)}">\n`;
+                xml += `      <Name>${escXml(r.name)}</Name>\n`;
+                xml += `      <Email>${escXml(r.email)}</Email>\n`;
+                xml += `      <RequestedRole>${escXml(r.requestedRole)}</RequestedRole>\n`;
+                xml += `    </Request>\n`;
+            });
+            xml += `  </RoleRequests>\n`;
+            xml += `</QaziBazarBackup>\n`;
+
+            const blob = new Blob([xml], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `qazibazar-backup-${new Date().toISOString().slice(0, 10)}.xml`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         // ===================== کردارەکانی کاڵا =====================
