@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <title>Qazi Bazar | پانێڵی بەڕێوەبردنی گشتی - Admin Dashboard</title>
+    <title>qazy bazar | پانێڵی بەڕێوەبردنی گشتی - Admin Dashboard</title>
     
     <!-- PWA & Mobile Web App Meta -->
-    <meta name="application-name" content="Qazi Bazar Admin">
-    <meta name="apple-mobile-web-app-title" content="Qazi Admin">
+    <meta name="application-name" content="qazy bazar">
+    <meta name="apple-mobile-web-app-title" content="qazy bazar">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#7d141d">
@@ -80,13 +80,18 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
         body {
             background: var(--bg-body);
             background-attachment: fixed;
             color: var(--text-primary);
             display: flex;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         /* Glass Buttons */
@@ -689,12 +694,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label>پلان</label>
-                    <select id="ap-plan" class="form-glass-input">
-                        <option value="standard_1">ئاسایی (١ مانگ)</option>
-                        <option value="standard_2">ئاسایی (٢ مانگ)</option>
-                        <option value="vip_1">🌟 VIP (١ مانگ)</option>
-                        <option value="vip_2">🌟 VIP (٢ مانگ)</option>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                        <label style="margin-bottom:0;">پلان و ئۆفەری فەرمی:</label>
+                        <a href="https://dsledar.github.io/Offers/" target="_blank" style="font-size:11.5px; color:var(--brand-burgundy); font-weight:800; text-decoration:underline;">بەراوردی پاکێجەکان 🔗</a>
+                    </div>
+                    <select id="ap-plan" class="form-glass-input" style="font-weight:700;">
+                        <option value="standard_15">پۆستی ١٥ ڕۆژ - ٤،٠٠٠ د.ع (+ ١ ستۆری هەدیە)</option>
+                        <option value="standard_1" selected>پۆستی ئاسایی ١ مانگ - ٦،٠٠٠ د.ع (+ ٣ ڕۆژ ستۆری هەدیە)</option>
+                        <option value="vip_no_sponsor">🌟 VIP بێ سپۆنسەر - ٩،٧٥٠ د.ع (+ ٥ ڕۆژ ستۆری هەدیە)</option>
+                        <option value="vip_sponsored">🔥 VIP بە سپۆنسەری - ٢٤،٧٥٠ د.ع (+ ٧ ڕۆژ ستۆری هەدیە)</option>
+                        <option value="vvip_royal">👑 شاهانەی VVIP - ٥٩،٧٥٠ د.ع (+ ١٣ ڕۆژ ستۆری + Reel + پارتنەرشیپ)</option>
                     </select>
                 </div>
 
@@ -798,11 +807,17 @@
     <script>
         document.getElementById('live-time').innerText = new Date().toLocaleDateString('ku-Arab');
 
+        // Official Pricing & Plans from https://dsledar.github.io/Offers/
         const planDetails = {
-            'standard_1': { name: 'ئاسایی (١ مانگ)', price: 5000, hours: 720, vip: false },
-            'standard_2': { name: 'ئاسایی (٢ مانگ)', price: 9000, hours: 1440, vip: false },
-            'vip_1': { name: '🌟 VIP (١ مانگ)', price: 13000, hours: 720, vip: true },
-            'vip_2': { name: '🌟 VIP (٢ مانگ)', price: 25000, hours: 1440, vip: true }
+            'standard_15': { name: 'پۆستی ١٥ ڕۆژ', price: 4000, hours: 360, vip: false, gift: '+ ١ ستۆری هەدیە' },
+            'standard_1': { name: 'پۆستی ئاسایی (١ مانگ)', price: 6000, hours: 720, vip: false, gift: '+ ٣ ڕۆژ ستۆری هەدیە' },
+            'vip_no_sponsor': { name: '🌟 VIP بێ سپۆنسەر (١ مانگ)', price: 9750, hours: 720, vip: true, gift: '+ ٥ ڕۆژ ستۆری هەدیە' },
+            'vip_sponsored': { name: '🔥 VIP بە سپۆنسەری (١ مانگ)', price: 24750, hours: 720, vip: true, gift: '+ ٧ ڕۆژ ستۆری هەدیە' },
+            'vvip_royal': { name: '👑 پاکێجی شاهانەی VVIP (١ مانگ)', price: 59750, hours: 720, vip: true, gift: '+ ١٣ ڕۆژ ستۆری + Reel + پارتنەرشیپ' },
+            // Backward compatibility for existing records:
+            'standard_2': { name: 'ئاسایی (٢ مانگ)', price: 9000, hours: 1440, vip: false, gift: '' },
+            'vip_1': { name: '🌟 VIP (١ مانگ)', price: 13000, hours: 720, vip: true, gift: '' },
+            'vip_2': { name: '🌟 VIP (٢ مانگ)', price: 25000, hours: 1440, vip: true, gift: '' }
         };
 
         // ===================== Cookies =====================
@@ -1012,7 +1027,7 @@
                 });
 
                 document.getElementById('stat-total').innerText = allProducts.length;
-                document.getElementById('stat-vip').innerText = allProducts.filter(p => p.status === 'active' && p.plan && p.plan.startsWith('vip')).length;
+                document.getElementById('stat-vip').innerText = allProducts.filter(p => p.status === 'active' && p.plan && (p.plan.startsWith('vip') || p.plan.startsWith('vvip'))).length;
                 document.getElementById('stat-sold').innerText = allProducts.filter(p => p.status === 'sold').length;
                 document.getElementById('stat-users').innerText = allUsers.length;
                 document.getElementById('stat-deleted').innerText = trashProducts.length;

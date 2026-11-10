@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin.html
+
+User-agent: Applebot
+Allow: /
+Disallow: /admin.html
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://dsledar.github.io/Qazibazar/sitemap.xml

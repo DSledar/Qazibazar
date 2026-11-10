@@ -1,7 +1,7 @@
 {
-  "name": "Qazi Bazar",
-  "short_name": "Qazi Bazar",
-  "description": "سەکۆی مۆدێرنی بەرهەمی لۆکاڵی کوردستان — Qazi Bazar Marketplace",
+  "name": "qazy bazar",
+  "short_name": "qazy bazar",
+  "description": "قازی بازاڕ — سەکۆی مۆدێرنی کڕین و فرۆشتنی لۆکاڵی لە کوردستان. ڕیکلامی VIP و ناسنامەی پارێزراو.",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
@@ -12,16 +12,22 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "qazibazar-logo.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "qazibazar-logo.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["shopping", "business"],

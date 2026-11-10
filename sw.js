@@ -1,12 +1,17 @@
-// Qazi Bazar — Progressive Web App Service Worker v2.0
-const CACHE_NAME = 'qazibazar-v2';
+// qazy bazar — Progressive Web App Service Worker v2.1
+const CACHE_NAME = 'qazybazar-v2.1';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './admin.html',
   './privacy.html',
   './manifest.json',
-  './qazibazar-logo.png'
+  './qazibazar-logo.png',
+  './icon-192.png',
+  './icon-512.png',
+  './icon-maskable-512.png',
+  './favicon.png',
+  './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', event => {
