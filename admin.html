@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Qazi Bazar | پانێڵی بەڕێوەبردنی گشتی - Admin Dashboard</title>
+    
+    <!-- PWA & Mobile Web App Meta -->
+    <meta name="application-name" content="Qazi Bazar Admin">
+    <meta name="apple-mobile-web-app-title" content="Qazi Admin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#7d141d">
+    <meta name="description" content="پانێڵی بەڕێوەبردنی سەکۆی بازرگانی قازی بازار">
+
+    <!-- Icons & Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="qazibazar-logo.png">
+    <link rel="apple-touch-icon" href="qazibazar-logo.png">
+
+    <!-- Fonts: Vazirmatn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- OS 26 Soft Glass Styling for Admin Panel -->
+    <style>
+        :root {
+            --brand-burgundy: #7d141d;
+            --brand-burgundy-dark: #560a11;
+            --brand-gold: #c8952e;
+            --brand-gold-light: #e5b34a;
+            --accent-green: #078249;
+            --accent-red: #c02626;
+            --accent-blue: #2563eb;
+
+            /* Liquid Soft Glass Light */
+            --bg-body: linear-gradient(145deg, #fbf8f4 0%, #f4ede2 45%, #f9f5ed 100%);
+            --glass-surface: rgba(255, 255, 255, 0.65);
+            --glass-surface-elevated: rgba(255, 255, 255, 0.85);
+            --glass-card: rgba(255, 255, 255, 0.62);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-border-subtle: rgba(125, 20, 29, 0.08);
+            --glass-blur: blur(28px) saturate(190%);
+            --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+
+            --text-primary: #190e0e;
+            --text-secondary: #5e4d4d;
+            --text-muted: #8c7676;
+
+            --shadow-soft: 0 10px 30px -8px rgba(90, 12, 19, 0.06), 0 3px 10px rgba(0, 0, 0, 0.02);
+            --shadow-float: 0 18px 45px -10px rgba(90, 12, 19, 0.12), 0 6px 16px rgba(0, 0, 0, 0.04);
+
+            --radius-xl: 24px;
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --radius-pill: 9999px;
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html[data-theme="dark"] {
+            --bg-body: linear-gradient(155deg, #0d0a09 0%, #171011 50%, #100b0c 100%);
+            --glass-surface: rgba(28, 20, 21, 0.75);
+            --glass-surface-elevated: rgba(36, 26, 27, 0.9);
+            --glass-card: rgba(26, 18, 19, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border-subtle: rgba(200, 149, 46, 0.16);
+            --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+            --text-primary: #f8f3ef;
+            --text-secondary: #c9bcba;
+            --text-muted: #8a7a78;
+            --shadow-soft: 0 12px 35px -8px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-body);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Glass Buttons */
+        .glass-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 13px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-soft), var(--glass-specular);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .glass-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--brand-gold);
+            box-shadow: var(--shadow-float);
+        }
+        .glass-btn:active {
+            transform: scale(0.97);
+        }
+        .btn-burgundy {
+            background: linear-gradient(135deg, var(--brand-burgundy), var(--brand-burgundy-dark));
+            color: #fff !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 14px rgba(125, 20, 29, 0.3);
+        }
+        .btn-burgundy:hover {
+            filter: brightness(1.08);
+        }
+
+        /* ===================== Login Screens ===================== */
+        .login-wrapper {
+            position: fixed;
+            inset: 0;
+            background: rgba(14, 10, 10, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 16px;
+        }
+        .login-card {
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            padding: 38px 30px;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: var(--shadow-float), var(--glass-specular);
+        }
+        .btn-google-admin {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #ffffff;
+            border: 1px solid #d0d5dd;
+            padding: 13px;
+            border-radius: var(--radius-pill);
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            color: #1e293b;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+        .btn-google-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-float);
+        }
+
+        .access-denied {
+            position: fixed;
+            inset: 0;
+            background: rgba(14, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            z-index: 9998;
+        }
+
+        /* ===================== Soft Glass Sidebar ===================== */
+        .sidebar {
+            width: 270px;
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-left: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+        }
+        .sidebar .brand {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--glass-border-subtle);
+        }
+        .brand-logo-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--brand-burgundy);
+        }
+        html[data-theme="dark"] .brand-logo-text {
+            color: var(--brand-gold-light);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 11px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13.5px;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+        .nav-links li:hover a {
+            background: rgba(200, 149, 46, 0.09);
+            color: var(--brand-burgundy);
+        }
+        .nav-links li.active a {
+            background: var(--brand-burgundy);
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(125, 20, 29, 0.3);
+        }
+
+        .admin-me {
+            margin-top: auto;
+            border-top: 1px solid var(--glass-border-subtle);
+            padding-top: 18px;
+            font-size: 12.5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ===================== Main Content & Glass Cards ===================== */
+        .main-content {
+            flex: 1;
+            padding: 35px 5%;
+            overflow-y: auto;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+        .page-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+        .stat-card {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-soft), var(--glass-specular);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--brand-gold);
+            box-shadow: var(--shadow-float);
+        }
+        .stat-card .label {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        /* ===================== Table Containers ===================== */
+        .table-container {
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-soft), var(--glass-specular);
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        .table-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--glass-border-subtle);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            min-width: 950px;
+        }
+        th {
+            background: rgba(200, 149, 46, 0.06);
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--glass-border-subtle);
+        }
+        td {
+            padding: 16px 20px;
+            font-size: 13.5px;
+            border-bottom: 1px solid var(--glass-border-subtle);
+            vertical-align: middle;
+        }
+        tr:hover td {
+            background: rgba(200, 149, 46, 0.04);
+        }
+
+        /* Table Badges & Cells */
+        .prod-info-cell {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .prod-thumb-row {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            max-width: 110px;
+        }
+        .prod-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .badge-plan {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 11.5px;
+            font-weight: 800;
+        }
+        .badge-vip {
+            background: linear-gradient(135deg, var(--brand-gold), #dfaa3b);
+            color: #1a0e0e;
+        }
+        .badge-standard {
+            background: rgba(0, 0, 0, 0.06);
+            color: var(--text-secondary);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .status-active { background: rgba(7, 130, 73, 0.15); color: var(--accent-green); }
+        .status-pending { background: rgba(200, 149, 46, 0.18); color: #9a6b10; }
+        .status-expired { background: rgba(192, 38, 38, 0.15); color: var(--accent-red); }
+        .status-rejected { background: rgba(0, 0, 0, 0.08); color: var(--text-muted); }
+        .status-trash { background: rgba(192, 38, 38, 0.15); color: var(--accent-red); }
+
+        .actions-cell {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-act {
+            border: none;
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            font-weight: 800;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .btn-act-app { background: rgba(7, 130, 73, 0.15); color: var(--accent-green); }
+        .btn-act-app:hover { background: var(--accent-green); color: #fff; }
+        .btn-act-rej { background: rgba(192, 38, 38, 0.15); color: var(--accent-red); }
+        .btn-act-rej:hover { background: var(--accent-red); color: #fff; }
+        .btn-act-del { background: rgba(0, 0, 0, 0.08); color: var(--text-muted); }
+        .btn-act-del:hover { background: var(--accent-red); color: #fff; }
+
+        /* Form for Admin Add Product */
+        .add-product-box {
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 34px 28px;
+            max-width: 680px;
+            box-shadow: var(--shadow-float), var(--glass-specular);
+        }
+        .form-group {
+            margin-bottom: 16px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .form-glass-input {
+            width: 100%;
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+        }
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* ===================== Mobile & Tablet Responsiveness ===================== */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                align-items: center;
+                padding: 12px 16px;
+                overflow-x: auto;
+                border-left: none;
+                border-bottom: 1px solid var(--glass-border);
+            }
+            .sidebar .brand { border-bottom: none; padding-bottom: 0; }
+            .nav-links { flex-direction: row; overflow-x: auto; gap: 6px; }
+            .nav-links li a { padding: 8px 12px; font-size: 12.5px; white-space: nowrap; }
+            .admin-me { margin-top: 0; border-top: none; padding-top: 0; flex-direction: row; align-items: center; }
+            .main-content { padding: 20px 4%; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .form-row-2 { grid-template-columns: 1fr; gap: 0; }
+        }
+    </style>
+
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
+            authDomain: "qazibazar.firebaseapp.com",
+            projectId: "qazibazar",
+            storageBucket: "qazibazar.firebasestorage.app",
+            messagingSenderId: "668390534465",
+            appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-card">
+            <img src="qazibazar-logo.png" style="width:64px; height:64px; border-radius:50%; margin:0 auto 12px; display:block;">
+            <h2 style="font-weight:900; margin-bottom:6px;">قازی بازار ئەدمین</h2>
+            <p style="color:var(--text-muted); font-size:13px; margin-bottom:24px;">تەنها هەژمارە ڕێگەپێدراوەکانی بەڕێوەبەرایەتی دەتوانن بچنە ژوورەوە.</p>
+            <button class="btn-google-admin" onclick="adminSignIn()">
+                <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.3 4.4-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35 26.8 36 24 36c-5.3 0-9.8-3.3-11.4-7.9l-6.5 5C9.6 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3C40.6 36.2 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+                چوونەژوورەوە بە Google
+            </button>
+        </div>
+    </div>
+
+    <!-- Access Denied Screen -->
+    <div id="access-denied-screen" class="access-denied" style="display:none;">
+        <img src="qazibazar-logo.png" style="width:54px; height:54px; border-radius:50%;">
+        <h2>🚫 ڕێگەت پێنەدراوە</h2>
+        <p style="color:#cbd5e1; max-width:400px; font-size:14px; line-height:1.7;">ئەم هەژمارە ڕۆڵی ئەدمینی نییە. داوا لە بەڕێوەبەری سەرەکی بکە ڕۆڵی admin بۆ ئەم هەژمارە زیاد بکات لە Firestore.</p>
+        <button class="glass-btn btn-burgundy" onclick="auth.signOut()">چوونەدەرەوە</button>
+    </div>
+
+    <!-- Soft Glass Sidebar -->
+    <aside class="sidebar" id="sidebar" style="display:none;">
+        <div class="brand">
+            <span class="brand-logo-text">
+                <img src="qazibazar-logo.png" alt="قازی بازار" style="width:34px; height:34px; border-radius:50%; object-fit:cover;">
+                قازی بازار
+            </span>
+            <button class="glass-btn" style="padding:6px 12px; font-size:14px;" onclick="toggleAdminTheme()" id="adminThemeBtn">🌙</button>
+        </div>
+
+        <ul class="nav-links">
+            <li class="active" id="nav-general" onclick="switchView('main')">
+                <a><span>📊 بەڕێوەبردنی گشتی</span></a>
+            </li>
+            <li id="nav-add" onclick="switchView('add')">
+                <a><span>➕ زیادکردنی کاڵا</span></a>
+            </li>
+            <li id="nav-users" onclick="switchView('users')">
+                <a><span>👥 بەکارهێنەران</span></a>
+            </li>
+            <li id="nav-requests" onclick="switchView('requests')">
+                <a>
+                    <span>🛎️ داواکاری فرۆشیاری</span>
+                    <span id="req-badge" style="background:var(--accent-red); color:#fff; border-radius:20px; padding:2px 8px; font-size:11px; display:none;">0</span>
+                </a>
+            </li>
+            <li id="nav-trash" onclick="switchView('trash')">
+                <a><span>🗑️ ئەرشیفی سڕدراوەکان</span></a>
+            </li>
+            <li id="nav-backup" onclick="switchView('backup')">
+                <a><span>🗄️ باکئەپ و شیکاری</span></a>
+            </li>
+            <li>
+                <a href="index.html" target="_blank" style="color:var(--brand-burgundy);"><span>🌐 ماڵپەڕی سەرەکی</span></a>
+            </li>
+            <li>
+                <a href="privacy.html" target="_blank" style="color:var(--text-muted);"><span>🔒 سیاسەتی تایبەتمەندی</span></a>
+            </li>
+        </ul>
+
+        <div class="admin-me">
+            <span id="admin-me-name" style="font-weight:700;"></span>
+            <button class="glass-btn" style="width:100%; color:var(--accent-red);" onclick="auth.signOut()">🚪 چوونەدەرەوە</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent" style="display:none;">
+        <div class="top-header">
+            <h1 class="page-title" id="page-title">ڕاپۆرتی کاتەکان و داهات</h1>
+            <div id="live-time" style="font-weight:700; color:var(--brand-burgundy);"></div>
+        </div>
+
+        <!-- Stats Overview Cards -->
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card" onclick="switchView('main')">
+                <span class="label">کۆی گشتی کاڵاکان</span>
+                <span class="value" id="stat-total">0</span>
+            </div>
+            <div class="stat-card" onclick="switchView('main')">
+                <span class="label">ڕیکلامی چالاکی VIP</span>
+                <span class="value" id="stat-vip" style="color:var(--brand-gold);">0</span>
+            </div>
+            <div class="stat-card" onclick="switchView('main')">
+                <span class="label">کاڵا فرۆشراوەکان</span>
+                <span class="value" id="stat-sold" style="color:var(--accent-blue);">0</span>
+            </div>
+            <div class="stat-card" onclick="switchView('users')">
+                <span class="label">کۆی بەکارهێنەران</span>
+                <span class="value" id="stat-users">0</span>
+            </div>
+            <div class="stat-card" onclick="switchView('trash')">
+                <span class="label">کاڵا سڕدراوەکان 🗑️</span>
+                <span class="value" id="stat-deleted" style="color:var(--accent-red);">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">داهاتی قبوڵکراو</span>
+                <span class="value" id="stat-revenue" style="color:var(--accent-green);">0 د.ع</span>
+            </div>
+        </div>
+
+        <!-- Products Table Container -->
+        <div class="table-container" id="products-table-container">
+            <div class="table-header-area">
+                <h3 id="table-title" style="font-weight:900;">لیستی پۆستە نێردراوەکان</h3>
+                <button id="btn-back-main" class="glass-btn btn-burgundy" style="display:none;" onclick="switchView('main')">⬅️ گەڕانەوە</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>زانیاری بەرهەم و خاوەنەکەی</th>
+                        <th>نرخی فرۆشتن</th>
+                        <th>پلان / داهات</th>
+                        <th id="th-status-time">دۆخ / ماوەی ماوە</th>
+                        <th>کردارەکان</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Add Product Box -->
+        <div class="add-product-box" id="add-product-container" style="display:none;">
+            <h3 style="margin-bottom:20px; font-weight:900;">➕ زیادکردنی کاڵای نوێ (ڕاستەوخۆ چالاک دەبێت)</h3>
+            <form id="admin-product-form" onsubmit="handleAdminProductSubmit(event)">
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label>ناوی خاوەن کاڵا / فرۆشیار</label>
+                        <input type="text" id="ap-owner" class="form-glass-input" required maxlength="60">
+                    </div>
+                    <div class="form-group">
+                        <label>ژمارەی واتسئەپ</label>
+                        <input type="tel" id="ap-phone" class="form-glass-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>ناونیشانی کاڵا</label>
+                    <input type="text" id="ap-title" class="form-glass-input" required maxlength="120">
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label>ژێر پۆلێن (subcategory)</label>
+                        <select id="ap-subcat" class="form-glass-input" required>
+                            <option value="">هەڵبژاردنی ژێر پۆلێن...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>نرخ</label>
+                        <input type="text" id="ap-price" class="form-glass-input" required maxlength="50">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>شیکردنەوە</label>
+                    <textarea id="ap-desc" class="form-glass-input" rows="3" maxlength="2000"></textarea>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label>شار</label>
+                        <input type="text" id="ap-city" class="form-glass-input" required maxlength="40">
+                    </div>
+                    <div class="form-group">
+                        <label>ناونیشانی وردتر</label>
+                        <input type="text" id="ap-address" class="form-glass-input" maxlength="150">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>پلان</label>
+                    <select id="ap-plan" class="form-glass-input">
+                        <option value="standard_1">ئاسایی (١ مانگ)</option>
+                        <option value="standard_2">ئاسایی (٢ مانگ)</option>
+                        <option value="vip_1">🌟 VIP (١ مانگ)</option>
+                        <option value="vip_2">🌟 VIP (٢ مانگ)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>وێنەکان (تا ٦ وێنە)</label>
+                    <input type="file" id="ap-file" class="form-glass-input" accept="image/*" multiple required>
+                </div>
+
+                <button type="submit" id="btnAdminAddSubmit" class="glass-btn btn-burgundy" style="width:100%; padding:14px; margin-top:8px;">
+                    ✅ زیادکردن و چالاککردنی دەستبەجێ
+                </button>
+            </form>
+        </div>
+
+        <!-- Users Table -->
+        <div class="table-container" id="users-table-container" style="display:none;">
+            <div class="table-header-area">
+                <h3 style="font-weight:900;">هەموو بەکارهێنەرەکان</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>بەکارهێنەر</th>
+                        <th>ئیمەیل</th>
+                        <th>ڕۆڵ</th>
+                        <th>دۆخی داواکاری</th>
+                        <th>2FA</th>
+                        <th>کردارەکان</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Requests Table -->
+        <div class="table-container" id="requests-table-container" style="display:none;">
+            <div class="table-header-area">
+                <h3 style="font-weight:900;">داواکارییە چاوەڕوانەکان بۆ بوون بە فرۆشیار</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>بەکارهێنەر</th>
+                        <th>ئیمەیل</th>
+                        <th>ڕۆڵی داواکراو</th>
+                        <th>کردارەکان</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-table-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Backup & Weekly Analytics View -->
+        <div class="table-container" id="backup-container" style="display:none; padding:24px;">
+            <div class="table-header-area" style="padding:0 0 18px 0; margin-bottom:18px;">
+                <h3 style="font-weight:900;">🗄️ باکئەپ و شیکاری هەفتانە (Weekly Analytics &amp; Enhanced Backup)</h3>
+            </div>
+
+            <div class="stats-grid" style="margin-bottom:24px;">
+                <div class="stat-card">
+                    <span class="label">کاڵای نوێ لە ٧ ڕۆژدا</span>
+                    <span class="value" id="backup-week-products" style="color:var(--accent-green);">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">بەکارهێنەری نوێ لە ٧ ڕۆژدا</span>
+                    <span class="value" id="backup-week-users" style="color:var(--accent-green);">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">کۆی کاڵاکان</span>
+                    <span class="value" id="backup-total-products">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">کۆی بەکارهێنەران</span>
+                    <span class="value" id="backup-total-users">0</span>
+                </div>
+            </div>
+
+            <div style="background:var(--glass-card); border:1px solid var(--glass-border); border-radius:var(--radius-lg); padding:24px;">
+                <h4 style="font-size:16px; font-weight:800; margin-bottom:8px; color:var(--text-primary);">📥 دابەزاندنی باکئەپی پارێزراوی تەواو (JSON &amp; XML)</h4>
+                <p style="font-size:13px; color:var(--text-secondary); line-height:1.8; margin-bottom:20px;">
+                    بەردەوام باکئەپی داتاکانی قازی بازار هەڵبگرە. بە دەستنیشانکردنی فۆرماتی داواکراو تەواوی داتای کاڵاکان، بەکارهێنەران، داواکارییەکان، و شیکارییەکان لە فایلی پارێزراودا دادەبەزن.
+                </p>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <button class="glass-btn btn-burgundy" style="padding:12px 24px;" onclick="downloadJsonBackup()">
+                        ⬇️ دابەزاندنی باکئەپی پێشکەوتوو (JSON)
+                    </button>
+                    <button class="glass-btn" style="padding:12px 24px;" onclick="downloadXmlBackup()">
+                        ⬇️ دابەزاندنی باکئەپی (XML)
+                    </button>
+                </div>
+
+                <div id="backup-last-generated-wrap" style="margin-top:16px; font-size:12px; color:var(--text-muted);">
+                    کاتی ئامادەکردنی ڕاپۆرت: <span id="backup-last-generated">—</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Admin Logic -->
+    <script>
+        document.getElementById('live-time').innerText = new Date().toLocaleDateString('ku-Arab');
+
+        const planDetails = {
+            'standard_1': { name: 'ئاسایی (١ مانگ)', price: 5000, hours: 720, vip: false },
+            'standard_2': { name: 'ئاسایی (٢ مانگ)', price: 9000, hours: 1440, vip: false },
+            'vip_1': { name: '🌟 VIP (١ مانگ)', price: 13000, hours: 720, vip: true },
+            'vip_2': { name: '🌟 VIP (٢ مانگ)', price: 25000, hours: 1440, vip: true }
+        };
+
+        // ===================== Cookies =====================
+        function setCookie(name, value, days = 365) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+        }
+        function getCookie(name) {
+            const encoded = encodeURIComponent(name) + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(encoded) === 0) return decodeURIComponent(c.substring(encoded.length));
+            }
+            return null;
+        }
+
+        // ===================== Image Compression =====================
+        function compressImage(dataUrl, maxWidth = 900, quality = 0.72) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let w = img.width, h = img.height;
+                    if (w > maxWidth) {
+                        h = Math.round((h * maxWidth) / w);
+                        w = maxWidth;
+                    }
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = () => resolve(dataUrl);
+                img.src = dataUrl;
+            });
+        }
+
+        // ===================== Security XSS & XML Escaping =====================
+        function esc(str) {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[m]));
+        }
+        function escXml(str) {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;'
+            }[m]));
+        }
+        function tsToIso(ts) {
+            try { if (ts && typeof ts.toDate === 'function') return ts.toDate().toISOString(); } catch (e) {}
+            return '';
+        }
+        function isWithinDays(ts, days) {
+            try { return !!ts && typeof ts.toMillis === 'function' && (Date.now() - ts.toMillis()) < days * 24 * 60 * 60 * 1000; } catch (e) { return false; }
+        }
+
+        let currentView = 'main';
+
+        const CATEGORY_MAP = {
+            'پۆشاک و جلوبەرگ': ['جلوبەرگی کوردی پیاوانە', 'جلوبەرگی کوردی ئافرەتانە', 'کڵاش و پێڵاوی دەستچن', 'پۆشاکی مۆدێرنی کلتووری', 'هیتر لە جلوبەرگ'],
+            'خۆراک و خواردەمەنی': ['هەنگوینی سروشتی', 'وشکەوات و چەرەسات', 'دۆشاو و مرەبا', 'گژوگیای کوێستان', 'برنج و دانەوێڵە', 'نانی تیرێ و شیرینی', 'هیتر لە خۆراک'],
+            'کاری دەستی و هونەر': ['تابلۆی شێوەکاری', 'خەتخۆشی و شێعر', 'پەیکەرتاشی و تاشین', 'کەرەستەی خۆشنووسی', 'هیتر لە کاری دەستی'],
+            'کەرەستەی ناوماڵ و دیزاین': ['فەرش و جاجم و بەڕە', 'پیشەسازی دار', 'گڵکاری و سیرامیک', 'دیکۆراتی کلتووری', 'هیتر لە کەرەستەی ناوماڵ'],
+            'جوانکاری و تەندروستی سروشتی': ['صابوونی سروشتی', 'ڕۆنە سروشتییەکان', 'گیراوە گژوگیاییەکان', 'مەرهەمی ئۆرگانیک', 'هیتر لە جوانکاری'],
+            'کتێب و ڕۆشنبیری': ['دیوانی شاعیران', 'مێژوو و جوگرافیا', 'ڕۆمان و ئەدەبیات', 'فێربوونی زمان', 'هیتر لە کتێب'],
+            'ئامێرە مۆسیقییەکان': ['دەف و بازنە', 'تەمبوور و تار', 'شمشاڵ و نەی', 'کەرەستەی ئامێرەکان', 'هیتر لە ئامێری مۆسیقا'],
+            'گەشتوگوزار و ئەزموونی لۆکاڵی': ['گەشتی شاخەوانی', 'کۆتێج و کەپر', 'ڕێبەری گەشتیاری', 'گەشتی شوێنەوار', 'هیتر لە گەشتوگوزار'],
+            'کشتوکاڵ و باخداری': ['تۆوی ڕەسەن', 'نەمامی وەرزی', 'پەینی سروشتی', 'ئامرازی باخداری', 'هیتر لە کشتوکاڵ'],
+            'دیاری و سوغاتی ئامادەکراو': ['سێتی پیاوانە', 'سێتی ئافرەتانە', 'پاکێجی سوغات', 'هیتر لە دیاری'],
+            'کایەکلێ و یارییە کلتوورییەکان': ['تەختەنەرد و شەترەنج', 'یاری لۆکاڵی سەر مێز', 'بووکەڵەی قوماشی', 'هیتر لە یارییەکان'],
+            'کەرەستەی پیشەگەران و وەستاکان': ['ئامرازی دارتاشی', 'کەرەستەی چنین', 'ئامرازی گڵکاری', 'هیتر لە پیشەگەری'],
+            'وەرزش و سەرکێشی چیا': ['پێداویستی کامپین', 'گۆچانی شاخەوانی', 'جلی شاخەوانی', 'چادر و کیسەی خەو', 'هیتر لە شاخەوانی'],
+            'خشڵ و زێڕینگەرانی': ['ملوانکە و بازنە', 'کڵاوی مرواری', 'کەمەربەندی زیو', 'تەسبێحی نایاب', 'هیتر لە خشڵ'],
+            'کەرەستەی بیناسازی لۆکاڵی': ['بەردی سروشتی', 'گڵی سوور', 'خەڵووزی سروشتی', 'هیتر لە بیناسازی'],
+            'کۆکەرەوە و شتی کۆن (ئەنتیك)': ['دراوی کۆن', 'ڕادیۆ و گرامافۆن', 'کەرەستەی مسین', 'وێنەی دەگمەن', 'هیتر لە ئەنتیکە'],
+            'بۆن و عەترە کلتوورییەکان': ['عەتری مێخەک', 'بۆنخۆشکەری ماڵ', 'بخوور و دووکەڵ', 'هیتر لە بۆن وعەتر'],
+            'خزمەتگوزارییە لۆکاڵییەکان': ['شێفی لۆکاڵی', 'فۆتۆگرافەری کلتووری', 'وەستای چاککردنەوە', 'هیتر لە خزمەتگوزاری']
+        };
+
+        function populateSubcategorySelect() {
+            const select = document.getElementById('ap-subcat');
+            if (!select) return;
+            let html = '<option value="">هەڵبژاردنی ژێر پۆلێن...</option>';
+            for (const cat in CATEGORY_MAP) {
+                html += `<optgroup label="${esc(cat)}">`;
+                CATEGORY_MAP[cat].forEach(sub => { html += `<option value="${esc(sub)}">${esc(sub)}</option>`; });
+                html += `</optgroup>`;
+            }
+            select.innerHTML = html;
+        }
+        populateSubcategorySelect();
+
+        let allProducts = [];
+        let allUsers = [];
+        let allRequests = [];
+
+        // ===================== Admin Authentication & Role Check =====================
+        function adminSignIn() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(err => alert('هەڵە: ' + err.message));
+        }
+
+        function applyAdminTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const btn = document.getElementById('adminThemeBtn');
+            if (btn) btn.innerText = theme === 'dark' ? '☀️' : '🌙';
+            setCookie('qazi_admin_theme', theme, 365);
+            localStorage.setItem('qazi_admin_theme', theme);
+        }
+        function toggleAdminTheme() {
+            applyAdminTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        }
+        applyAdminTheme(getCookie('qazi_admin_theme') || localStorage.getItem('qazi_admin_theme') || 'light');
+
+        auth.onAuthStateChanged(async (user) => {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('access-denied-screen').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'none';
+
+            if (!user) {
+                document.getElementById('login-screen').style.display = 'flex';
+                return;
+            }
+
+            try {
+                const snap = await db.collection('users').doc(user.uid).get();
+                const data = snap.exists ? snap.data() : null;
+
+                if (!data || data.role !== 'admin') {
+                    document.getElementById('access-denied-screen').style.display = 'flex';
+                    return;
+                }
+
+                document.getElementById('sidebar').style.display = 'flex';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('admin-me-name').innerText = '👤 ' + (data.name || user.email);
+                setInterval(checkExpired, 15000);
+                loadDashboardData();
+            } catch (err) {
+                console.error(err);
+                alert('هەڵەیەک ڕوویدا لە بارکردنی دەسەڵاتەکان: ' + err.message);
+            }
+        });
+
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
+            document.getElementById('stats-grid').style.display = (view === 'users' || view === 'requests' || view === 'add' || view === 'backup') ? 'none' : 'grid';
+            document.getElementById('products-table-container').style.display = (view === 'main' || view === 'trash') ? 'block' : 'none';
+            document.getElementById('users-table-container').style.display = (view === 'users') ? 'block' : 'none';
+            document.getElementById('requests-table-container').style.display = (view === 'requests') ? 'block' : 'none';
+            document.getElementById('add-product-container').style.display = (view === 'add') ? 'block' : 'none';
+            document.getElementById('backup-container').style.display = (view === 'backup') ? 'block' : 'none';
+
+            if (view === 'main') {
+                document.getElementById('nav-general').classList.add('active');
+                document.getElementById('page-title').innerText = "ڕاپۆرتی کاتەکان و داهات";
+                document.getElementById('table-title').innerText = "لیستی پۆستە نێردراوەکان";
+                document.getElementById('th-status-time').innerText = "دۆخ / ماوەی ماوە";
+                document.getElementById('btn-back-main').style.display = 'none';
+            } else if (view === 'trash') {
+                document.getElementById('nav-trash').classList.add('active');
+                document.getElementById('page-title').innerText = "ئەرشیفی سڕدراوەکان و ڕەتکراوەکان";
+                document.getElementById('table-title').innerText = "تەواوی دیتەیڵی کاڵا سڕدراوەکان 🗑️";
+                document.getElementById('th-status-time').innerText = "کاتی سڕینەوە";
+                document.getElementById('btn-back-main').style.display = 'inline-flex';
+            } else if (view === 'users') {
+                document.getElementById('nav-users').classList.add('active');
+                document.getElementById('page-title').innerText = "بەڕێوەبردنی بەکارهێنەران";
+            } else if (view === 'requests') {
+                document.getElementById('nav-requests').classList.add('active');
+                document.getElementById('page-title').innerText = "داواکارییەکانی فرۆشیاربوون";
+            } else if (view === 'add') {
+                document.getElementById('nav-add').classList.add('active');
+                document.getElementById('page-title').innerText = "زیادکردنی کاڵای نوێ";
+            } else if (view === 'backup') {
+                document.getElementById('nav-backup').classList.add('active');
+                document.getElementById('page-title').innerText = "باکئەپ و شیکاری هەفتانە";
+            }
+            loadDashboardData();
+        }
+
+        async function loadDashboardData() {
+            try {
+                const [prodSnap, trashSnap, userSnap, reqSnap] = await Promise.all([
+                    db.collection('products').where('deleted', '==', false).get(),
+                    db.collection('products').where('deleted', '==', true).get(),
+                    db.collection('users').get(),
+                    db.collection('roleRequests').where('status', '==', 'pending').get()
+                ]);
+
+                allProducts = prodSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                const trashProducts = trashSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                allUsers = userSnap.docs.map(d => ({ uid: d.id, ...d.data() }));
+                allRequests = reqSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                let totalRevenue = 0;
+                allProducts.forEach(p => {
+                    if (p.status === 'active' && planDetails[p.plan]) {
+                        totalRevenue += planDetails[p.plan].price;
+                    }
+                });
+
+                document.getElementById('stat-total').innerText = allProducts.length;
+                document.getElementById('stat-vip').innerText = allProducts.filter(p => p.status === 'active' && p.plan && p.plan.startsWith('vip')).length;
+                document.getElementById('stat-sold').innerText = allProducts.filter(p => p.status === 'sold').length;
+                document.getElementById('stat-users').innerText = allUsers.length;
+                document.getElementById('stat-deleted').innerText = trashProducts.length;
+                document.getElementById('stat-revenue').innerText = totalRevenue.toLocaleString() + " د.ع";
+
+                const reqBadge = document.getElementById('req-badge');
+                if (allRequests.length > 0) {
+                    reqBadge.style.display = 'inline-block';
+                    reqBadge.innerText = allRequests.length;
+                } else {
+                    reqBadge.style.display = 'none';
+                }
+
+                if (currentView === 'main' || currentView === 'trash') renderProductsTable(currentView === 'main' ? allProducts : trashProducts);
+                if (currentView === 'users') renderUsersTable();
+                if (currentView === 'requests') renderRequestsTable();
+                if (currentView === 'backup') renderBackupView();
+            } catch (err) {
+                console.error('Error loading dashboard data:', err);
+            }
+        }
+
+        function renderProductsTable(targetData) {
+            const tbody = document.getElementById('admin-table-body');
+            if (targetData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:35px; color:var(--text-muted);">هیچ پۆستێک لێرەدا نییە.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = targetData.map(p => {
+                let planKey = p.plan || 'standard_1';
+                let planInfo = planDetails[planKey] || planDetails['standard_1'];
+                let expiryOrTrashText = '';
+
+                let expiryTimeMs = p.expiryTime;
+                if (expiryTimeMs && typeof expiryTimeMs.toMillis === 'function') {
+                    expiryTimeMs = expiryTimeMs.toMillis();
+                }
+
+                if (currentView === 'main') {
+                    if (p.status === 'active' && expiryTimeMs) {
+                        let daysLeft = Math.round((expiryTimeMs - Date.now()) / (1000 * 60 * 60 * 24));
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--accent-green); font-weight:700;">⌛ ${daysLeft > 0 ? daysLeft : 0} ڕۆژ ماوە</span>`;
+                    } else if (p.status === 'expired') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--accent-red); font-weight:700;">❌ بەسەرچوو</span>`;
+                    } else if (p.status === 'rejected') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--accent-red); font-weight:700;">🚫 ڕەتکراوەتەوە</span>`;
+                    } else if (p.status === 'sold') {
+                        expiryOrTrashText = `<br><span style="font-size:11px; color:var(--accent-blue); font-weight:700;">🤝 فرۆشراوە</span>`;
+                    }
+                } else {
+                    let deleteDate = p.deletedAt ? new Date(p.deletedAt).toLocaleString('ku-Arab') : "نادیار";
+                    expiryOrTrashText = `<br><span style="font-size:11px; color:var(--accent-red); font-weight:700;">📅 ${deleteDate}</span>`;
+                }
+
+                let imgHtml = '';
+                if (p.images && Array.isArray(p.images) && p.images.length > 0) {
+                    imgHtml = p.images.map(img => `<img src="${esc(img)}" class="prod-thumb" onclick="window.open('${esc(img)}')">`).join('');
+                } else {
+                    imgHtml = `<img src="${esc(p.image || 'qazibazar-logo.png')}" class="prod-thumb">`;
+                }
+
+                let ownerName = esc(p.ownerName || "نادیار");
+                let whatsappNum = esc(p.whatsapp || "تۆمار نەکراوە");
+                let sellerCity = esc(p.city || "نادیار");
+                let sellerAddress = esc(p.address || "تۆمار نەکراوە");
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="prod-info-cell">
+                                <div class="prod-thumb-row">${imgHtml}</div>
+                                <div>
+                                    <div style="font-weight:800; font-size:15px; margin-bottom:4px;">${esc(p.title)}</div>
+                                    <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">
+                                        👤 <b>فرۆشیار:</b> ${ownerName}<br>
+                                        📱 <b>واتسئەپ:</b> ${whatsappNum}<br>
+                                        📍 <b>ناونیشان:</b> ${sellerCity} - ${sellerAddress}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="font-weight:800; font-size:15px;">${esc(p.price)}</td>
+                        <td>
+                            <span class="badge-plan ${planInfo.vip ? 'badge-vip' : 'badge-standard'}">
+                                ${planInfo.name} - ${planInfo.price.toLocaleString()} د.ع
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-pill status-${currentView === 'main' ? p.status : 'trash'}">
+                                ${currentView === 'main' ? p.status.toUpperCase() : 'DELETED'}
+                            </span>
+                            ${expiryOrTrashText}
+                        </td>
+                        <td>
+                            <div class="actions-cell">
+                                ${currentView === 'main' ? `
+                                    ${p.status === 'pending' ? `
+                                        <button class="btn-act btn-act-app" onclick="approveProduct('${esc(p.id)}')">✅ ئەکتیڤکردن</button>
+                                        <button class="btn-act btn-act-rej" onclick="rejectProduct('${esc(p.id)}')">ڕەتکردنەوە</button>
+                                    ` : ''}
+                                    <button class="btn-act btn-act-del" onclick="deleteProduct('${esc(p.id)}')">سڕینەوە</button>
+                                ` : `
+                                    <button class="btn-act btn-act-app" onclick="restoreProduct('${esc(p.id)}')">🔄 گەڕاندنەوە</button>
+                                    <button class="btn-act btn-act-rej" onclick="permaDeleteProduct('${esc(p.id)}')">🔥 سڕینەوەی یەکجاری</button>
+                                `}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderUsersTable() {
+            const tbody = document.getElementById('users-table-body');
+            if (allUsers.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px;">هیچ بەکارهێنەرێک نییە.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = allUsers.map(u => `
+                <tr>
+                    <td>
+                        <div class="prod-info-cell">
+                            <img src="${esc(u.photoURL || 'qazibazar-logo.png')}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                            <div style="font-weight:800;">${esc(u.name || 'نادیار')}</div>
+                        </div>
+                    </td>
+                    <td>${esc(u.email || '-')}</td>
+                    <td>
+                        <select class="form-glass-input" style="padding:4px 8px; font-size:12.5px; width:auto;" onchange="setUserRole('${esc(u.uid)}', this.value)">
+                            <option value="customer" ${u.role === 'customer' ? 'selected' : ''}>کڕیار</option>
+                            <option value="seller" ${u.role === 'seller' ? 'selected' : ''}>فرۆشیار</option>
+                            <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>ئەدمین</option>
+                        </select>
+                    </td>
+                    <td><span class="status-pill status-${u.roleStatus === 'approved' ? 'active' : 'pending'}">${esc(u.roleStatus || 'none')}</span></td>
+                    <td>${u.totpEnabled ? '🔐 چالاکە' : '—'}</td>
+                    <td><button class="btn-act btn-act-del" onclick="removeUser('${esc(u.uid)}')">سڕینەوە</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function renderRequestsTable() {
+            const tbody = document.getElementById('requests-table-body');
+            if (allRequests.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:30px;">هیچ داواکارییەکی چاوەڕوان نییە.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = allRequests.map(r => `
+                <tr>
+                    <td style="font-weight:800;">${esc(r.name)}</td>
+                    <td>${esc(r.email)}</td>
+                    <td><span class="badge-plan badge-vip">${esc(r.requestedRole)}</span></td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="btn-act btn-act-app" onclick="approveRequest('${esc(r.id)}', '${esc(r.uid)}', '${esc(r.requestedRole)}')">✅ پەسندکردن</button>
+                            <button class="btn-act btn-act-rej" onclick="rejectRequest('${esc(r.id)}', '${esc(r.uid)}')">ڕەتکردنەوە</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // ===================== Advanced Backup (JSON & XML) =====================
+        function renderBackupView() {
+            const newProducts = allProducts.filter(p => isWithinDays(p.createdAt, 7)).length;
+            const newUsers = allUsers.filter(u => isWithinDays(u.createdAt, 7)).length;
+            document.getElementById('backup-week-products').innerText = newProducts;
+            document.getElementById('backup-week-users').innerText = newUsers;
+            document.getElementById('backup-total-products').innerText = allProducts.length;
+            document.getElementById('backup-total-users').innerText = allUsers.length;
+            document.getElementById('backup-last-generated').innerText = new Date().toLocaleString('ku-Arab');
+        }
+
+        // Enhanced JSON Backup
+        function downloadJsonBackup() {
+            const now = new Date().toISOString();
+            const backupData = {
+                metadata: {
+                    appName: "Qazi Bazar",
+                    version: "2.0.0",
+                    exportDate: now,
+                    exportedBy: auth.currentUser ? (auth.currentUser.email || auth.currentUser.uid) : "admin",
+                    totalProducts: allProducts.length,
+                    totalUsers: allUsers.length,
+                    totalRequests: allRequests.length
+                },
+                products: allProducts.map(p => ({
+                    id: p.id,
+                    title: p.title,
+                    price: p.price,
+                    subcategory: p.subcategory,
+                    city: p.city,
+                    address: p.address,
+                    description: p.description,
+                    ownerId: p.ownerId,
+                    ownerName: p.ownerName,
+                    whatsapp: p.whatsapp,
+                    plan: p.plan,
+                    status: p.status,
+                    createdAt: tsToIso(p.createdAt),
+                    expiryTime: p.expiryTime
+                })),
+                users: allUsers.map(u => ({
+                    uid: u.uid,
+                    name: u.name,
+                    email: u.email,
+                    role: u.role,
+                    roleStatus: u.roleStatus,
+                    totpEnabled: !!u.totpEnabled,
+                    createdAt: tsToIso(u.createdAt)
+                })),
+                roleRequests: allRequests.map(r => ({
+                    id: r.id,
+                    uid: r.uid,
+                    name: r.name,
+                    email: r.email,
+                    requestedRole: r.requestedRole,
+                    status: r.status
+                }))
+            };
+
+            const jsonStr = JSON.stringify(backupData, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `qazibazar-backup-${now.slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // XML Backup
+        function downloadXmlBackup() {
+            const now = new Date().toISOString();
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            xml += `<QaziBazarBackup generatedAt="${escXml(now)}" exportedBy="${escXml(auth.currentUser ? auth.currentUser.email : 'admin')}">\n`;
+
+            xml += `  <Products count="${allProducts.length}">\n`;
+            allProducts.forEach(p => {
+                xml += `    <Product id="${escXml(p.id)}">\n`;
+                xml += `      <Title>${escXml(p.title)}</Title>\n`;
+                xml += `      <Price>${escXml(p.price)}</Price>\n`;
+                xml += `      <Subcategory>${escXml(p.subcategory)}</Subcategory>\n`;
+                xml += `      <City>${escXml(p.city)}</City>\n`;
+                xml += `      <Status>${escXml(p.status)}</Status>\n`;
+                xml += `      <Plan>${escXml(p.plan)}</Plan>\n`;
+                xml += `      <OwnerId>${escXml(p.ownerId)}</OwnerId>\n`;
+                xml += `      <OwnerName>${escXml(p.ownerName)}</OwnerName>\n`;
+                xml += `      <Whatsapp>${escXml(p.whatsapp)}</Whatsapp>\n`;
+                xml += `      <CreatedAt>${escXml(tsToIso(p.createdAt))}</CreatedAt>\n`;
+                xml += `    </Product>\n`;
+            });
+            xml += `  </Products>\n`;
+
+            xml += `  <Users count="${allUsers.length}">\n`;
+            allUsers.forEach(u => {
+                xml += `    <User uid="${escXml(u.uid)}">\n`;
+                xml += `      <Name>${escXml(u.name)}</Name>\n`;
+                xml += `      <Email>${escXml(u.email)}</Email>\n`;
+                xml += `      <Role>${escXml(u.role)}</Role>\n`;
+                xml += `      <RoleStatus>${escXml(u.roleStatus)}</RoleStatus>\n`;
+                xml += `      <CreatedAt>${escXml(tsToIso(u.createdAt))}</CreatedAt>\n`;
+                xml += `    </User>\n`;
+            });
+            xml += `  </Users>\n`;
+
+            xml += `  <RoleRequests count="${allRequests.length}">\n`;
+            allRequests.forEach(r => {
+                xml += `    <Request id="${escXml(r.id)}">\n`;
+                xml += `      <Name>${escXml(r.name)}</Name>\n`;
+                xml += `      <Email>${escXml(r.email)}</Email>\n`;
+                xml += `      <RequestedRole>${escXml(r.requestedRole)}</RequestedRole>\n`;
+                xml += `    </Request>\n`;
+            });
+            xml += `  </RoleRequests>\n`;
+            xml += `</QaziBazarBackup>\n`;
+
+            const blob = new Blob([xml], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `qazibazar-backup-${now.slice(0, 10)}.xml`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // ===================== Admin Product Creation =====================
+        async function handleAdminProductSubmit(e) {
+            e.preventDefault();
+            const files = document.getElementById('ap-file').files;
+            if (!files || files.length === 0) {
+                alert('تکایە لانیکەم یەک وێنە هەڵبژێرە.');
+                return;
+            }
+
+            const btn = document.getElementById('btnAdminAddSubmit');
+            btn.disabled = true;
+            btn.innerText = '⏳ لە پەستان و هەڵگرتنی وێنەکاندایە...';
+
+            try {
+                const compressedImages = [];
+                for (let i = 0; i < files.length; i++) {
+                    const rawDataUrl = await readFileAsDataURL(files[i]);
+                    const compressed = await compressImage(rawDataUrl, 900, 0.72);
+                    compressedImages.push(compressed);
+                }
+
+                await saveAdminProduct(compressedImages);
+            } catch (err) {
+                alert('هەڵەیەک ڕوویدا: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = '✅ زیادکردن و چالاککردنی دەستبەجێ';
+            }
+        }
+
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function saveAdminProduct(images) {
+            const plan = document.getElementById('ap-plan').value;
+            const planInfo = planDetails[plan] || planDetails['standard_1'];
+            const newProduct = {
+                ownerId: auth.currentUser.uid,
+                ownerName: document.getElementById('ap-owner').value.trim(),
+                title: document.getElementById('ap-title').value.trim(),
+                subcategory: document.getElementById('ap-subcat').value,
+                description: document.getElementById('ap-desc').value.trim() || 'هیچ شیکردنەوەیەک نییە',
+                price: document.getElementById('ap-price').value.trim(),
+                whatsapp: document.getElementById('ap-phone').value.trim(),
+                city: document.getElementById('ap-city').value.trim(),
+                address: document.getElementById('ap-address').value.trim(),
+                plan: plan,
+                images: images,
+                status: 'active',
+                deleted: false,
+                expiryTime: Date.now() + (planInfo.hours * 60 * 60 * 1000),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            await db.collection('products').add(newProduct);
+            document.getElementById('admin-product-form').reset();
+            alert('✅ کاڵاکە بە سەرکەوتوویی زیادکرا و ڕاستەوخۆ لە مارکێت چالاکە.');
+            switchView('main');
+        }
+
+        async function approveProduct(id) {
+            const p = allProducts.find(x => x.id === id);
+            if (!p) return;
+            const planInfo = planDetails[p.plan || 'standard_1'] || planDetails['standard_1'];
+            await db.collection('products').doc(id).update({
+                status: 'active',
+                expiryTime: Date.now() + (planInfo.hours * 60 * 60 * 1000)
+            });
+            loadDashboardData();
+        }
+
+        async function rejectProduct(id) {
+            await db.collection('products').doc(id).update({
+                status: 'rejected',
+                deleted: true,
+                deletedAt: Date.now()
+            });
+            loadDashboardData();
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm('بۆ ئەرشیفی سڕدراوەکان بگوازرێتەوە؟')) return;
+            await db.collection('products').doc(id).update({
+                deleted: true,
+                deletedAt: Date.now()
+            });
+            loadDashboardData();
+        }
+
+        async function restoreProduct(id) {
+            await db.collection('products').doc(id).update({
+                deleted: false,
+                status: 'pending',
+                deletedAt: firebase.firestore.FieldValue.delete()
+            });
+            loadDashboardData();
+        }
+
+        async function permaDeleteProduct(id) {
+            if (!confirm('ئایا دڵنیایت لە سڕینەوەی هەمیشەیی؟ ئەم پۆستە بە هیچ جۆرێک ناگەڕێتەوە!')) return;
+            await db.collection('products').doc(id).delete();
+            loadDashboardData();
+        }
+
+        async function checkExpired() {
+            const now = Date.now();
+            const expiredOnes = allProducts.filter(p => {
+                let exp = p.expiryTime;
+                if (exp && typeof exp.toMillis === 'function') exp = exp.toMillis();
+                return p.status === 'active' && exp && now > exp;
+            });
+            for (const p of expiredOnes) {
+                await db.collection('products').doc(p.id).update({ status: 'expired' });
+            }
+            if (expiredOnes.length > 0) loadDashboardData();
+        }
+
+        // ===================== User & Role Actions =====================
+        async function setUserRole(uid, role) {
+            await db.collection('users').doc(uid).update({
+                role,
+                roleStatus: role === 'customer' ? 'none' : 'approved'
+            });
+            loadDashboardData();
+        }
+
+        async function removeUser(uid) {
+            if (!confirm('دڵنیایت لە سڕینەوەی ئەم بەکارهێنەرە لە بنکەدراوە؟')) return;
+            await db.collection('users').doc(uid).delete();
+            loadDashboardData();
+        }
+
+        async function approveRequest(reqId, uid, role) {
+            await db.collection('roleRequests').doc(reqId).update({ status: 'approved' });
+            await db.collection('users').doc(uid).update({ role, roleStatus: 'approved' });
+            loadDashboardData();
+        }
+
+        async function rejectRequest(reqId, uid) {
+            await db.collection('roleRequests').doc(reqId).update({ status: 'rejected' });
+            await db.collection('users').doc(uid).update({ roleStatus: 'rejected' });
+            loadDashboardData();
+        }
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
+    </script>
+</body>
+</html>

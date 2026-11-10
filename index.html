@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Qazi Bazar | قازی بازار - سەکۆی مۆدێرنی بەرهەمی لۆکاڵی</title>
+    
+    <!-- PWA & Mobile Web App Meta -->
+    <meta name="application-name" content="Qazi Bazar">
+    <meta name="apple-mobile-web-app-title" content="Qazi Bazar">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#7d141d" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0a09" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="قازی بازار - سەکۆی مۆدێرنی بازرگانی و بەرهەمی لۆکاڵی کوردستان. کڕین و فرۆشتنی خێرا، ڕیکلامی VIP و ناسنامەی پارێزراو.">
+    <meta name="keywords" content="قازی بازار, Qazi Bazar, بازاڕی کوردستان, کڕین و فرۆشتن, بەرهەمی لۆکاڵی, سلێمانی, هەولێر">
+    
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="Qazi Bazar | قازی بازار">
+    <meta property="og:description" content="سەکۆی پێشەنگی بەرهەمی لۆکاڵی و دەستکردی کوردستان">
+    <meta property="og:image" content="qazibazar-logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- Icons & Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="qazibazar-logo.png">
+    <link rel="apple-touch-icon" href="qazibazar-logo.png">
+
+    <!-- Fonts: Vazirmatn & Noto Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Swiper Slider CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- OS 26 Soft Glass Design System -->
+    <style>
+        :root {
+            /* Palette: Kurdish Pomegranate Burgundy & Sun Ray Gold */
+            --brand-burgundy: #7d141d;
+            --brand-burgundy-dark: #5a0c13;
+            --brand-burgundy-light: #a3222e;
+            --brand-gold: #c8952e;
+            --brand-gold-glow: rgba(200, 149, 46, 0.45);
+            --brand-gold-light: #f5d485;
+
+            /* iOS 26 Liquid Soft Glass Variables (Light Mode) */
+            --bg-body: linear-gradient(145deg, #fbf8f4 0%, #f4ede2 45%, #f9f5ed 100%);
+            --glass-surface: rgba(255, 255, 255, 0.65);
+            --glass-surface-elevated: rgba(255, 255, 255, 0.82);
+            --glass-card: rgba(255, 255, 255, 0.62);
+            --glass-border: rgba(255, 255, 255, 0.75);
+            --glass-border-subtle: rgba(125, 20, 29, 0.08);
+            --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.03);
+            --glass-blur: blur(28px) saturate(190%);
+            --glass-blur-header: blur(32px) saturate(200%);
+
+            /* Shadows */
+            --shadow-soft: 0 10px 30px -8px rgba(90, 12, 19, 0.06), 0 3px 10px rgba(0, 0, 0, 0.02);
+            --shadow-float: 0 18px 45px -10px rgba(90, 12, 19, 0.12), 0 6px 16px rgba(0, 0, 0, 0.04);
+            --shadow-gold: 0 8px 24px -4px rgba(200, 149, 46, 0.35);
+
+            /* Typography & Colors */
+            --text-primary: #190e0e;
+            --text-secondary: #5e4d4d;
+            --text-muted: #8c7676;
+            --accent-green: #078249;
+            --accent-red: #c02626;
+
+            /* Radii */
+            --radius-pill: 9999px;
+            --radius-xl: 26px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
+
+            /* Transition curves */
+            --transition-smooth: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Dark Mode: Deep Frosted Onyx & Amber Glass */
+        html[data-theme="dark"] {
+            --bg-body: linear-gradient(155deg, #0e0a0a 0%, #150f10 50%, #100b0c 100%);
+            --glass-surface: rgba(28, 20, 21, 0.72);
+            --glass-surface-elevated: rgba(36, 26, 27, 0.88);
+            --glass-card: rgba(26, 18, 19, 0.68);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border-subtle: rgba(200, 149, 46, 0.18);
+            --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+            --shadow-soft: 0 12px 35px -8px rgba(0, 0, 0, 0.65);
+            --shadow-float: 0 20px 50px -10px rgba(0, 0, 0, 0.8);
+            --text-primary: #f8f3ef;
+            --text-secondary: #c9bcba;
+            --text-muted: #8a7a78;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', 'Noto Sans Arabic', Tahoma, system-ui, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background: var(--bg-body);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            letter-spacing: -0.2px;
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+
+        /* ===================== Header & Navigation ===================== */
+        header.glass-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 5%;
+            background: var(--glass-surface);
+            backdrop-filter: var(--glass-blur-header);
+            -webkit-backdrop-filter: var(--glass-blur-header);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .site-logo-wrap {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-pill);
+            padding: 2px;
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-burgundy));
+            box-shadow: 0 4px 14px var(--brand-gold-glow);
+            transition: var(--transition-bounce);
+        }
+        .logo-area:hover .site-logo-wrap {
+            transform: scale(1.05) rotate(3deg);
+        }
+        .site-logo-img {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-pill);
+            object-fit: cover;
+            background: #fff;
+            display: block;
+        }
+
+        .logo-text h1 {
+            font-size: 19px;
+            font-weight: 900;
+            line-height: 1.15;
+            background: linear-gradient(135deg, var(--brand-burgundy), var(--brand-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.4px;
+        }
+        html[data-theme="dark"] .logo-text h1 {
+            background: linear-gradient(135deg, #fff, var(--brand-gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo-text p {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--brand-gold);
+            letter-spacing: 0.8px;
+            margin-top: 1px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Glass Buttons */
+        .glass-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 13px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-soft), var(--glass-specular);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .glass-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-float);
+            border-color: var(--brand-gold);
+        }
+        .glass-btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-burgundy {
+            background: linear-gradient(135deg, var(--brand-burgundy), var(--brand-burgundy-dark));
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 18px rgba(125, 20, 29, 0.35);
+        }
+        .btn-burgundy:hover {
+            box-shadow: 0 8px 25px rgba(125, 20, 29, 0.5);
+            filter: brightness(1.08);
+        }
+
+        .btn-gold-install {
+            background: linear-gradient(135deg, var(--brand-gold), #b88424);
+            color: #1a0e0e !important;
+            font-weight: 800;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: var(--shadow-gold);
+            display: none;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-pill);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .avatar-pill {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-pill);
+            overflow: hidden;
+            border: 2px solid var(--brand-gold);
+            cursor: pointer;
+            display: none;
+            background: #fff;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-bounce);
+        }
+        .avatar-pill:hover {
+            transform: scale(1.08);
+        }
+        .avatar-pill img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-tag {
+            background: rgba(7, 130, 73, 0.12);
+            color: var(--accent-green);
+            border: 1px solid rgba(7, 130, 73, 0.25);
+            padding: 5px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 12px;
+            font-weight: 700;
+            display: none;
+            white-space: nowrap;
+        }
+
+        /* Menu Burger Toggle */
+        .menu-toggle {
+            background: var(--glass-surface-elevated);
+            border: 1px solid var(--glass-border);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-pill);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+        }
+        .menu-toggle span {
+            width: 18px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+        .menu-toggle:hover {
+            transform: scale(1.06);
+            border-color: var(--brand-gold);
+        }
+
+        /* ===================== Nav Drawer (Soft Glass Sidebar) ===================== */
+        .drawer-overlay {
+            opacity: 0;
+            visibility: hidden;
+            position: fixed;
+            inset: 0;
+            background: rgba(14, 10, 10, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1998;
+            transition: var(--transition-smooth);
+        }
+        .drawer-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            left: -380px;
+            width: 360px;
+            max-width: 86vw;
+            height: 100%;
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-right: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-float);
+            z-index: 1999;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+            transition: left 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-drawer.open {
+            left: 0;
+        }
+
+        .drawer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--glass-border-subtle);
+        }
+        .drawer-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        /* Accordion Categories */
+        .accordion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .accordion-item {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            text-align: right;
+            padding: 13px 16px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+        .accordion-header:hover {
+            background: rgba(200, 149, 46, 0.08);
+            color: var(--brand-burgundy);
+        }
+        .accordion-header span {
+            font-size: 15px;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+        .accordion-panel {
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.45);
+            transition: max-height 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        html[data-theme="dark"] .accordion-panel {
+            background: rgba(20, 14, 15, 0.6);
+        }
+        .accordion-panel a {
+            padding: 10px 22px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 12.5px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--glass-border-subtle);
+            transition: var(--transition-smooth);
+        }
+        .accordion-panel a:hover {
+            background: rgba(200, 149, 46, 0.12);
+            color: var(--brand-burgundy);
+            padding-right: 26px;
+        }
+
+        /* ===================== Main Container & Hero ===================== */
+        .main-container {
+            max-width: 1280px;
+            margin: 25px auto 40px;
+            padding: 0 4%;
+        }
+
+        /* Ads / Sponsored Banner Notice */
+        .ads-hero-notice {
+            background: var(--glass-card);
+            border: 1px solid var(--brand-gold-glow);
+            border-radius: var(--radius-lg);
+            padding: 14px 22px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: var(--shadow-soft), var(--glass-specular);
+        }
+        .ads-notice-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .ads-tag-pill {
+            background: linear-gradient(135deg, var(--brand-gold), #b37e1a);
+            color: #1a0e0e;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 3px 10px;
+            border-radius: var(--radius-pill);
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(200, 149, 46, 0.4);
+        }
+
+        /* Top Action Bar (Search & Title) */
+        .top-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .page-heading {
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+        }
+
+        /* Search Input */
+        .search-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+        }
+        .search-glass-input {
+            width: 100%;
+            padding: 12px 44px 12px 18px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--glass-border);
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            box-shadow: var(--shadow-soft), var(--glass-specular);
+            transition: var(--transition-smooth);
+        }
+        .search-glass-input:focus {
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 0 4px var(--brand-gold-glow);
+        }
+        .search-icon-svg {
+            position: absolute;
+            top: 50%;
+            right: 14px;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ===================== Product Grid & Glass Cards ===================== */
+        .grid-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .glass-card-product {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft), var(--glass-specular);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .glass-card-product:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-float);
+            border-color: var(--brand-gold);
+        }
+
+        /* VIP / Ad Card styling */
+        .glass-card-product.is-vip {
+            border: 1.5px solid var(--brand-gold);
+            box-shadow: 0 12px 36px -6px rgba(200, 149, 46, 0.3), var(--glass-specular);
+        }
+
+        .prod-img-box {
+            position: relative;
+            width: 100%;
+            height: 230px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.03);
+        }
+        .prod-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card-product:hover .prod-img {
+            transform: scale(1.05);
+        }
+
+        /* Badges */
+        .badge-city {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 5px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #1a0e0e;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        html[data-theme="dark"] .badge-city {
+            background: rgba(26, 18, 19, 0.88);
+            color: #f8f3ef;
+        }
+
+        .badge-vip-ad {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, var(--brand-gold), #dfaa3b);
+            color: #1a0e0e;
+            padding: 5px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            font-weight: 900;
+            box-shadow: 0 4px 14px var(--brand-gold-glow);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: pulseGlow 2.5s infinite;
+        }
+        .ad-micro-label {
+            background: rgba(0, 0, 0, 0.65);
+            color: #ffffff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 9.5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 4px 14px var(--brand-gold-glow); }
+            50% { box-shadow: 0 4px 22px rgba(200, 149, 46, 0.7); }
+        }
+
+        .prod-details {
+            padding: 18px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .prod-cat {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--brand-burgundy);
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+        }
+        html[data-theme="dark"] .prod-cat {
+            color: var(--brand-gold-light);
+        }
+        .prod-title {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.45;
+            margin-bottom: 14px;
+        }
+
+        .prod-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--glass-border-subtle);
+            padding-top: 12px;
+            margin-top: auto;
+        }
+        .prod-price {
+            font-size: 17px;
+            font-weight: 900;
+            color: var(--brand-burgundy);
+        }
+        html[data-theme="dark"] .prod-price {
+            color: var(--brand-gold);
+        }
+
+        .btn-view-card {
+            background: var(--brand-burgundy);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(125, 20, 29, 0.25);
+            transition: var(--transition-smooth);
+        }
+        .btn-view-card:hover {
+            transform: scale(1.04);
+            background: var(--brand-burgundy-light);
+        }
+
+        /* ===================== Modals (Soft Glass Dialogs) ===================== */
+        .modal-glass-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(14, 10, 10, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            justify-content: center;
+            align-items: center;
+            z-index: 2100;
+            padding: 16px;
+            animation: modalFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-glass-box {
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-float), var(--glass-specular);
+            width: 100%;
+            max-width: 440px;
+            padding: 32px 28px;
+            position: relative;
+            text-align: center;
+            animation: modalPop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .btn-modal-close {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-pill);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: bold;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+        }
+        .btn-modal-close:hover {
+            color: var(--brand-burgundy);
+            transform: scale(1.08);
+        }
+
+        /* Product Detail Modal Specific */
+        .modal-detail-card {
+            max-width: 620px;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 0;
+            text-align: right;
+        }
+        .swiper-box-wrap {
+            width: 100%;
+            height: 340px;
+            position: relative;
+            background: rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+        .swiper { width: 100%; height: 100%; }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .detail-scroll-body {
+            padding: 24px 26px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        .detail-desc-box {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border-subtle);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            font-size: 13.5px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin: 16px 0;
+            white-space: pre-wrap;
+        }
+
+        /* Form Controls */
+        .form-box-glass {
+            max-width: 580px;
+            margin: 0 auto;
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 36px 30px;
+            box-shadow: var(--shadow-float), var(--glass-specular);
+        }
+        .form-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .form-glass-input {
+            width: 100%;
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            font-size: 14.5px;
+            color: var(--text-primary);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+        .form-glass-input:focus {
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 0 3px var(--brand-gold-glow);
+        }
+
+        /* Google Sign In Button */
+        .btn-google-auth {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #ffffff;
+            border: 1px solid #d0d5dd;
+            padding: 13px;
+            border-radius: var(--radius-pill);
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            color: #1e293b;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+        .btn-google-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-float);
+        }
+
+        /* ===================== Cookie Consent Soft Glass Banner ===================== */
+        .cookie-glass-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 5%;
+            right: 5%;
+            max-width: 1100px;
+            margin: 0 auto;
+            z-index: 3000;
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--brand-gold-glow);
+            border-radius: var(--radius-xl);
+            padding: 18px 24px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-float), var(--glass-specular);
+            animation: bannerSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes bannerSlideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .cookie-glass-banner p {
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0;
+            max-width: 750px;
+            color: var(--text-primary);
+        }
+        .cookie-glass-actions {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        /* ===================== PWA Install Popup Bar ===================== */
+        .pwa-install-bar {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-surface-elevated);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--brand-gold);
+            border-radius: var(--radius-pill);
+            padding: 8px 18px;
+            box-shadow: var(--shadow-gold), var(--glass-specular);
+            z-index: 1050;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        /* ===================== Footer ===================== */
+        footer.glass-footer {
+            margin-top: 60px;
+            padding: 35px 6% 25px;
+            text-align: center;
+            background: var(--glass-surface);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .footer-brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-pill);
+        }
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .footer-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .footer-links a:hover {
+            color: var(--brand-burgundy);
+        }
+        .footer-copy {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        /* ===================== Mobile & Tablet Responsiveness ===================== */
+        @media (max-width: 768px) {
+            header.glass-header { padding: 10px 4%; }
+            .grid-products { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .prod-img-box { height: 180px; }
+            .prod-details { padding: 14px 14px; }
+            .prod-title { font-size: 14px; margin-bottom: 10px; }
+            .prod-price { font-size: 15px; }
+            .btn-view-card { padding: 6px 12px; font-size: 11.5px; }
+            .search-wrap { max-width: 100%; order: 3; width: 100%; margin-top: 6px; }
+            .top-action-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+            .modal-glass-box { padding: 24px 18px; }
+        }
+
+        @media (max-width: 480px) {
+            .grid-products { grid-template-columns: 1fr; gap: 16px; }
+            .prod-img-box { height: 210px; }
+            .logo-text p { display: none; }
+            .user-tag { display: none !important; }
+            .btn-add-label { display: none; }
+            .btn-add-prod-short { padding: 8px 14px; }
+        }
+
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+        .no-data-notice { text-align: center; color: var(--text-muted); padding: 70px 0; font-size: 14px; font-weight: 600; grid-column: 1 / -1; }
+    </style>
+
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7X-fZrWo9uYnSEpwIrPTTp-h4DX2R8r0",
+            authDomain: "qazibazar.firebaseapp.com",
+            projectId: "qazibazar",
+            storageBucket: "qazibazar.firebasestorage.app",
+            messagingSenderId: "668390534465",
+            appId: "1:668390534465:web:3ad0001c39a0fe056385c0"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
+</head>
+<body>
+
+    <!-- Header with Soft Glass Effect -->
+    <header class="glass-header">
+        <div class="logo-area" onclick="goToMarket()">
+            <div class="site-logo-wrap">
+                <img src="qazibazar-logo.png" alt="قازی بازار" class="site-logo-img">
+            </div>
+            <div class="logo-text">
+                <h1>قازی بازار</h1>
+                <p>QAZI BAZAR · MADE IN KURDISTAN</p>
+            </div>
+        </div>
+
+        <div class="nav-actions">
+            <!-- PWA Quick Install Pill -->
+            <button class="glass-btn btn-gold-install" id="pwaInstallHeaderBtn" onclick="triggerPwaInstall()">
+                📲 داگرتنی ئەپ
+            </button>
+            <button class="glass-btn icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="گۆڕینی دۆخی ڕووناکی/تاریک">🌙</button>
+            
+            <a href="admin.html" id="headerAdminBtn" class="glass-btn" style="display:none; background:#4338ca; color:#fff; border-color:#6366f1;">
+                🛠️ ئەدمین
+            </a>
+            
+            <span id="user-badge" class="user-tag">👤 لۆگینە</span>
+            
+            <div class="avatar-pill" id="avatarBtn" onclick="openProfileModal()" title="پرۆفایل">
+                <img id="avatarBtnImg" src="qazibazar-logo.png" alt="Avatar">
+            </div>
+
+            <button class="glass-btn btn-burgundy btn-add-prod-short" onclick="checkLoginBeforeSell()">
+                <span>➕</span> <span class="btn-add-label">بڵاوکردنەوەی کاڵا</span>
+            </button>
+
+            <button class="menu-toggle" onclick="toggleDrawer()" title="مێنیو">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- PWA Install Popup Floating Prompt -->
+    <div class="pwa-install-bar" id="pwaFloatingBanner">
+        <img src="qazibazar-logo.png" style="width:26px; height:26px; border-radius:50%;">
+        <span style="font-size:12.5px; font-weight:700;">ئەپی فەرمی قازی بازار دابەزێنە!</span>
+        <button class="glass-btn btn-burgundy" style="padding:5px 14px; font-size:11.5px;" onclick="triggerPwaInstall()">داگرتن</button>
+        <button onclick="dismissPwaBanner()" style="background:none; border:none; cursor:pointer; font-size:13px; color:var(--text-muted);">✕</button>
+    </div>
+
+    <!-- Soft Glass Nav Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+    <aside class="nav-drawer" id="navDrawer">
+        <div class="drawer-top">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="qazibazar-logo.png" style="width:34px; height:34px; border-radius:50%;">
+                <span class="drawer-title">پۆلێنەکانی قازی بازار</span>
+            </div>
+            <button class="glass-btn icon-btn" onclick="toggleDrawer()" style="width:32px; height:32px;">✕</button>
+        </div>
+
+        <div class="accordion-container" id="categoryAccordion">
+            <!-- Dynamically or statically injected categories -->
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--glass-border-subtle); margin:8px 0;">
+
+        <div>
+            <h4 style="font-size:13px; font-weight:800; color:var(--text-muted); margin-bottom:10px;">هەژمار و زانیاری</h4>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+                <a href="#" class="glass-btn" style="justify-content:flex-start;" onclick="event.preventDefault(); closeDrawerOnly(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
+                <a href="#" id="drawer-profile-link" class="glass-btn" style="display:none; justify-content:flex-start;" onclick="event.preventDefault(); closeDrawerOnly(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
+                <a href="admin.html" id="drawer-admin-link" class="glass-btn" style="display:none; justify-content:flex-start; color:#4338ca;">🛠️ چوونە پانێڵی ئەدمین</a>
+                <a href="privacy.html" class="glass-btn" style="justify-content:flex-start;">📜 سیاسەتی تایبەتمەندی (Privacy)</a>
+                <a href="#" id="drawer-logout-link" class="glass-btn" style="display:none; justify-content:flex-start; color:var(--accent-red);" onclick="event.preventDefault(); closeDrawerOnly(); signOutUser();">🚪 چوونەدەرەوە</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+        <!-- Ads / VIP Notice Banner -->
+        <div class="ads-hero-notice">
+            <div class="ads-notice-text">
+                <span class="ads-tag-pill">⭐ VIP / Ad</span>
+                <span>ئایتمە هەڵبژێردراوەکانی مارکێت بە لێبڵی سپۆنسەرکراو لە سەرەوە نیشان دەدرێن.</span>
+            </div>
+            <a href="#" onclick="event.preventDefault(); checkLoginBeforeSell();" class="glass-btn" style="padding:6px 14px; font-size:12px;">تۆش کاڵاکەت بە VIP بڵاوکەرەوە ✨</a>
+        </div>
+
+        <!-- View 1: Marketplace Grid -->
+        <section id="view-market" class="view-section active">
+            <div class="top-action-bar">
+                <h2 class="page-heading" id="filter-title">🔥 نوێترین بەرهەمەکان</h2>
+                
+                <div class="search-wrap">
+                    <input type="text" id="market-search" class="search-glass-input" placeholder="گەڕان بۆ کاڵا، شار، یان فرۆشیار..." oninput="handleInstantSearch(this.value)">
+                    <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+
+                <button id="btn-global-back" class="glass-btn" onclick="goToMarket()" style="display:none;">↩ سەرەکی</button>
+            </div>
+
+            <div class="grid-products" id="market-products-grid">
+                <div class="no-data-notice">⏳ لە بارکردنی کاڵاکانە...</div>
+            </div>
+        </section>
+
+        <!-- View 2: Add Product (Sell) -->
+        <section id="view-sell" class="view-section">
+            <div class="top-action-bar">
+                <h2 class="page-heading">➕ بڵاوکردنەوەی بەرهەمی نوێ</h2>
+                <button class="glass-btn" onclick="qaziGoBack()">↩ گەڕانەوە</button>
+            </div>
+            
+            <div class="form-box-glass">
+                <form id="product-form" onsubmit="handleProductSubmit(event)">
+                    <div class="form-group">
+                        <label>ناوی فرۆشیار / دوکان</label>
+                        <input type="text" id="ownerName" class="form-glass-input" placeholder="ناوی تەواوی خۆت یان براندەکەت..." required maxlength="70">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ناوی بەرهەم</label>
+                        <input type="text" id="p-title" class="form-glass-input" placeholder="بۆ نموونە: هەنگوینی خۆماڵی کوێستان" required maxlength="120">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ژێر پۆلێن (Category)</label>
+                        <select id="p-subcat" class="form-glass-input" required>
+                            <option value="">هەڵبژاردنی ژێر پۆلێن...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>شیکردنەوە و تایبەتمەندی بەرهەم</label>
+                        <textarea id="p-desc" class="form-glass-input" rows="3" placeholder="تایبەتمەندییەکان، کێش، ڕەنگ و وردەکاری بنووسە..." maxlength="2500"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نرخی فرۆشتن (دینار یان دۆلار)</label>
+                        <input type="text" id="p-price" class="form-glass-input" placeholder="بۆ نموونە: ٢٥,٠٠٠ دینار" required maxlength="50">
+                    </div>
+
+                    <div class="form-group">
+                        <label>ژمارەی مۆبایل / واتسئەپ</label>
+                        <input type="tel" id="p-phone" class="form-glass-input" placeholder="07XXXXXXXXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>شارەکەت هەڵبژێره</label>
+                        <input type="text" id="p-city" list="cities-list" class="form-glass-input" placeholder="سلێمانی، هەولێر..." required maxlength="40">
+                        <datalist id="cities-list">
+                            <option value="سلێمانی">
+                            <option value="هەولێر">
+                            <option value="هەڵەبجە">    
+                            <option value="کەرکوک">
+                            <option value="دهۆک">
+                            <option value="گەرمیان">
+                            <option value="زاخۆ">
+                            <option value="سۆران">
+                            <option value="ڕانیە">
+                        </datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ناونیشانی ورد (شوێنی وەرگرتن)</label>
+                        <input type="text" id="p-address" class="form-glass-input" placeholder="بۆ نموونە: گەڕەکی ڕزگاری، بەرامبەر پارکی ئازادی" required maxlength="150">
+                    </div>
+
+                    <div class="form-group">
+                        <label>وێنەکانی بەرهەم (دەتوانیت تا ٦ وێنە هەڵبژێریت)</label>
+                        <input type="file" id="p-file" class="form-glass-input" accept="image/*" multiple required>
+                        <small style="font-size:11.5px; color:var(--text-muted); display:block; margin-top:4px;">💡 وێنەکان بە شێوازی ئۆتۆماتیکی کەم دەکرێنەوە بۆ خێرایی و سیکیوریتی.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="color:var(--brand-gold); font-weight:800;">💎 پلانی ڕیکلام و ماوەی مانەوە:</label>
+                        <select id="p-plan" class="form-glass-input" style="font-weight:700;">
+                            <option value="standard_1">پۆستی ئاسایی - ١ مانگ (٥،٠٠٠ دینار)</option>
+                            <option value="standard_2">پۆستی ئاسایی - ٢ مانگ (٩,٠٠٠ دینار)</option>
+                            <option value="vip_1">🌟 ڕیکلامی VIP لە سەرەوە - ١ مانگ (١٣,٠٠٠ دینار)</option>
+                            <option value="vip_2">🌟 ڕیکلامی VIP لە سەرەوە - ٢ مانگ (٢٥,٠٠٠ دینار)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="btnProductSubmit" class="glass-btn btn-burgundy" style="width:100%; padding:14px; margin-top:10px;">
+                        ناردنی کاڵا بۆ پەسندکردنی ئەدمین
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- View 3: Become Seller -->
+        <section id="view-become-seller" class="view-section">
+            <div class="top-action-bar">
+                <h2 class="page-heading">🛍️ بوون بە فرۆشیاری قازی بازار</h2>
+                <button class="glass-btn" onclick="qaziGoBack()">↩ گەڕانەوە</button>
+            </div>
+            <div class="form-box-glass" id="become-seller-box"></div>
+        </section>
+
+        <!-- View 4: Sellers Directory -->
+        <section id="view-sellers" class="view-section">
+            <div class="top-action-bar">
+                <h2 class="page-heading">🛍️ فرۆشیارە پشتڕاستکراوەکان</h2>
+                <button class="glass-btn" onclick="qaziGoBack()">↩ گەڕانەوە</button>
+            </div>
+            <div class="grid-products" id="sellers-grid"></div>
+        </section>
+
+        <!-- View 5: Seller Profile -->
+        <section id="view-profile" class="view-section">
+            <div class="top-action-bar">
+                <h2 class="page-heading">پرۆفایلی گشتی فرۆشیار</h2>
+                <button class="glass-btn" onclick="qaziGoBack()">↩ گەڕانەوە</button>
+            </div>
+            <div class="form-box-glass" style="max-width:760px; margin-bottom:30px; padding:0; overflow:hidden;">
+                <div id="profile-cover" style="height:130px; background:linear-gradient(135deg, var(--brand-burgundy), var(--brand-gold));"></div>
+                <div style="padding: 0 26px 24px; margin-top: -45px; display:flex; align-items:flex-end; gap:16px;">
+                    <img id="profile-view-avatar" style="width:90px; height:90px; border-radius:50%; border:4px solid var(--glass-surface-elevated); object-fit:cover; background:#fff; box-shadow:var(--shadow-soft);">
+                    <div>
+                        <div style="font-weight:900; font-size:20px;" id="profile-view-name"></div>
+                        <span class="user-tag" style="display:inline-block; margin-top:4px;" id="profile-view-role"></span>
+                    </div>
+                </div>
+                <p id="profile-view-bio" style="padding:0 26px 20px; font-size:14px; color:var(--text-secondary); line-height:1.7;"></p>
+            </div>
+            <div class="grid-products" id="profile-products-grid"></div>
+        </section>
+
+    </main>
+
+    <!-- Modal 1: Google Login -->
+    <div class="modal-glass-backdrop" id="loginModal">
+        <div class="modal-glass-box">
+            <button class="btn-modal-close" onclick="closeLoginModal()">✕</button>
+            <img src="qazibazar-logo.png" style="width:58px; height:58px; border-radius:50%; margin:0 auto 12px; display:block; box-shadow:var(--shadow-gold);">
+            <h3 style="font-weight:900; font-size:20px; margin-bottom:6px;">چوونەژوورەوە بۆ قازی بازار</h3>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:24px;">سەلامەت، پارێزراو و خێرا بە هەژماری Google خۆت تۆمار بکە.</p>
+            
+            <button class="btn-google-auth" onclick="signInWithGoogle()">
+                <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.3 4.4-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35 26.8 36 24 36c-5.3 0-9.8-3.3-11.4-7.9l-6.5 5C9.6 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3C40.6 36.2 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+                بەردەوامبوون بە Google
+            </button>
+
+            <button class="glass-btn" onclick="closeLoginModal()" style="width:100%; margin-top:16px;">↩ پاشگەزبوونەوە</button>
+        </div>
+    </div>
+
+    <!-- Modal 2: 2FA Verification -->
+    <div class="modal-glass-backdrop" id="twoFAModal">
+        <div class="modal-glass-box">
+            <h3 style="font-weight:900; margin-bottom:8px;">🔐 دووهەنگاوی پاراستن (2FA)</h3>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">کۆدی ٦ ژمارەیی ئەپی Authenticator بنووسە:</p>
+            <input type="text" id="twofa-login-input" class="form-glass-input" style="text-align:center; font-size:24px; font-weight:900; letter-spacing:8px; margin-bottom:16px;" maxlength="6" placeholder="000000">
+            <button class="glass-btn btn-burgundy" style="width:100%; padding:12px;" onclick="verifyLogin2FA()">پشتڕاستکردنەوە</button>
+            <button class="glass-btn" style="width:100%; margin-top:12px;" onclick="signOutUser()">🚪 چوونەدەرەوە</button>
+        </div>
+    </div>
+
+    <!-- Modal 3: Profile Settings -->
+    <div class="modal-glass-backdrop" id="profileModal">
+        <div class="modal-glass-box" style="max-width:480px; text-align:right;">
+            <button class="btn-modal-close" onclick="closeProfileModal()">✕</button>
+            <h3 style="font-weight:900; text-align:center; margin-bottom:20px;">ڕێکخستنی پرۆفایل</h3>
+
+            <div style="display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:18px;">
+                <img id="profile-avatar-preview" style="width:84px; height:84px; border-radius:50%; object-fit:cover; border:2px solid var(--brand-gold);">
+                <input type="file" id="profile-avatar-file" accept="image/*" onchange="handleAvatarChange(event)">
+            </div>
+
+            <div class="form-group">
+                <label>ناوی نیشاندان</label>
+                <input type="text" id="profile-name" class="form-glass-input">
+            </div>
+
+            <div class="form-group">
+                <label>بایۆگرافیا</label>
+                <textarea id="profile-bio" class="form-glass-input" rows="2" placeholder="دەربارەی خۆت بنووسە..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>ڕەنگی سەرپەڕە (Cover)</label>
+                <div id="cover-preview-strip" style="height:36px; border-radius:var(--radius-md); margin-bottom:10px; background:var(--brand-burgundy);"></div>
+                <div style="display:flex; gap:8px; justify-content:center;" id="cover-swatches"></div>
+            </div>
+
+            <hr style="border:none; border-top:1px solid var(--glass-border-subtle); margin:18px 0;">
+
+            <div class="form-group">
+                <label>🔐 دووهەنگاوی پاراستن (2FA)</label>
+                <div id="twofa-status-text" style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px;"></div>
+                <button type="button" class="glass-btn" id="twofa-toggle-btn" onclick="start2FASetup()">چالاککردنی 2FA</button>
+                <div id="twofa-setup-box" style="display:none; margin-top:14px;">
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:8px;">ئەم نهێنییە لە ئەپی Authenticator داخل بکە:</p>
+                    <div id="twofa-secret-display" style="background:rgba(0,0,0,0.06); padding:10px; border-radius:8px; font-family:monospace; font-size:14px; letter-spacing:2px; text-align:center; word-break:break-all; margin-bottom:10px;"></div>
+                    <input type="text" id="twofa-confirm-input" class="form-glass-input" placeholder="کۆدی ٦ ژمارەیی" maxlength="6" style="text-align:center; letter-spacing:4px; margin-bottom:10px;">
+                    <button type="button" class="glass-btn btn-burgundy" style="width:100%;" onclick="confirm2FASetup()">پشتڕاستکردنەوە و چالاککردن</button>
+                </div>
+            </div>
+
+            <button class="glass-btn btn-burgundy" style="width:100%; padding:12px; margin-top:14px;" onclick="saveProfile()">پاشەکەوتکردن</button>
+            <button type="button" class="glass-btn" style="width:100%; margin-top:8px;" onclick="closeProfileModalOnly(); showSellerProfile(currentUser.uid);">👁️ بینینی پرۆفایلەکەم</button>
+        </div>
+    </div>
+
+    <!-- Modal 4: Payment Confirmation -->
+    <div class="modal-glass-backdrop" id="payModal">
+        <div class="modal-glass-box">
+            <h3 style="font-weight:900; margin-bottom:10px;">📥 پۆستەکەت نێردرا!</h3>
+            <p style="font-size:13.5px; color:var(--text-secondary); margin-bottom:16px;">بۆ چالاککردنی کاڵاکەت، بڕی پارەی پلانەکە بنێرە بۆ ئەم هەژمارە فەرمییە:</p>
+            <div style="background:rgba(200,149,46,0.12); border:1px solid var(--brand-gold); padding:14px; border-radius:var(--radius-lg); margin-bottom:20px; font-weight:800; font-size:15px; color:var(--brand-burgundy);">
+                📱 FastPay / FIB: 0750 123 4567
+            </div>
+            <button class="glass-btn btn-burgundy" style="width:100%; padding:12px;" onclick="closePayModal()">تێگەیشتم و گەڕانەوە بۆ مارکێت</button>
+        </div>
+    </div>
+
+    <!-- Modal 5: Product Detail Modal with Swiper Slider -->
+    <div class="modal-glass-backdrop" id="productDetailModal">
+        <div class="modal-glass-box modal-detail-card">
+            <button class="glass-btn" onclick="closeDetailModal()" style="position:absolute; top:16px; right:16px; z-index:10; padding:8px 16px;">↩ گەڕانەوە</button>
+            
+            <div class="swiper-box-wrap">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper" id="modal-swiper-wrapper"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="detail-scroll-body">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
+                    <h3 id="modal-detail-title" style="font-size:20px; font-weight:900; color:var(--text-primary);"></h3>
+                    <span id="modal-detail-vip-badge" class="badge-vip-ad" style="position:static; display:none;">🌟 VIP <span class="ad-micro-label">Ad</span></span>
+                </div>
+                
+                <div id="modal-detail-price" style="font-size:22px; font-weight:900; color:var(--brand-burgundy); margin-bottom:12px;"></div>
+                
+                <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12.5px; font-weight:700; color:var(--text-muted); margin-bottom:12px;">
+                    <span>📁 بەش: <b id="modal-detail-cat" style="color:var(--text-primary);"></b></span>
+                    <span>📍 شار: <b id="modal-detail-city" style="color:var(--text-primary);"></b></span>
+                </div>
+
+                <div id="modal-detail-desc" class="detail-desc-box"></div>
+
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
+                    <button id="modal-detail-seller-btn" class="glass-btn" style="justify-content:center;" onclick="showSellerProfile(currentDetailOwnerId)">
+                        👤 بینینی پرۆفایلی فرۆشیار
+                    </button>
+                    <a id="modal-detail-wa-btn" href="#" target="_blank" class="glass-btn" style="background:#25d366; color:#fff; justify-content:center; border:none;">
+                        💬 داواکردن لە واتسئەپ (WhatsApp)
+                    </a>
+                    <a id="modal-detail-call-btn" href="#" class="glass-btn btn-burgundy" style="justify-content:center;">
+                        📞 پەیوەندی بە تەلەفۆن: <span id="modal-detail-phone-num"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Soft Glass Cookie Consent Banner -->
+    <div class="cookie-glass-banner" id="cookieBanner">
+        <p>
+            🍪 <b>ڕێکخستنی کووکی و تایبەتمەندی:</b> ئێمە کووکی و هەڵگرتنی ناوخۆیی بەکاردەهێنین بۆ باشترکردنی ئەزموونی گەڕان، پاراستنی چوونەژوورەوە، و شیکارییەکانی سەکۆکەمان. بۆ زانیاری زیاتر تکایە 
+            <a href="privacy.html" style="color:var(--brand-burgundy); font-weight:800; text-decoration:underline;">سیاسەتی تایبەتمەندی</a> بخوێنەرەوە.
+        </p>
+        <div class="cookie-glass-actions">
+            <button class="glass-btn" onclick="setCookieConsent(false)">ڕەتکردنەوە</button>
+            <button class="glass-btn btn-burgundy" onclick="setCookieConsent(true)">قبوڵکردن</button>
+        </div>
+    </div>
+
+    <!-- Footer with Soft Glass Design -->
+    <footer class="glass-footer">
+        <div class="footer-brand">
+            <img src="qazibazar-logo.png" alt="Qazi Bazar">
+            <span style="font-weight:900; font-size:17px; color:var(--text-primary);">قازی بازار · Qazi Bazar</span>
+        </div>
+        <div class="footer-links">
+            <a onclick="goToMarket()">🏠 سەرەکی</a>
+            <a onclick="showSellersDirectory()">🛍️ فرۆشیارەکان</a>
+            <a href="privacy.html">🔒 سیاسەتی تایبەتمەندی (Privacy)</a>
+            <a href="#" onclick="event.preventDefault(); openCookieSettings();">🍪 ڕێکخستنی کووکی</a>
+            <a href="admin.html">🛠️ پانێڵی ئەدمین</a>
+        </div>
+        <div class="footer-copy">
+            ڕِیکلام لەم پەڕەیەدا لەلایەن قازی بازار بەڕێوە دەبرێت (ئایتمی VIP بە لێبڵی <b>"Ad / ڕیکلام"</b> نیشان دراوە).<br>
+            © <span id="footer-year"></span> Qazi Bazar (قازی بازار). هەموو مافەکان پارێزراون. دروستکراوە بە خۆشەویستی بۆ کوردستان.
+        </div>
+    </footer>
+
+    <!-- App Business Logic & Security Scripts -->
+    <script>
+        document.getElementById('footer-year').innerText = new Date().getFullYear();
+
+        // ===================== Cookie Utilities =====================
+        function setCookie(name, value, days = 365) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            const secure = location.protocol === 'https:' ? ';Secure' : '';
+            document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax${secure}`;
+        }
+
+        function getCookie(name) {
+            const encodedName = encodeURIComponent(name) + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(encodedName) === 0) {
+                    return decodeURIComponent(c.substring(encodedName.length));
+                }
+            }
+            return null;
+        }
+
+        function setCookieConsent(accepted) {
+            setCookie('qazi_consent', accepted ? 'accepted' : 'declined', 365);
+            localStorage.setItem('qazi_cookie_consent', accepted ? 'accepted' : 'declined');
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
+        function openCookieSettings() {
+            document.getElementById('cookieBanner').style.display = 'flex';
+        }
+
+        (function initCookieBanner() {
+            const consent = getCookie('qazi_consent') || localStorage.getItem('qazi_cookie_consent');
+            if (!consent) {
+                document.getElementById('cookieBanner').style.display = 'flex';
+            }
+        })();
+
+        // ===================== Security: Robust XSS Sanitization =====================
+        function esc(str) {
+            if (str === undefined || str === null) return '';
+            return String(str).replace(/[&<>"']/g, m => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[m]));
+        }
+
+        function sanitizeHexColor(color) {
+            if (/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(color)) return color;
+            return '#7d141d';
+        }
+
+        function sanitizeWhatsApp(phone) {
+            return String(phone || '').replace(/[^0-9+]/g, '');
+        }
+
+        // ===================== Image Compression (Prevents Firestore 1MB limits) =====================
+        function compressImage(dataUrl, maxWidth = 900, quality = 0.72) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxWidth) {
+                        h = Math.round((h * maxWidth) / w);
+                        w = maxWidth;
+                    }
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = () => resolve(dataUrl);
+                img.src = dataUrl;
+            });
+        }
+
+        // ===================== Global State =====================
+        let mySwiperInstance = null;
+        let currentFilter = null;
+        let currentUser = null;
+        let currentUserDoc = null;
+        let currentProducts = []; // Cached products for instant search
+        let currentDetailOwnerId = null;
+        let pendingTotpSecret = null;
+        let deferredPrompt = null;
+        const COVER_COLORS = ['#7d141d', '#c8952e', '#4338ca', '#078249', '#0369a1', '#190e0e'];
+
+        // Category Map
+        const CATEGORY_MAP = {
+            'پۆشاک و جلوبەرگ': ['جلوبەرگی کوردی پیاوانە', 'جلوبەرگی کوردی ئافرەتانە', 'کڵاش و پێڵاوی دەستچن', 'پۆشاکی مۆدێرنی کلتووری', 'هیتر لە جلوبەرگ'],
+            'خۆراک و خواردەمەنی': ['هەنگوینی سروشتی', 'وشکەوات و چەرەسات', 'دۆشاو و مرەبا', 'گژوگیای کوێستان', 'برنج و دانەوێڵە', 'نانی تیرێ و شیرینی', 'هیتر لە خۆراک'],
+            'کاری دەستی و هونەر': ['تابلۆی شێوەکاری', 'خەتخۆشی و شێعر', 'پەیکەرتاشی و تاشین', 'کەرەستەی خۆشنووسی', 'هیتر لە کاری دەستی'],
+            'کەرەستەی ناوماڵ و دیزاین': ['فەرش و جاجم و بەڕە', 'پیشەسازی دار', 'گڵکاری و سیرامیک', 'دیکۆراتی کلتووری', 'هیتر لە کەرەستەی ناوماڵ'],
+            'جوانکاری و تەندروستی سروشتی': ['صابوونی سروشتی', 'ڕۆنە سروشتییەکان', 'گیراوە گژوگیاییەکان', 'مەرهەمی ئۆرگانیک', 'هیتر لە جوانکاری'],
+            'کتێب و ڕۆشنبیری': ['دیوانی شاعیران', 'مێژوو و جوگرافیا', 'ڕۆمان و ئەدەبیات', 'فێربوونی زمان', 'هیتر لە کتێب'],
+            'ئامێرە مۆسیقییەکان': ['دەف و بازنە', 'تەمبوور و تار', 'شمشاڵ و نەی', 'کەرەستەی ئامێرەکان', 'هیتر لە ئامێری مۆسیقا'],
+            'گەشتوگوزار و ئەزموونی لۆکاڵی': ['گەشتی شاخەوانی', 'کۆتێج و کەپر', 'ڕێبەری گەشتیاری', 'گەشتی شوێنەوار', 'هیتر لە گەشتوگوزار'],
+            'کشتوکاڵ و باخداری': ['تۆوی ڕەسەن', 'نەمامی وەرزی', 'پەینی سروشتی', 'ئامرازی باخداری', 'هیتر لە کشتوکاڵ'],
+            'دیاری و سوغاتی ئامادەکراو': ['سێتی پیاوانە', 'سێتی ئافرەتانە', 'پاکێجی سوغات', 'هیتر لە دیاری'],
+            'کایەکلێ و یارییە کلتوورییەکان': ['تەختەنەرد و شەترەنج', 'یاری لۆکاڵی سەر مێز', 'بووکەڵەی قوماشی', 'هیتر لە یارییەکان'],
+            'کەرەستەی پیشەگەران و وەستاکان': ['ئامرازی دارتاشی', 'کەرەستەی چنین', 'ئامرازی گڵکاری', 'هیتر لە پیشەگەری'],
+            'وەرزش و سەرکێشی چیا': ['پێداویستی کامپین', 'گۆچانی شاخەوانی', 'جلی شاخەوانی', 'چادر و کیسەی خەو', 'هیتر لە شاخەوانی'],
+            'خشڵ و زێڕینگەرانی': ['ملوانکە و بازنە', 'کڵاوی مرواری', 'کەمەربەندی زیو', 'تەسبێحی نایاب', 'هیتر لە خشڵ'],
+            'کەرەستەی بیناسازی لۆکاڵی': ['بەردی سروشتی', 'گڵی سوور', 'خەڵووزی سروشتی', 'هیتر لە بیناسازی'],
+            'کۆکەرەوە و شتی کۆن (ئەنتیك)': ['دراوی کۆن', 'ڕادیۆ و گرامافۆن', 'کەرەستەی مسین', 'وێنەی دەگمەن', 'هیتر لە ئەنتیکە'],
+            'بۆن و عەترە کلتوورییەکان': ['عەتری مێخەک', 'بۆنخۆشکەری ماڵ', 'بخوور و دووکەڵ', 'هیتر لە بۆن وعەتر'],
+            'خزمەتگوزارییە لۆکاڵییەکان': ['شێفی لۆکاڵی', 'فۆتۆگرافەری کلتووری', 'وەستای چاککردنەوە', 'هیتر لە خزمەتگوزاری']
+        };
+
+        function populateCategoriesUI() {
+            // Populate Dropdown in Form
+            const select = document.getElementById('p-subcat');
+            if (select) {
+                let html = '<option value="">هەڵبژاردنی ژێر پۆلێن...</option>';
+                for (const cat in CATEGORY_MAP) {
+                    html += `<optgroup label="${esc(cat)}">`;
+                    CATEGORY_MAP[cat].forEach(sub => {
+                        html += `<option value="${esc(sub)}">${esc(sub)}</option>`;
+                    });
+                    html += `</optgroup>`;
+                }
+                select.innerHTML = html;
+            }
+
+            // Populate Sidebar Accordion
+            const acc = document.getElementById('categoryAccordion');
+            if (acc) {
+                let accHtml = '';
+                for (const cat in CATEGORY_MAP) {
+                    accHtml += `
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                ${esc(cat)} <span>+</span>
+                            </button>
+                            <div class="accordion-panel">
+                                ${CATEGORY_MAP[cat].map(sub => `
+                                    <a href="#" onclick="event.preventDefault(); filterSubCat('${esc(sub)}')">${esc(sub)}</a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                acc.innerHTML = accHtml;
+            }
+        }
+
+        // ===================== Responsive History Navigation =====================
+        history.replaceState({ qaziApp: false }, '', location.pathname + location.search);
+
+        function qaziPushNav() {
+            history.pushState({ qaziApp: true }, '', '#view-' + Date.now());
+        }
+
+        function qaziGoBack() {
+            if (history.state && history.state.qaziApp) {
+                history.back();
+            } else {
+                qaziCloseTopLayer();
+            }
+        }
+
+        function qaziCloseTopLayer() {
+            const twoFA = document.getElementById('twoFAModal');
+            if (twoFA && twoFA.style.display === 'flex') {
+                auth.signOut();
+                twoFA.style.display = 'none';
+                return;
+            }
+
+            const modals = ['loginModal', 'productDetailModal', 'profileModal', 'payModal'];
+            for (const id of modals) {
+                const el = document.getElementById(id);
+                if (el && el.style.display === 'flex') {
+                    el.style.display = 'none';
+                    if (id === 'payModal') goToMarket();
+                    if (id === 'profileModal') {
+                        document.getElementById('twofa-setup-box').style.display = 'none';
+                        pendingTotpSecret = null;
+                    }
+                    return;
+                }
+            }
+
+            const drawer = document.getElementById('navDrawer');
+            if (drawer && drawer.classList.contains('open')) {
+                drawer.classList.remove('open');
+                document.getElementById('drawerOverlay').classList.remove('open');
+                return;
+            }
+
+            const activeSection = document.querySelector('.view-section.active');
+            if (activeSection && activeSection.id !== 'view-market') {
+                goToMarket();
+            }
+        }
+
+        window.addEventListener('popstate', qaziCloseTopLayer);
+
+        function toggleDrawer() {
+            const drawer = document.getElementById('navDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            const isOpening = !drawer.classList.contains('open');
+            if (isOpening) {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+                qaziPushNav();
+            } else {
+                qaziGoBack();
+            }
+        }
+
+        function closeDrawerOnly() {
+            document.getElementById('navDrawer').classList.remove('open');
+            document.getElementById('drawerOverlay').classList.remove('open');
+        }
+
+        function toggleAccordion(el) {
+            const item = el.parentElement;
+            const panel = item.querySelector('.accordion-panel');
+            const icon = el.querySelector('span');
+
+            document.querySelectorAll('.accordion-item').forEach(other => {
+                if (other !== item && other.classList.contains('active')) {
+                    other.classList.remove('active');
+                    other.querySelector('.accordion-panel').style.maxHeight = null;
+                    other.querySelector('span').textContent = '+';
+                }
+            });
+
+            item.classList.toggle('active');
+            if (item.classList.contains('active')) {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+                icon.textContent = '−';
+            } else {
+                panel.style.maxHeight = null;
+                icon.textContent = '+';
+            }
+        }
+
+        function goToMarket() {
+            currentFilter = null;
+            document.getElementById('market-search').value = '';
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-market').classList.add('active');
+            document.getElementById('btn-global-back').style.display = 'none';
+            document.getElementById('filter-title').innerText = '🔥 نوێترین بەرهەمەکان';
+            renderCachedMarket();
+        }
+
+        function switchView(viewName) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(`view-${viewName}`);
+            if (target) target.classList.add('active');
+            if (viewName !== 'market') qaziPushNav();
+        }
+
+        // ===================== PWA Installation Flow =====================
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const headerBtn = document.getElementById('pwaInstallHeaderBtn');
+            const floatingBanner = document.getElementById('pwaFloatingBanner');
+            if (headerBtn) headerBtn.style.display = 'inline-flex';
+            if (floatingBanner) floatingBanner.style.display = 'flex';
+        });
+
+        function triggerPwaInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User installed Qazi Bazar app');
+                    }
+                    deferredPrompt = null;
+                    dismissPwaBanner();
+                });
+            } else {
+                alert('بۆ داگرتن لە مۆبایلەکەت: لە بەشی Menu ی براوسەرەکەتدا "Add to Home Screen" دابگرە.');
+            }
+        }
+
+        function dismissPwaBanner() {
+            const floatingBanner = document.getElementById('pwaFloatingBanner');
+            if (floatingBanner) floatingBanner.style.display = 'none';
+        }
+
+        // ===================== Auth & Roles =====================
+        function checkLoginBeforeSell() {
+            if (!currentUser) {
+                document.getElementById('loginModal').style.display = 'flex';
+                qaziPushNav();
+                return;
+            }
+            if (currentUserDoc && currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved') {
+                document.getElementById('ownerName').value = currentUserDoc.name || '';
+                switchView('sell');
+            } else {
+                renderBecomeSellerBox();
+                switchView('become-seller');
+            }
+        }
+
+        function closeLoginModal() {
+            qaziGoBack();
+        }
+
+        async function signInWithGoogle() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+                closeLoginModal();
+            } catch (err) {
+                alert('هەڵەیەک ڕوویدا لە چوونەژوورەوە: ' + (err.message || err));
+            }
+        }
+
+        function signOutUser() {
+            sessionStorage.removeItem('qazi_2fa_verified');
+            auth.signOut().then(() => goToMarket());
+        }
+
+        async function ensureUserDoc(user) {
+            try {
+                const ref = db.collection('users').doc(user.uid);
+                const snap = await ref.get();
+                if (!snap.exists) {
+                    const newDoc = {
+                        name: user.displayName || 'بەکارهێنەر',
+                        email: user.email || '',
+                        photoURL: user.photoURL || '',
+                        bio: '',
+                        coverColor: COVER_COLORS[0],
+                        role: 'customer',
+                        roleStatus: 'none',
+                        totpEnabled: false,
+                        theme: getCookie('qazi_theme') || localStorage.getItem('qazi_theme') || 'light',
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    await ref.set(newDoc);
+                    return newDoc;
+                }
+                return snap.data();
+            } catch (err) {
+                console.error('Error fetching user doc:', err);
+                return null;
+            }
+        }
+
+        auth.onAuthStateChanged(async (user) => {
+            currentUser = user;
+            if (user) {
+                currentUserDoc = await ensureUserDoc(user);
+                if (currentUserDoc && currentUserDoc.theme) {
+                    applyTheme(currentUserDoc.theme, false);
+                }
+
+                if (currentUserDoc && currentUserDoc.totpEnabled && sessionStorage.getItem('qazi_2fa_verified') !== user.uid) {
+                    document.getElementById('twoFAModal').style.display = 'flex';
+                    qaziPushNav();
+                } else {
+                    document.getElementById('twoFAModal').style.display = 'none';
+                }
+            } else {
+                currentUserDoc = null;
+                document.getElementById('twoFAModal').style.display = 'none';
+            }
+            updateUserBadge();
+        });
+
+        function updateUserBadge() {
+            const badge = document.getElementById('user-badge');
+            const avatarBtn = document.getElementById('avatarBtn');
+            const avatarImg = document.getElementById('avatarBtnImg');
+            const profileLink = document.getElementById('drawer-profile-link');
+            const logoutLink = document.getElementById('drawer-logout-link');
+            const adminDrawerLink = document.getElementById('drawer-admin-link');
+            const adminHeaderBtn = document.getElementById('headerAdminBtn');
+
+            if (currentUser && currentUserDoc) {
+                badge.innerText = `👤 ${currentUserDoc.name || 'بەکارهێنەر'}` + 
+                    (currentUserDoc.role === 'admin' ? ' (ئەدمین)' : (currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved') ? ' (فرۆشیار)' : '');
+                badge.style.display = 'inline-block';
+                avatarBtn.style.display = 'block';
+                avatarImg.src = currentUserDoc.photoURL || 'qazibazar-logo.png';
+                profileLink.style.display = 'flex';
+                logoutLink.style.display = 'flex';
+                const isAdmin = currentUserDoc.role === 'admin';
+                adminDrawerLink.style.display = isAdmin ? 'flex' : 'none';
+                adminHeaderBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+            } else {
+                badge.style.display = 'none';
+                avatarBtn.style.display = 'none';
+                profileLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+                adminDrawerLink.style.display = 'none';
+                adminHeaderBtn.style.display = 'none';
+            }
+        }
+
+        // ===================== Request Seller Role =====================
+        function renderBecomeSellerBox() {
+            const box = document.getElementById('become-seller-box');
+            if (!box) return;
+            if (!currentUserDoc) {
+                box.innerHTML = `<p style="text-align:center; color:var(--text-muted);">تکایە سەرەتا لۆگین بە.</p>`;
+                return;
+            }
+            if (currentUserDoc.roleStatus === 'pending') {
+                box.innerHTML = `<div style="background:rgba(200,149,46,0.12); border:1px solid var(--brand-gold); padding:16px; border-radius:var(--radius-lg); color:var(--brand-burgundy); font-weight:700;">⏳ داواکاریەکەت نێردراوە بۆ ئەدمین و چاوەڕوانی پەسندکردنە. تکایە کەمێک چاوەڕێ بکە.</div>`;
+            } else if (currentUserDoc.roleStatus === 'rejected') {
+                box.innerHTML = `<div style="background:rgba(192,38,38,0.1); border:1px solid var(--accent-red); padding:16px; border-radius:var(--radius-lg); color:var(--accent-red); font-weight:700; margin-bottom:14px;">🚫 داواکاریەکەت پێشتر پەسەند نەکراوە. دەتوانیت دووبارە داوا بنێریت.</div>
+                    <button class="glass-btn btn-burgundy" style="width:100%;" onclick="requestSellerRole()">دووبارە داواکردن</button>`;
+            } else {
+                box.innerHTML = `<div style="background:rgba(7,130,73,0.1); border:1px solid var(--accent-green); padding:18px; border-radius:var(--radius-lg); color:var(--accent-green); font-weight:700; margin-bottom:16px; line-height:1.7;">
+                    سڵاو ${esc(currentUserDoc.name)}! بۆ ئەوەی بتوانیت کاڵاکانت لە قازی بازار بفرۆشیت، پێویستە هەژمارەکەت لەلایەن ئەدمینەوە وەک فرۆشیاری پشتڕاستکراو پەسەند بکرێت.
+                </div>
+                <button class="glass-btn btn-burgundy" style="width:100%; padding:14px;" onclick="requestSellerRole()">🛍️ داواکردنی بوون بە فرۆشیار</button>`;
+            }
+        }
+
+        async function requestSellerRole() {
+            if (!currentUser) return;
+            try {
+                await db.collection('roleRequests').add({
+                    uid: currentUser.uid,
+                    name: currentUserDoc.name || 'بەکارهێنەر',
+                    email: currentUserDoc.email || '',
+                    requestedRole: 'seller',
+                    status: 'pending',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                await db.collection('users').doc(currentUser.uid).update({ roleStatus: 'pending' });
+                currentUserDoc.roleStatus = 'pending';
+                renderBecomeSellerBox();
+                alert('✅ داواکاریەکەت بە سەرکەوتوویی نێردرا بۆ تیمی ئەدمین.');
+            } catch (err) {
+                alert('هەڵەیەک ڕوویدا لە ناردنی داواکاری: ' + err.message);
+            }
+        }
+
+        // ===================== Product Submission with Security & Compression =====================
+        async function handleProductSubmit(e) {
+            e.preventDefault();
+            if (!currentUser || !currentUserDoc || currentUserDoc.role !== 'seller' || currentUserDoc.roleStatus !== 'approved') {
+                alert('تەنها فرۆشیارە پەسندکراوەکان دەتوانن کاڵا بڵاو بکەنەوە.');
+                return;
+            }
+
+            // Phone validation
+            const phone = document.getElementById('p-phone').value.trim();
+            if (!/^[0-9+ ]{8,15}$/.test(phone)) {
+                alert('تکایە ژمارەی مۆبایلێکی دروست بنووسە.');
+                return;
+            }
+
+            const files = document.getElementById('p-file').files;
+            if (!files || files.length === 0) {
+                alert('تکایە لانیکەم وێنەیەک هەڵبژێرە.');
+                return;
+            }
+            if (files.length > 6) {
+                alert('دەتوانیت لە یەک کاتدا تەنها تا ٦ وێنە هەڵبژێریت.');
+                return;
+            }
+
+            // Check file sizes
+            for (let i = 0; i < files.length; i++) {
+                if (files[i].size > 8 * 1024 * 1024) {
+                    alert('قەبارەی وێنە نابێت لە ٨ مێگابایت زیاتر بێت.');
+                    return;
+                }
+            }
+
+            const submitBtn = document.getElementById('btnProductSubmit');
+            submitBtn.disabled = true;
+            submitBtn.innerText = '⏳ لە چارەسەرکردن و پەستانی وێنەکاندایە...';
+
+            try {
+                const compressedImages = [];
+                for (let i = 0; i < files.length; i++) {
+                    const rawDataUrl = await readFileAsDataURL(files[i]);
+                    const compressed = await compressImage(rawDataUrl, 900, 0.72);
+                    compressedImages.push(compressed);
+                }
+
+                await saveProduct(compressedImages);
+            } catch (err) {
+                alert('هەڵەیەک ڕوویدا لە کاتی هەڵگرتنی کاڵاکە: ' + (err.message || err));
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'ناردنی کاڵا بۆ پەسندکردنی ئەدمین';
+            }
+        }
+
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function saveProduct(images) {
+            const newProduct = {
+                ownerId: currentUser.uid,
+                ownerName: document.getElementById('ownerName').value.trim() || currentUserDoc.name,
+                title: document.getElementById('p-title').value.trim(),
+                subcategory: document.getElementById('p-subcat').value,
+                description: document.getElementById('p-desc').value.trim() || 'هیچ شیکردنەوەیەک نییە.',
+                price: document.getElementById('p-price').value.trim(),
+                whatsapp: sanitizeWhatsApp(document.getElementById('p-phone').value),
+                city: document.getElementById('p-city').value.trim(),
+                address: document.getElementById('p-address').value.trim(),
+                plan: document.getElementById('p-plan').value,
+                images: images,
+                status: 'pending',
+                deleted: false,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            await db.collection('products').add(newProduct);
+            document.getElementById('product-form').reset();
+            document.getElementById('payModal').style.display = 'flex';
+            qaziPushNav();
+        }
+
+        function closePayModal() {
+            qaziGoBack();
+        }
+
+        // ===================== Cached Instant Search & Market Render =====================
+        async function fetchMarketProducts() {
+            try {
+                const snap = await db.collection('products')
+                    .where('status', '==', 'active')
+                    .where('deleted', '==', false)
+                    .get();
+
+                currentProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderCachedMarket();
+            } catch (err) {
+                console.error('Error loading market products:', err);
+                const grid = document.getElementById('market-products-grid');
+                if (grid) grid.innerHTML = `<div class="no-data-notice">❌ هەڵەیەک ڕوویدا لە بارکردنی کاڵاکان.</div>`;
+            }
+        }
+
+        function handleInstantSearch(term) {
+            renderCachedMarket(currentFilter, term);
+        }
+
+        function filterSubCat(subCatName) {
+            closeDrawerOnly();
+            currentFilter = subCatName;
+            document.getElementById('market-search').value = '';
+            document.getElementById('btn-global-back').style.display = 'inline-flex';
+            document.getElementById('filter-title').innerText = `📂 ${subCatName}`;
+            renderCachedMarket(subCatName, '');
+        }
+
+        function renderCachedMarket(filterSub = currentFilter, searchTerm = '') {
+            const grid = document.getElementById('market-products-grid');
+            if (!grid) return;
+
+            const now = Date.now();
+            let active = currentProducts.filter(p => {
+                let expiry = p.expiryTime;
+                if (expiry && typeof expiry.toMillis === 'function') expiry = expiry.toMillis();
+                return !expiry || expiry > now;
+            });
+
+            if (filterSub) {
+                active = active.filter(p => p.subcategory === filterSub);
+            }
+
+            if (searchTerm && searchTerm.trim()) {
+                const q = searchTerm.trim().toLowerCase();
+                active = active.filter(p => 
+                    (p.title && p.title.toLowerCase().includes(q)) ||
+                    (p.description && p.description.toLowerCase().includes(q)) ||
+                    (p.city && p.city.toLowerCase().includes(q)) ||
+                    (p.ownerName && p.ownerName.toLowerCase().includes(q))
+                );
+            }
+
+            // Sort: VIP products first
+            active.sort((a, b) => {
+                const aVip = a.plan && a.plan.startsWith('vip') ? 1 : 0;
+                const bVip = b.plan && b.plan.startsWith('vip') ? 1 : 0;
+                return bVip - aVip;
+            });
+
+            if (active.length === 0) {
+                grid.innerHTML = `<div class="no-data-notice">✨ هیچ بەرهەمێک نەدۆزرایەوە. دەتوانیت لە بەشەکانی تر بگەڕێیت.</div>`;
+                return;
+            }
+
+            grid.innerHTML = active.map(p => {
+                const isVip = p.plan && p.plan.startsWith('vip');
+                const displayImg = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'qazibazar-logo.png');
+                const displayCity = p.city ? `📍 ${esc(p.city)}` : '📍 کوردستان';
+
+                return `
+                    <div class="glass-card-product ${isVip ? 'is-vip' : ''}" onclick="showProductDetails('${esc(p.id)}')">
+                        <div class="prod-img-box">
+                            <span class="badge-city">${displayCity}</span>
+                            ${isVip ? `<span class="badge-vip-ad">🌟 VIP <span class="ad-micro-label" title="بەرهەمی سپۆنسەرکراو / Sponsored Ad">Ad / ڕیکلام</span></span>` : ''}
+                            <img src="${esc(displayImg)}" class="prod-img" loading="lazy" alt="${esc(p.title)}">
+                        </div>
+                        <div class="prod-details">
+                            <div>
+                                <div class="prod-cat">${esc(p.subcategory || 'بەرهەمی لۆکاڵی')}</div>
+                                <h3 class="prod-title">${esc(p.title)}</h3>
+                            </div>
+                            <div class="prod-footer-row">
+                                <span class="prod-price">${esc(p.price)}</span>
+                                <button class="btn-view-card" onclick="event.stopPropagation(); showProductDetails('${esc(p.id)}')">بینین</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===================== Product Detail Modal =====================
+        function showProductDetails(id) {
+            const p = currentProducts.find(x => x.id === id);
+            if (!p) return;
+
+            currentDetailOwnerId = p.ownerId || null;
+            document.getElementById('modal-detail-seller-btn').style.display = currentDetailOwnerId ? 'inline-flex' : 'none';
+
+            const swiperWrapper = document.getElementById('modal-swiper-wrapper');
+            const images = (p.images && p.images.length > 0) ? p.images : [p.image || 'qazibazar-logo.png'];
+
+            swiperWrapper.innerHTML = images.map(img => `
+                <div class="swiper-slide">
+                    <img src="${esc(img)}" alt="${esc(p.title)}">
+                </div>
+            `).join('');
+
+            if (mySwiperInstance) mySwiperInstance.destroy(true, true);
+            mySwiperInstance = new Swiper('.mySwiper', {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                grabCursor: true
+            });
+
+            document.getElementById('modal-detail-title').innerText = p.title;
+            document.getElementById('modal-detail-price').innerText = "نرخ: " + p.price;
+            document.getElementById('modal-detail-cat').innerText = p.subcategory || 'لۆکاڵی';
+            document.getElementById('modal-detail-city').innerText = (p.city || 'کوردستان') + (p.address ? ` (${p.address})` : '');
+            document.getElementById('modal-detail-desc').innerText = p.description || 'هیچ شیکردنەوەیەک نییە.';
+
+            const isVip = p.plan && p.plan.startsWith('vip');
+            const vipBadge = document.getElementById('modal-detail-vip-badge');
+            if (vipBadge) vipBadge.style.display = isVip ? 'inline-flex' : 'none';
+
+            const cleanPhone = sanitizeWhatsApp(p.whatsapp);
+            const waText = encodeURIComponent(`سڵاو، لە قازی بازارم بۆ کڕینی:\n📦 ${p.title}\n💰 نرخ: ${p.price}`);
+            document.getElementById('modal-detail-wa-btn').href = `https://wa.me/${cleanPhone}?text=${waText}`;
+            document.getElementById('modal-detail-call-btn').href = `tel:${cleanPhone}`;
+            document.getElementById('modal-detail-phone-num').innerText = cleanPhone;
+
+            document.getElementById('productDetailModal').style.display = 'flex';
+            qaziPushNav();
+        }
+
+        function closeDetailModal() {
+            qaziGoBack();
+        }
+
+        // ===================== Themes with Cookies & LocalStorage =====================
+        function applyTheme(theme, persist = true) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) btn.innerText = theme === 'dark' ? '☀️' : '🌙';
+            if (persist) {
+                setCookie('qazi_theme', theme, 365);
+                localStorage.setItem('qazi_theme', theme);
+            }
+        }
+
+        function toggleTheme() {
+            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            applyTheme(next);
+            if (currentUser) {
+                db.collection('users').doc(currentUser.uid).update({ theme: next }).catch(() => {});
+            }
+        }
+
+        function loadInitialTheme() {
+            const saved = getCookie('qazi_theme') || localStorage.getItem('qazi_theme') || 'light';
+            applyTheme(saved, false);
+        }
+
+        // ===================== Profile Management =====================
+        function openProfileModal() {
+            if (!currentUser || !currentUserDoc) return;
+            document.getElementById('profile-name').value = currentUserDoc.name || '';
+            document.getElementById('profile-bio').value = currentUserDoc.bio || '';
+            document.getElementById('profile-avatar-preview').src = currentUserDoc.photoURL || 'qazibazar-logo.png';
+
+            const swatchBox = document.getElementById('cover-swatches');
+            swatchBox.innerHTML = COVER_COLORS.map(c => `
+                <div class="cover-swatch" style="width:28px; height:28px; border-radius:50%; background:${c}; cursor:pointer; border:2px solid ${currentUserDoc.coverColor === c ? 'var(--text-primary)' : 'transparent'};" onclick="selectCoverColor('${c}', event)"></div>
+            `).join('');
+
+            selectedCoverColor = sanitizeHexColor(currentUserDoc.coverColor || COVER_COLORS[0]);
+            document.getElementById('cover-preview-strip').style.background = selectedCoverColor;
+
+            renderTwoFAStatus();
+            document.getElementById('profileModal').style.display = 'flex';
+            qaziPushNav();
+        }
+
+        function closeProfileModal() {
+            qaziGoBack();
+        }
+
+        function closeProfileModalOnly() {
+            document.getElementById('profileModal').style.display = 'none';
+            document.getElementById('twofa-setup-box').style.display = 'none';
+            pendingTotpSecret = null;
+        }
+
+        let selectedCoverColor = COVER_COLORS[0];
+        function selectCoverColor(c, evt) {
+            selectedCoverColor = sanitizeHexColor(c);
+            document.querySelectorAll('#cover-swatches div').forEach(el => el.style.borderColor = 'transparent');
+            evt.target.style.borderColor = 'var(--text-primary)';
+            document.getElementById('cover-preview-strip').style.background = selectedCoverColor;
+        }
+
+        function handleAvatarChange(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async (ev) => {
+                const compressed = await compressImage(ev.target.result, 180, 0.8);
+                document.getElementById('profile-avatar-preview').src = compressed;
+                document.getElementById('profile-avatar-preview').dataset.newAvatar = compressed;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function saveProfile() {
+            if (!currentUser) return;
+            try {
+                const updates = {
+                    name: document.getElementById('profile-name').value.trim() || currentUserDoc.name,
+                    bio: document.getElementById('profile-bio').value.trim(),
+                    coverColor: selectedCoverColor
+                };
+                const newAvatar = document.getElementById('profile-avatar-preview').dataset.newAvatar;
+                if (newAvatar) updates.photoURL = newAvatar;
+
+                await db.collection('users').doc(currentUser.uid).update(updates);
+                Object.assign(currentUserDoc, updates);
+                updateUserBadge();
+                closeProfileModal();
+                alert('✅ پرۆفایلەکەت نوێکرایەوە.');
+            } catch (err) {
+                alert('هەڵەیەک ڕوویدا: ' + err.message);
+            }
+        }
+
+        // ===================== Verified Sellers Directory =====================
+        async function showSellersDirectory() {
+            switchView('sellers');
+            const grid = document.getElementById('sellers-grid');
+            grid.innerHTML = `<div class="no-data-notice">⏳ لە بارکردنی فرۆشیارەکانە...</div>`;
+            try {
+                const snap = await db.collection('users')
+                    .where('role', '==', 'seller')
+                    .where('roleStatus', '==', 'approved')
+                    .get();
+
+                const sellers = snap.docs.map(d => ({ uid: d.id, ...d.data() }));
+                if (sellers.length === 0) {
+                    grid.innerHTML = `<div class="no-data-notice">✨ هێشتا فرۆشیاری پشتڕاستکراو تۆمار نەکراوە.</div>`;
+                    return;
+                }
+
+                grid.innerHTML = sellers.map(s => `
+                    <div class="glass-card-product" style="padding:24px 18px; text-align:center; align-items:center;" onclick="showSellerProfile('${esc(s.uid)}')">
+                        <img src="${esc(s.photoURL || 'qazibazar-logo.png')}" style="width:78px; height:78px; border-radius:50%; object-fit:cover; margin-bottom:12px; border:2px solid var(--brand-gold);">
+                        <h4 style="font-weight:800; font-size:16px;">${esc(s.name)}</h4>
+                        <span class="user-tag" style="display:inline-block; margin:6px 0;">🛍️ فرۆشیاری فەرمی</span>
+                        <p style="font-size:12.5px; color:var(--text-muted); line-height:1.6; margin-top:6px;">${esc((s.bio || '').slice(0, 75))}</p>
+                    </div>
+                `).join('');
+            } catch (err) {
+                grid.innerHTML = `<div class="no-data-notice">❌ ناتوانرا فرۆشیارەکان باربکرێن.</div>`;
+            }
+        }
+
+        async function showSellerProfile(uid) {
+            if (!uid) return;
+            switchView('profile');
+            try {
+                const userSnap = await db.collection('users').doc(uid).get();
+                if (!userSnap.exists) return;
+                const s = userSnap.data();
+
+                const safeColor = sanitizeHexColor(s.coverColor || '#7d141d');
+                document.getElementById('profile-cover').style.background = `linear-gradient(135deg, ${safeColor}, #190e0e)`;
+                document.getElementById('profile-view-avatar').src = s.photoURL || 'qazibazar-logo.png';
+                document.getElementById('profile-view-name').innerText = s.name || 'فرۆشیار';
+                document.getElementById('profile-view-role').innerText = s.role === 'seller' ? '🛍️ فرۆشیاری پشتڕاستکراو' : 'بەکارهێنەر';
+                document.getElementById('profile-view-bio').innerText = s.bio || 'هیچ زانیارییەک نەنووسراوە.';
+
+                const prodSnap = await db.collection('products')
+                    .where('ownerId', '==', uid)
+                    .where('status', '==', 'active')
+                    .where('deleted', '==', false)
+                    .get();
+
+                const prods = prodSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+                // Merge with currentProducts cache
+                prods.forEach(p => {
+                    if (!currentProducts.some(cp => cp.id === p.id)) currentProducts.push(p);
+                });
+
+                const grid = document.getElementById('profile-products-grid');
+                if (prods.length === 0) {
+                    grid.innerHTML = `<div class="no-data-notice">ئەم فرۆشیارە هیچ کاڵایەکی چالاکی نییە لە ئێستادا.</div>`;
+                    return;
+                }
+
+                grid.innerHTML = prods.map(p => `
+                    <div class="glass-card-product" onclick="showProductDetails('${esc(p.id)}')">
+                        <div class="prod-img-box">
+                            <img src="${esc((p.images && p.images[0]) ? p.images[0] : 'qazibazar-logo.png')}" class="prod-img">
+                        </div>
+                        <div class="prod-details">
+                            <div class="prod-cat">${esc(p.subcategory)}</div>
+                            <h3 class="prod-title">${esc(p.title)}</h3>
+                            <div class="prod-footer-row">
+                                <span class="prod-price">${esc(p.price)}</span>
+                                <button class="btn-view-card">بینین</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // ===================== 2FA / Web Crypto TOTP =====================
+        const b32chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+        function generateBase32Secret(len = 20) {
+            const bytes = new Uint8Array(len);
+            crypto.getRandomValues(bytes);
+            let s = '';
+            for (let i = 0; i < len; i++) s += b32chars[bytes[i] % 32];
+            return s;
+        }
+
+        function base32ToBytes(b32) {
+            let bits = '';
+            for (const c of b32.toUpperCase().replace(/=+$/, '')) {
+                const val = b32chars.indexOf(c);
+                if (val === -1) continue;
+                bits += val.toString(2).padStart(5, '0');
+            }
+            const bytes = [];
+            for (let i = 0; i + 8 <= bits.length; i += 8) bytes.push(parseInt(bits.substr(i, 8), 2));
+            return new Uint8Array(bytes);
+        }
+
+        async function computeTOTP(secretBase32, timeStep = 30, digits = 6, offset = 0) {
+            const counter = Math.floor(Date.now() / 1000 / timeStep) + offset;
+            const keyBytes = base32ToBytes(secretBase32);
+            const key = await crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: 'SHA-1' }, false, ['sign']);
+            const buf = new ArrayBuffer(8);
+            new DataView(buf).setUint32(4, counter);
+            const sig = await crypto.subtle.sign('HMAC', key, buf);
+            const hmac = new Uint8Array(sig);
+            const o = hmac[hmac.length - 1] & 0xf;
+            const bin = ((hmac[o] & 0x7f) << 24) | ((hmac[o + 1] & 0xff) << 16) | ((hmac[o + 2] & 0xff) << 8) | (hmac[o + 3] & 0xff);
+            return (bin % (10 ** digits)).toString().padStart(digits, '0');
+        }
+
+        async function verifyTOTP(code, secret) {
+            for (const offset of [0, -1, 1]) {
+                if (await computeTOTP(secret, 30, 6, offset) === code) return true;
+            }
+            return false;
+        }
+
+        async function renderTwoFAStatus() {
+            const statusText = document.getElementById('twofa-status-text');
+            const btn = document.getElementById('twofa-toggle-btn');
+            if (currentUserDoc.totpEnabled) {
+                statusText.innerText = '✅ 2FA چالاکە بۆ ئەم هەژمارە.';
+                btn.innerText = 'ناچالاککردنی 2FA';
+                btn.style.color = 'var(--accent-red)';
+                btn.onclick = disable2FA;
+            } else {
+                statusText.innerText = 'هێشتا 2FA چالاک نییە.';
+                btn.innerText = 'چالاککردنی 2FA';
+                btn.style.color = 'var(--brand-burgundy)';
+                btn.onclick = start2FASetup;
+            }
+        }
+
+        function start2FASetup() {
+            pendingTotpSecret = generateBase32Secret();
+            document.getElementById('twofa-secret-display').innerText = pendingTotpSecret;
+            document.getElementById('twofa-setup-box').style.display = 'block';
+        }
+
+        async function confirm2FASetup() {
+            const code = document.getElementById('twofa-confirm-input').value.trim();
+            if (!pendingTotpSecret) return;
+            const ok = await verifyTOTP(code, pendingTotpSecret);
+            if (!ok) { alert('کۆدەکە هەڵەیە.'); return; }
+            await db.collection('users').doc(currentUser.uid).collection('private').doc('security').set({ totpSecret: pendingTotpSecret });
+            await db.collection('users').doc(currentUser.uid).update({ totpEnabled: true });
+            currentUserDoc.totpEnabled = true;
+            pendingTotpSecret = null;
+            document.getElementById('twofa-setup-box').style.display = 'none';
+            renderTwoFAStatus();
+            alert('✅ 2FA بە سەرکەوتوویی چالاککرا!');
+        }
+
+        async function disable2FA() {
+            if (!confirm('دڵنیایت لە ناچالاککردنی 2FA؟')) return;
+            await db.collection('users').doc(currentUser.uid).collection('private').doc('security').delete();
+            await db.collection('users').doc(currentUser.uid).update({ totpEnabled: false });
+            currentUserDoc.totpEnabled = false;
+            renderTwoFAStatus();
+        }
+
+        async function verifyLogin2FA() {
+            const code = document.getElementById('twofa-login-input').value.trim();
+            const sec = await db.collection('users').doc(currentUser.uid).collection('private').doc('security').get();
+            if (!sec.exists) { document.getElementById('twoFAModal').style.display = 'none'; return; }
+            const ok = await verifyTOTP(code, sec.data().totpSecret);
+            if (!ok) { alert('کۆدەکە هەڵەیە.'); return; }
+            sessionStorage.setItem('qazi_2fa_verified', currentUser.uid);
+            document.getElementById('twoFAModal').style.display = 'none';
+        }
+
+        // ===================== Service Worker PWA Registration =====================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch((err) => {
+                    console.log('SW registration note:', err);
+                });
+            });
+        }
+
+        // ===================== Initialization =====================
+        loadInitialTheme();
+        populateCategoriesUI();
+        fetchMarketProducts();
+    </script>
+</body>
+</html>
