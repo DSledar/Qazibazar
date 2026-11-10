@@ -78,6 +78,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Bootstrap 5.3.3 RTL (Flexible, Reliable Responsive Framework) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+
     <!-- Swiper Slider CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -723,80 +726,124 @@
             background: var(--brand-burgundy-light);
         }
 
-        /* ===================== Mobile-Optimized Modals ===================== */
-        .modal-glass-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(14, 10, 10, 0.68);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            justify-content: center;
-            align-items: flex-start;
-            z-index: 2100;
-            padding: max(48px, calc(env(safe-area-inset-top) + 20px)) 12px max(32px, calc(env(safe-area-inset-bottom) + 20px));
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            box-sizing: border-box;
+        /* ===================== Bootstrap 5 Soft Glass Integration ===================== */
+        .modal-backdrop.show {
+            background-color: rgba(14, 10, 10, 0.72) !important;
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+            opacity: 1 !important;
         }
 
-        .modal-glass-box {
+        .modal-dialog {
+            margin: 1.25rem auto;
+            max-width: 480px;
+            padding: 0 10px;
+        }
+        @media (max-width: 576px) {
+            .modal-dialog {
+                margin: 0.75rem auto;
+            }
+        }
+
+        .modal-content.glass-modal {
+            background: var(--glass-surface-elevated) !important;
+            backdrop-filter: var(--glass-blur) !important;
+            -webkit-backdrop-filter: var(--glass-blur) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: var(--radius-xl) !important;
+            box-shadow: var(--shadow-float), var(--glass-specular) !important;
+            color: var(--text-primary) !important;
+            overflow: hidden;
+        }
+
+        .glass-modal .btn-close {
+            background-color: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            opacity: 0.85;
+            padding: 0.5rem;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+        .glass-modal .btn-close:hover {
+            opacity: 1;
+            transform: scale(1.08);
+            background-color: var(--brand-burgundy);
+        }
+
+        /* Bootstrap Offcanvas (Drawer) Soft Glass */
+        .offcanvas.glass-offcanvas {
+            background: var(--glass-surface-elevated) !important;
+            backdrop-filter: var(--glass-blur) !important;
+            -webkit-backdrop-filter: var(--glass-blur) !important;
+            border-left: 1px solid var(--glass-border) !important;
+            box-shadow: var(--shadow-float) !important;
+            color: var(--text-primary) !important;
+            max-width: 320px;
+            width: 82vw;
+        }
+        .offcanvas-backdrop.show {
+            background-color: rgba(14, 10, 10, 0.65) !important;
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+            opacity: 1 !important;
+        }
+
+        /* Mobile Bottom Floating Soft Glass Nav */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            height: 60px;
             background: var(--glass-surface-elevated);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-xl);
             box-shadow: var(--shadow-float), var(--glass-specular);
-            width: 100%;
-            max-width: 440px;
-            max-height: calc(100vh - max(80px, calc(env(safe-area-inset-top) + 50px)));
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 34px 22px 24px;
-            position: relative;
-            text-align: center;
-            margin: auto;
-            box-sizing: border-box;
-            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 1040;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 6px;
+            margin: 0 auto;
+            max-width: 480px;
         }
-        @keyframes modalPop {
-            from { transform: scale(0.92); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        .b-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 10.5px;
+            font-weight: 700;
+            gap: 2px;
+            flex: 1;
+            height: 100%;
+            transition: var(--transition-smooth);
+            border-radius: var(--radius-md);
         }
-
-        .btn-modal-close {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-            background: var(--glass-card);
-            border: 1px solid var(--glass-border);
-            width: 34px;
-            height: 34px;
-            border-radius: var(--radius-pill);
+        .b-nav-item span { font-size: 18px; line-height: 1; }
+        .b-nav-item.active, .b-nav-item:hover { color: var(--brand-burgundy); }
+        html[data-theme="dark"] .b-nav-item.active, html[data-theme="dark"] .b-nav-item:hover { color: var(--brand-gold-light); }
+        .b-nav-item.b-nav-add { margin-top: -16px; }
+        .b-nav-item .b-add-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand-burgundy), var(--brand-burgundy-dark));
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            color: var(--text-primary);
-            font-weight: 800;
-            font-size: 15px;
-            z-index: 30;
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-smooth);
+            font-size: 20px;
+            box-shadow: 0 6px 18px rgba(125, 20, 29, 0.45);
+            border: 2px solid var(--glass-border);
+            transition: var(--transition-bounce);
         }
-        .btn-modal-close:hover, .btn-modal-close:active {
-            transform: scale(0.94);
-            background: var(--brand-burgundy);
-            color: #fff;
-        }
-            transition: var(--transition-smooth);
-        }
-        .btn-modal-close:hover {
-            color: var(--brand-burgundy);
-            transform: scale(1.08);
-        }
+        .b-nav-item.b-nav-add:active .b-add-icon { transform: scale(0.92); }
 
         .modal-detail-card {
             max-width: 580px;
@@ -1090,45 +1137,70 @@
 <body>
 
     <!-- Header with Soft Glass Effect -->
-    <header class="glass-header">
-        <div class="logo-area" onclick="goToMarket()" title="قازی بازاڕ">
-            <div class="site-logo-wrap">
-                <img src="qazibazar-logo.png" alt="qazy bazar" class="site-logo-img">
-            </div>
-            <div class="logo-text">
-                <h1>qazy bazar</h1>
-                <p>قازی بازاڕ · KURDISTAN</p>
-            </div>
-        </div>
-
-        <div class="nav-actions">
-            <!-- Compact PWA Quick Install Pill -->
-            <button class="glass-btn btn-gold-install" id="pwaInstallHeaderBtn" onclick="triggerPwaInstall()" title="داگرتنی ئەپی فەرمی">
-                📲 ئەپ
-            </button>
-            <button class="glass-btn icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="گۆڕینی دۆخی ڕووناکی/تاریک">🌙</button>
-            
-            <a href="admin.html" id="headerAdminBtn" class="glass-btn" style="display:none; background:#4338ca; color:#fff; padding:6px 12px; font-size:11.5px;">
-                🛠️ ئەدمین
-            </a>
-            
-            <span id="user-badge" class="user-tag">👤 لۆگینە</span>
-            
-            <div class="avatar-pill" id="avatarBtn" onclick="openProfileModal()" title="پرۆفایل">
-                <img id="avatarBtnImg" src="icon-192.png" alt="Avatar">
+    <header class="glass-header sticky-top">
+        <div class="container-xl d-flex align-items-center justify-content-between">
+            <div class="logo-area" onclick="goToMarket()" title="قازی بازاڕ">
+                <div class="site-logo-wrap">
+                    <img src="qazibazar-logo.png" alt="qazy bazar" class="site-logo-img">
+                </div>
+                <div class="logo-text">
+                    <h1>qazy bazar</h1>
+                    <p class="d-none d-sm-block">قازی بازاڕ · KURDISTAN</p>
+                </div>
             </div>
 
-            <button class="glass-btn btn-burgundy btn-add-prod-short" onclick="checkLoginBeforeSell()">
-                <span>➕</span> <span class="btn-add-label">بڵاوکردنەوە</span>
-            </button>
+            <div class="nav-actions d-flex align-items-center gap-2">
+                <!-- Compact PWA Quick Install Pill (Desktop/Tablet) -->
+                <button class="glass-btn btn-gold-install d-none d-md-inline-flex" id="pwaInstallHeaderBtn" onclick="triggerPwaInstall()" title="داگرتنی ئەپی فەرمی">
+                    📲 ئەپ
+                </button>
+                <button class="glass-btn icon-btn d-none d-md-inline-flex" id="themeToggleBtn" onclick="toggleTheme()" title="گۆڕینی دۆخی ڕووناکی/تاریک">🌙</button>
+                
+                <a href="admin.html" id="headerAdminBtn" class="glass-btn d-none d-md-inline-flex" style="display:none; background:#4338ca; color:#fff; padding:6px 12px; font-size:11.5px;">
+                    🛠️ ئەدمین
+                </a>
+                
+                <span id="user-badge" class="user-tag d-none d-md-inline-flex">👤 لۆگینە</span>
+                
+                <div class="avatar-pill" id="avatarBtn" onclick="openProfileModal()" title="پرۆفایل">
+                    <img id="avatarBtnImg" src="icon-192.png" alt="Avatar">
+                </div>
 
-            <button class="menu-toggle" onclick="toggleDrawer()" title="مێنیو">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+                <button class="glass-btn btn-burgundy btn-add-prod-short d-none d-md-inline-flex" onclick="checkLoginBeforeSell()">
+                    <span>➕</span> <span class="btn-add-label">بڵاوکردنەوە</span>
+                </button>
+
+                <button class="menu-toggle" onclick="toggleDrawer()" title="مێنیو" aria-label="Toggle Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- Floating Soft Glass Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav d-flex d-md-none" aria-label="Mobile Navigation">
+        <a href="#" class="b-nav-item active" onclick="event.preventDefault(); goToMarket();" id="bnav-home">
+            <span>🏠</span>
+            <label>سەرەکی</label>
+        </a>
+        <a href="#" class="b-nav-item" onclick="event.preventDefault(); focusSearch();" id="bnav-search">
+            <span>🔍</span>
+            <label>گەڕان</label>
+        </a>
+        <a href="#" class="b-nav-item b-nav-add" onclick="event.preventDefault(); checkLoginBeforeSell();" id="bnav-add" title="بڵاوکردنەوەی کاڵا">
+            <span class="b-add-icon">➕</span>
+        </a>
+        <a href="https://dsledar.github.io/Offers/" target="_blank" class="b-nav-item" id="bnav-offers">
+            <span>💎</span>
+            <label>ئۆفەرەکان</label>
+        </a>
+        <a href="#" class="b-nav-item" onclick="event.preventDefault(); toggleDrawer();" id="bnav-menu">
+            <span>☰</span>
+            <label>مێنیو</label>
+        </a>
+    </nav>
 
     <!-- Floating PWA Prompt -->
     <div class="pwa-install-bar" id="pwaFloatingBanner">
@@ -1142,36 +1214,43 @@
         </div>
     </div>
 
-    <!-- Nav Drawer -->
-    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-    <aside class="nav-drawer" id="navDrawer">
-        <div class="drawer-top">
-            <div style="display:flex; align-items:center; gap:10px;">
+    <!-- Bootstrap 5 Offcanvas Nav Drawer -->
+    <div class="offcanvas offcanvas-end glass-offcanvas" tabindex="-1" id="navDrawer" aria-labelledby="drawerTitle">
+        <div class="offcanvas-header border-bottom border-light-subtle py-3">
+            <div class="d-flex align-items-center gap-2">
                 <img src="qazibazar-logo.png" style="width:30px; height:30px; object-fit:contain;">
-                <span class="drawer-title">پۆلێنەکانی قازی بازاڕ</span>
+                <h5 class="offcanvas-title fw-bold fs-6 mb-0" id="drawerTitle">پۆلێنەکانی قازی بازاڕ</h5>
             </div>
-            <button class="glass-btn icon-btn" onclick="toggleDrawer()" style="width:30px; height:30px;">✕</button>
+            <button type="button" class="btn-close ms-0" data-bs-dismiss="offcanvas" aria-label="Close" onclick="closeDrawerOnly()"></button>
         </div>
 
-        <div class="accordion-container" id="categoryAccordion"></div>
+        <div class="offcanvas-body p-3">
+            <!-- Mobile Quick Controls in Drawer -->
+            <div class="d-flex gap-2 mb-3 d-md-none">
+                <button class="glass-btn flex-grow-1 text-center py-2" onclick="toggleTheme()" id="drawerThemeBtn">🌙 دۆخی تاریک</button>
+                <button class="glass-btn btn-gold-install flex-grow-1 text-center py-2" id="drawerPwaBtn" onclick="triggerPwaInstall()">📲 داگرتنی ئەپ</button>
+            </div>
 
-        <hr style="border:none; border-top:1px solid var(--glass-border-subtle); margin:6px 0;">
+            <div class="accordion-container" id="categoryAccordion"></div>
 
-        <div>
-            <h4 style="font-size:12.5px; font-weight:800; color:var(--text-muted); margin-bottom:8px;">بەستەرە سەرەکییەکان</h4>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-                <a href="https://dsledar.github.io/Offers/" target="_blank" class="glass-btn" style="justify-content:flex-start; color:var(--brand-gold); font-weight:800;">🏷️ لیستی فەرمی نرخ و ئۆفەرەکان</a>
-                <a href="#" class="glass-btn" style="justify-content:flex-start;" onclick="event.preventDefault(); closeDrawerOnly(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
-                <a href="#" id="drawer-profile-link" class="glass-btn" style="display:none; justify-content:flex-start;" onclick="event.preventDefault(); closeDrawerOnly(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
-                <a href="admin.html" id="drawer-admin-link" class="glass-btn" style="display:none; justify-content:flex-start; color:#4338ca;">🛠️ پانێڵی ئەدمین</a>
-                <a href="privacy.html" class="glass-btn" style="justify-content:flex-start;">🔒 سیاسەتی تایبەتمەندی (Privacy)</a>
-                <a href="#" id="drawer-logout-link" class="glass-btn" style="display:none; justify-content:flex-start; color:var(--accent-red);" onclick="event.preventDefault(); closeDrawerOnly(); signOutUser();">🚪 چوونەدەرەوە</a>
+            <hr class="my-3 opacity-25">
+
+            <div>
+                <h6 class="small fw-bold text-muted mb-2">بەستەرە سەرەکییەکان</h6>
+                <div class="d-flex flex-column gap-2">
+                    <a href="https://dsledar.github.io/Offers/" target="_blank" class="glass-btn justify-content-start text-gold fw-bold">🏷️ لیستی فەرمی نرخ و ئۆفەرەکان</a>
+                    <a href="#" class="glass-btn justify-content-start" onclick="event.preventDefault(); closeDrawerOnly(); showSellersDirectory();">🛍️ فرۆشیارە پشتڕاستکراوەکان</a>
+                    <a href="#" id="drawer-profile-link" class="glass-btn justify-content-start" style="display:none;" onclick="event.preventDefault(); closeDrawerOnly(); openProfileModal();">⚙️ ڕێکخستنی پرۆفایل</a>
+                    <a href="admin.html" id="drawer-admin-link" class="glass-btn justify-content-start" style="display:none; color:#4338ca;">🛠️ پانێڵی ئەدمین</a>
+                    <a href="privacy.html" class="glass-btn justify-content-start">🔒 سیاسەتی تایبەتمەندی (Privacy)</a>
+                    <a href="#" id="drawer-logout-link" class="glass-btn justify-content-start text-danger" style="display:none;" onclick="event.preventDefault(); closeDrawerOnly(); signOutUser();">🚪 چوونەدەرەوە</a>
+                </div>
             </div>
         </div>
-    </aside>
+    </div>
 
     <!-- Main Container -->
-    <main class="main-container">
+    <main class="main-container container-xl">
 
         <!-- Compact Ads / VIP Notice Banner -->
         <div class="ads-hero-notice">
@@ -1201,8 +1280,8 @@
                 <button id="btn-global-back" class="glass-btn" onclick="goToMarket()" style="display:none;">↩ سەرەکی</button>
             </div>
 
-            <div class="grid-products" id="market-products-grid">
-                <div class="no-data-notice">⏳ لە بارکردنی کاڵاکانە...</div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 g-md-4" id="market-products-grid">
+                <div class="no-data-notice col-12">⏳ لە بارکردنی کاڵاکانە...</div>
             </div>
         </section>
 
@@ -1311,7 +1390,7 @@
                 <h2 class="page-heading">🛍️ فرۆشیارە پشتڕاستکراوەکان</h2>
                 <button class="glass-btn" onclick="qaziGoBack()">↩ گەڕانەوە</button>
             </div>
-            <div class="grid-products" id="sellers-grid"></div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 g-md-4" id="sellers-grid"></div>
         </section>
 
         <!-- View 5: Seller Profile -->
@@ -1331,136 +1410,157 @@
                 </div>
                 <p id="profile-view-bio" style="padding:0 22px 18px; font-size:13.5px; color:var(--text-secondary); line-height:1.7;"></p>
             </div>
-            <div class="grid-products" id="profile-products-grid"></div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 g-md-4" id="profile-products-grid"></div>
         </section>
 
     </main>
 
-    <!-- Modal 1: Google Login -->
-    <div class="modal-glass-backdrop" id="loginModal">
-        <div class="modal-glass-box">
-            <button class="btn-modal-close" onclick="closeLoginModal()">✕</button>
-            <img src="qazibazar-logo.png" style="width:52px; height:52px; object-fit:contain; margin:0 auto 10px; display:block;">
-            <h3 style="font-weight:900; font-size:18px; margin-bottom:6px;">چوونەژوورەوە بۆ qazy bazar</h3>
-            <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:20px;">سەلامەت، پارێزراو و خێرا بە هەژماری Google خۆت تۆمار بکە.</p>
-            
-            <button class="btn-google-auth" onclick="signInWithGoogle()">
-                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.3 4.4-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35 26.8 36 24 36c-5.3 0-9.8-3.3-11.4-7.9l-6.5 5C9.6 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3C40.6 36.2 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
-                بەردەوامبوون بە Google
-            </button>
+    <!-- Modal 1: Google Login (Bootstrap 5) -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal border-0 text-center p-4">
+                <div class="d-flex justify-content-end mb-1">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeLoginModal()"></button>
+                </div>
+                <img src="qazibazar-logo.png" style="width:56px; height:56px; object-fit:contain; margin:0 auto 12px; display:block;">
+                <h4 class="fw-black mb-1 fs-5">چوونەژوورەوە بۆ qazy bazar</h4>
+                <p class="small text-muted mb-4">سەلامەت، پارێزراو و خێرا بە هەژماری Google خۆت تۆمار بکە.</p>
+                
+                <button class="btn-google-auth w-100 mb-3" onclick="signInWithGoogle()">
+                    <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.9 32.7 29.4 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.3 4.4-17.7 10.7z"/><path fill="#4CAF50" d="M24 44c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35 26.8 36 24 36c-5.3 0-9.8-3.3-11.4-7.9l-6.5 5C9.6 39.5 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3C40.6 36.2 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+                    بەردەوامبوون بە Google
+                </button>
 
-            <button class="glass-btn" onclick="closeLoginModal()" style="width:100%; margin-top:14px;">↩ پاشگەزبوونەوە</button>
+                <button class="glass-btn w-100" onclick="closeLoginModal()">↩ پاشگەزبوونەوە</button>
+            </div>
         </div>
     </div>
 
-    <!-- Modal 2: 2FA Verification -->
-    <div class="modal-glass-backdrop" id="twoFAModal">
-        <div class="modal-glass-box">
-            <h3 style="font-weight:900; margin-bottom:6px; font-size:18px;">🔐 دووهەنگاوی پاراستن (2FA)</h3>
-            <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:16px;">کۆدی ٦ ژمارەیی ئەپی Authenticator بنووسە:</p>
-            <input type="text" id="twofa-login-input" class="form-glass-input" style="text-align:center; font-size:22px; font-weight:900; letter-spacing:6px; margin-bottom:14px;" maxlength="6" placeholder="000000">
-            <button class="glass-btn btn-burgundy" style="width:100%; padding:11px;" onclick="verifyLogin2FA()">پشتڕاستکردنەوە</button>
-            <button class="glass-btn" style="width:100%; margin-top:10px;" onclick="signOutUser()">🚪 چوونەدەرەوە</button>
+    <!-- Modal 2: 2FA Verification (Bootstrap 5) -->
+    <div class="modal fade" id="twoFAModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal border-0 text-center p-4">
+                <h4 class="fw-black mb-1 fs-5">🔐 دووهەنگاوی پاراستن (2FA)</h4>
+                <p class="small text-muted mb-3">کۆدی ٦ ژمارەیی ئەپی Authenticator بنووسە:</p>
+                <input type="text" id="twofa-login-input" class="form-glass-input text-center fw-bold fs-3 mb-3" style="letter-spacing:6px;" maxlength="6" placeholder="000000">
+                <button class="glass-btn btn-burgundy w-100 py-2 mb-2" onclick="verifyLogin2FA()">پشتڕاستکردنەوە</button>
+                <button class="glass-btn w-100" onclick="signOutUser()">🚪 چوونەدەرەوە</button>
+            </div>
         </div>
     </div>
 
-    <!-- Modal 3: Profile Settings (Mobile-Optimized) -->
-    <div class="modal-glass-backdrop" id="profileModal">
-        <div class="modal-glass-box" style="max-width:440px; text-align:right;">
-            <button class="btn-modal-close" onclick="closeProfileModal()">✕</button>
-            <h3 style="font-weight:900; text-align:center; margin-bottom:16px; font-size:18px;">ڕێکخستنی پرۆفایل</h3>
+    <!-- Modal 3: Profile Settings (Bootstrap 5 - Safe Area Responsive) -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content glass-modal border-0 text-start">
+                <div class="modal-header border-0 pb-0 d-flex justify-content-between align-items-center">
+                    <h5 class="modal-title fw-black mb-0 fs-5">ڕێکخستنی پرۆفایل</h5>
+                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close" onclick="closeProfileModal()"></button>
+                </div>
+                <div class="modal-body p-3 p-sm-4">
+                    <div class="d-flex flex-column align-items-center gap-2 mb-3">
+                        <img id="profile-avatar-preview" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--brand-gold);">
+                        <input type="file" id="profile-avatar-file" accept="image/*" onchange="handleAvatarChange(event)" class="form-control form-control-sm" style="font-size:12px;">
+                    </div>
 
-            <div style="display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:16px;">
-                <img id="profile-avatar-preview" style="width:78px; height:78px; border-radius:50%; object-fit:cover; border:2px solid var(--brand-gold);">
-                <input type="file" id="profile-avatar-file" accept="image/*" onchange="handleAvatarChange(event)" style="font-size:12px;">
-            </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold small">ناوی نیشاندان</label>
+                        <input type="text" id="profile-name" class="form-glass-input">
+                    </div>
 
-            <div class="form-group">
-                <label>ناوی نیشاندان</label>
-                <input type="text" id="profile-name" class="form-glass-input">
-            </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold small">بایۆگرافیا</label>
+                        <textarea id="profile-bio" class="form-glass-input" rows="2" placeholder="دەربارەی خۆت بنووسە..."></textarea>
+                    </div>
 
-            <div class="form-group">
-                <label>بایۆگرافیا</label>
-                <textarea id="profile-bio" class="form-glass-input" rows="2" placeholder="دەربارەی خۆت بنووسە..."></textarea>
-            </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold small">ڕەنگی سەرپەڕە (Cover)</label>
+                        <div id="cover-preview-strip" style="height:32px; border-radius:var(--radius-md); margin-bottom:8px; background:var(--brand-burgundy);"></div>
+                        <div class="d-flex gap-2 justify-content-center" id="cover-swatches"></div>
+                    </div>
 
-            <div class="form-group">
-                <label>ڕەنگی سەرپەڕە (Cover)</label>
-                <div id="cover-preview-strip" style="height:32px; border-radius:var(--radius-md); margin-bottom:8px; background:var(--brand-burgundy);"></div>
-                <div style="display:flex; gap:8px; justify-content:center;" id="cover-swatches"></div>
-            </div>
+                    <hr class="my-3 opacity-25">
 
-            <hr style="border:none; border-top:1px solid var(--glass-border-subtle); margin:14px 0;">
-
-            <div class="form-group">
-                <label>🔐 دووهەنگاوی پاراستن (2FA)</label>
-                <div id="twofa-status-text" style="font-size:12px; color:var(--text-muted); margin-bottom:8px;"></div>
-                <button type="button" class="glass-btn" id="twofa-toggle-btn" onclick="start2FASetup()">چالاککردنی 2FA</button>
-                <div id="twofa-setup-box" style="display:none; margin-top:12px;">
-                    <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:6px;">ئەم نهێنییە لە ئەپی Authenticator داخل بکە:</p>
-                    <div id="twofa-secret-display" style="background:rgba(0,0,0,0.06); padding:8px; border-radius:8px; font-family:monospace; font-size:13px; letter-spacing:2px; text-align:center; word-break:break-all; margin-bottom:8px;"></div>
-                    <input type="text" id="twofa-confirm-input" class="form-glass-input" placeholder="کۆدی ٦ ژمارەیی" maxlength="6" style="text-align:center; letter-spacing:4px; margin-bottom:8px;">
-                    <button type="button" class="glass-btn btn-burgundy" style="width:100%; padding:9px;" onclick="confirm2FASetup()">پشتڕاستکردنەوە و چالاککردن</button>
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold small">🔐 دووهەنگاوی پاراستن (2FA)</label>
+                        <div id="twofa-status-text" class="small text-muted mb-2"></div>
+                        <button type="button" class="glass-btn" id="twofa-toggle-btn" onclick="start2FASetup()">چالاککردنی 2FA</button>
+                        <div id="twofa-setup-box" style="display:none;" class="mt-2">
+                            <p class="small text-muted mb-1">ئەم نهێنییە لە ئەپی Authenticator داخل بکە:</p>
+                            <div id="twofa-secret-display" class="p-2 rounded bg-light-subtle text-monospace text-center mb-2" style="font-size:13px; letter-spacing:2px; word-break:break-all;"></div>
+                            <input type="text" id="twofa-confirm-input" class="form-glass-input text-center mb-2" placeholder="کۆدی ٦ ژمارەیی" maxlength="6" style="letter-spacing:4px;">
+                            <button type="button" class="glass-btn btn-burgundy w-100 py-2" onclick="confirm2FASetup()">پشتڕاستکردنەوە و چالاککردن</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0 flex-column gap-2">
+                    <button class="glass-btn btn-burgundy w-100 py-2" onclick="saveProfile()">پاشەکەوتکردن</button>
+                    <button type="button" class="glass-btn w-100" onclick="closeProfileModalOnly(); showSellerProfile(currentUser.uid);">👁️ بینینی پرۆفایلەکەم</button>
                 </div>
             </div>
-
-            <button class="glass-btn btn-burgundy" style="width:100%; padding:11px; margin-top:10px;" onclick="saveProfile()">پاشەکەوتکردن</button>
-            <button type="button" class="glass-btn" style="width:100%; margin-top:8px;" onclick="closeProfileModalOnly(); showSellerProfile(currentUser.uid);">👁️ بینینی پرۆفایلەکەم</button>
         </div>
     </div>
 
-    <!-- Modal 4: Payment Confirmation -->
-    <div class="modal-glass-backdrop" id="payModal">
-        <div class="modal-glass-box">
-            <h3 style="font-weight:900; margin-bottom:8px; font-size:18px;">📥 پۆستەکەت نێردرا!</h3>
-            <p style="font-size:13px; color:var(--text-secondary); margin-bottom:14px;">بۆ چالاککردنی کاڵاکەت، بڕی پارەی پلانەکە بنێرە بۆ ئەم هەژمارە فەرمییە:</p>
-            <div style="background:rgba(200,149,46,0.12); border:1px solid var(--brand-gold); padding:12px; border-radius:var(--radius-lg); margin-bottom:18px; font-weight:800; font-size:14.5px; color:var(--brand-burgundy);">
-                📱 FastPay / FIB: 0750 123 4567
-            </div>
-            <button class="glass-btn btn-burgundy" style="width:100%; padding:11px;" onclick="closePayModal()">تێگەیشتم و گەڕانەوە بۆ مارکێت</button>
-        </div>
-    </div>
-
-    <!-- Modal 5: Product Detail Modal with Swiper Slider -->
-    <div class="modal-glass-backdrop" id="productDetailModal">
-        <div class="modal-glass-box modal-detail-card">
-            <button class="glass-btn" onclick="closeDetailModal()" style="position:absolute; top:12px; right:12px; z-index:10; padding:6px 14px; font-size:12px;">↩ گەڕانەوە</button>
-            
-            <div class="swiper-box-wrap">
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper" id="modal-swiper-wrapper"></div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
+    <!-- Modal 4: Payment Confirmation (Bootstrap 5) -->
+    <div class="modal fade" id="payModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal border-0 text-center p-4">
+                <h4 class="fw-black mb-2 fs-5">📥 پۆستەکەت نێردرا!</h4>
+                <p class="small text-muted mb-3">بۆ چالاککردنی کاڵاکەت، بڕی پارەی پلانەکە بنێرە بۆ ئەم هەژمارە فەرمییە:</p>
+                <div class="p-3 rounded-4 mb-3 fw-bold text-burgundy" style="background:rgba(200,149,46,0.14); border:1px solid var(--brand-gold); font-size:15px;">
+                    📱 FastPay / FIB: 0750 123 4567
                 </div>
+                <button class="glass-btn btn-burgundy w-100 py-2" onclick="closePayModal()">تێگەیشتم و گەڕانەوە بۆ مارکێت</button>
             </div>
+        </div>
+    </div>
 
-            <div class="detail-scroll-body">
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:6px;">
-                    <h3 id="modal-detail-title" style="font-size:18px; font-weight:900; color:var(--text-primary);"></h3>
-                    <span id="modal-detail-vip-badge" class="badge-vip-ad" style="position:static; display:none;">🌟 VIP <span class="ad-micro-label">Ad</span></span>
+    <!-- Modal 5: Product Detail Modal with Swiper Slider (Bootstrap 5) -->
+    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content glass-modal border-0 overflow-hidden text-start">
+                <div class="modal-header border-0 pb-0 d-flex justify-content-between align-items-center">
+                    <h5 class="modal-title fw-black mb-0 fs-6" id="modal-detail-title-header">وردەکاری بەرهەم</h5>
+                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close" onclick="closeDetailModal()"></button>
                 </div>
                 
-                <div id="modal-detail-price" style="font-size:20px; font-weight:900; color:var(--brand-burgundy); margin-bottom:10px;"></div>
-                
-                <div style="display:flex; gap:10px; flex-wrap:wrap; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:10px;">
-                    <span>📁 بەش: <b id="modal-detail-cat" style="color:var(--text-primary);"></b></span>
-                    <span>📍 شار: <b id="modal-detail-city" style="color:var(--text-primary);"></b></span>
-                </div>
+                <div class="modal-body p-0">
+                    <div class="swiper-box-wrap">
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper" id="modal-swiper-wrapper"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
 
-                <div id="modal-detail-desc" class="detail-desc-box"></div>
+                    <div class="p-3 p-sm-4">
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                            <h3 id="modal-detail-title" class="h5 fw-black text-primary mb-0"></h3>
+                            <span id="modal-detail-vip-badge" class="badge-vip-ad" style="display:none;">🌟 VIP <span class="ad-micro-label">Ad</span></span>
+                        </div>
+                        
+                        <div id="modal-detail-price" class="h4 fw-black text-burgundy mb-3" style="color:var(--brand-burgundy);"></div>
+                        
+                        <div class="d-flex gap-3 flex-wrap small text-muted mb-3 fw-bold">
+                            <span>📁 بەش: <b id="modal-detail-cat" style="color:var(--text-primary);"></b></span>
+                            <span>📍 شار: <b id="modal-detail-city" style="color:var(--text-primary);"></b></span>
+                        </div>
 
-                <div style="display:flex; flex-direction:column; gap:8px; margin-top:14px;">
-                    <button id="modal-detail-seller-btn" class="glass-btn" style="justify-content:center;" onclick="showSellerProfile(currentDetailOwnerId)">
-                        👤 بینینی پرۆفایلی فرۆشیار
-                    </button>
-                    <a id="modal-detail-wa-btn" href="#" target="_blank" class="glass-btn" style="background:#25d366; color:#fff; justify-content:center; border:none;">
-                        💬 داواکردن لە واتسئەپ (WhatsApp)
-                    </a>
-                    <a id="modal-detail-call-btn" href="#" class="glass-btn btn-burgundy" style="justify-content:center;">
-                        📞 پەیوەندی بە تەلەفۆن: <span id="modal-detail-phone-num"></span>
-                    </a>
+                        <div id="modal-detail-desc" class="detail-desc-box mb-4"></div>
+
+                        <div class="d-flex flex-column gap-2">
+                            <button id="modal-detail-seller-btn" class="glass-btn justify-content-center" onclick="showSellerProfile(currentDetailOwnerId)">
+                                👤 بینینی پرۆفایلی فرۆشیار
+                            </button>
+                            <a id="modal-detail-wa-btn" href="#" target="_blank" class="glass-btn justify-content-center text-white" style="background:#25d366; border:none;">
+                                💬 داواکردن لە واتسئەپ (WhatsApp)
+                            </a>
+                            <a id="modal-detail-call-btn" href="#" class="glass-btn btn-burgundy justify-content-center">
+                                📞 پەیوەندی بە تەلەفۆن: <span id="modal-detail-phone-num"></span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1664,7 +1764,7 @@
             }
         }
 
-        // ===================== History Navigation =====================
+        // ===================== History Navigation & Modal Helpers =====================
         history.replaceState({ qaziApp: false }, '', location.pathname + location.search);
 
         function qaziPushNav() {
@@ -1679,22 +1779,43 @@
             }
         }
 
-        function qaziCloseTopLayer() {
-            const twoFA = document.getElementById('twoFAModal');
-            if (twoFA && twoFA.style.display === 'flex') {
-                auth.signOut();
-                twoFA.style.display = 'none';
-                return;
+        function showModal(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (window.bootstrap && bootstrap.Modal) {
+                const modal = bootstrap.Modal.getOrCreateInstance(el);
+                modal.show();
+                if (id === 'productDetailModal' && typeof mySwiperInstance !== 'undefined' && mySwiperInstance) {
+                    setTimeout(() => { if (mySwiperInstance) mySwiperInstance.update(); }, 250);
+                }
+            } else {
+                el.style.display = 'block';
             }
+            qaziPushNav();
+        }
 
-            const modals = ['loginModal', 'productDetailModal', 'profileModal', 'payModal'];
+        function hideModal(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (window.bootstrap && bootstrap.Modal) {
+                const modal = bootstrap.Modal.getInstance(el);
+                if (modal) modal.hide();
+            } else {
+                el.style.display = 'none';
+            }
+        }
+
+        function qaziCloseTopLayer() {
+            const modals = ['twoFAModal', 'loginModal', 'productDetailModal', 'profileModal', 'payModal'];
             for (const id of modals) {
                 const el = document.getElementById(id);
-                if (el && el.style.display === 'flex') {
-                    el.style.display = 'none';
+                if (el && (el.classList.contains('show') || el.style.display === 'block' || el.style.display === 'flex')) {
+                    hideModal(id);
+                    if (id === 'twoFAModal') auth.signOut();
                     if (id === 'payModal') goToMarket();
                     if (id === 'profileModal') {
-                        document.getElementById('twofa-setup-box').style.display = 'none';
+                        const setupBox = document.getElementById('twofa-setup-box');
+                        if (setupBox) setupBox.style.display = 'none';
                         pendingTotpSecret = null;
                     }
                     return;
@@ -1702,9 +1823,8 @@
             }
 
             const drawer = document.getElementById('navDrawer');
-            if (drawer && drawer.classList.contains('open')) {
-                drawer.classList.remove('open');
-                document.getElementById('drawerOverlay').classList.remove('open');
+            if (drawer && (drawer.classList.contains('show') || (window.bootstrap && bootstrap.Offcanvas && bootstrap.Offcanvas.getInstance(drawer)))) {
+                closeDrawerOnly();
                 return;
             }
 
@@ -1718,11 +1838,15 @@
 
         function toggleDrawer() {
             const drawer = document.getElementById('navDrawer');
-            const overlay = document.getElementById('drawerOverlay');
-            const isOpening = !drawer.classList.contains('open');
+            if (!drawer) return;
+            if (window.bootstrap && bootstrap.Offcanvas) {
+                const off = bootstrap.Offcanvas.getOrCreateInstance(drawer);
+                off.toggle();
+                return;
+            }
+            const isOpening = !drawer.classList.contains('show');
             if (isOpening) {
-                drawer.classList.add('open');
-                overlay.classList.add('open');
+                drawer.classList.add('show');
                 qaziPushNav();
             } else {
                 qaziGoBack();
@@ -1730,8 +1854,21 @@
         }
 
         function closeDrawerOnly() {
-            document.getElementById('navDrawer').classList.remove('open');
-            document.getElementById('drawerOverlay').classList.remove('open');
+            const drawer = document.getElementById('navDrawer');
+            if (drawer && window.bootstrap && bootstrap.Offcanvas) {
+                const off = bootstrap.Offcanvas.getInstance(drawer);
+                if (off) off.hide();
+            }
+            if (drawer) drawer.classList.remove('show');
+        }
+
+        function focusSearch() {
+            goToMarket();
+            const input = document.getElementById('market-search');
+            if (input) {
+                input.focus();
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         function toggleAccordion(el) {
@@ -1807,8 +1944,7 @@
         // ===================== Auth & Roles =====================
         function checkLoginBeforeSell() {
             if (!currentUser) {
-                document.getElementById('loginModal').style.display = 'flex';
-                qaziPushNav();
+                showModal('loginModal');
                 return;
             }
             if (currentUserDoc && currentUserDoc.role === 'seller' && currentUserDoc.roleStatus === 'approved') {
@@ -1821,7 +1957,7 @@
         }
 
         function closeLoginModal() {
-            qaziGoBack();
+            hideModal('loginModal');
         }
 
         async function signInWithGoogle() {
@@ -1875,14 +2011,13 @@
                 }
 
                 if (currentUserDoc && currentUserDoc.totpEnabled && sessionStorage.getItem('qazi_2fa_verified') !== user.uid) {
-                    document.getElementById('twoFAModal').style.display = 'flex';
-                    qaziPushNav();
+                    showModal('twoFAModal');
                 } else {
-                    document.getElementById('twoFAModal').style.display = 'none';
+                    hideModal('twoFAModal');
                 }
             } else {
                 currentUserDoc = null;
-                document.getElementById('twoFAModal').style.display = 'none';
+                hideModal('twoFAModal');
             }
             updateUserBadge();
         });
@@ -2039,12 +2174,12 @@
 
             await db.collection('products').add(newProduct);
             document.getElementById('product-form').reset();
-            document.getElementById('payModal').style.display = 'flex';
-            qaziPushNav();
+            showModal('payModal');
         }
 
         function closePayModal() {
-            qaziGoBack();
+            hideModal('payModal');
+            goToMarket();
         }
 
         // ===================== Cached Instant Search & Market Render =====================
@@ -2120,20 +2255,22 @@
                 const displayCity = p.city ? `📍 ${esc(p.city)}` : '📍 کوردستان';
 
                 return `
-                    <div class="glass-card-product ${isVip ? 'is-vip' : ''}" onclick="showProductDetails('${esc(p.id)}')">
-                        <div class="prod-img-box">
-                            <span class="badge-city">${displayCity}</span>
-                            ${isVip ? `<span class="badge-vip-ad">🌟 VIP <span class="ad-micro-label" title="بەرهەمی سپۆنسەرکراو / Sponsored Ad">Ad / ڕیکلام</span></span>` : ''}
-                            <img src="${esc(displayImg)}" class="prod-img" loading="lazy" alt="${esc(p.title)}">
-                        </div>
-                        <div class="prod-details">
-                            <div>
-                                <div class="prod-cat">${esc(p.subcategory || 'بەرهەمی لۆکاڵی')}</div>
-                                <h3 class="prod-title">${esc(p.title)}</h3>
+                    <div class="col">
+                        <div class="glass-card-product h-100 ${isVip ? 'is-vip' : ''}" onclick="showProductDetails('${esc(p.id)}')">
+                            <div class="prod-img-box">
+                                <span class="badge-city">${displayCity}</span>
+                                ${isVip ? `<span class="badge-vip-ad">🌟 VIP <span class="ad-micro-label" title="بەرهەمی سپۆنسەرکراو / Sponsored Ad">Ad / ڕیکلام</span></span>` : ''}
+                                <img src="${esc(displayImg)}" class="prod-img" loading="lazy" alt="${esc(p.title)}">
                             </div>
-                            <div class="prod-footer-row">
-                                <span class="prod-price">${esc(p.price)}</span>
-                                <button class="btn-view-card" onclick="event.stopPropagation(); showProductDetails('${esc(p.id)}')">بینین</button>
+                            <div class="prod-details">
+                                <div>
+                                    <div class="prod-cat">${esc(p.subcategory || 'بەرهەمی لۆکاڵی')}</div>
+                                    <h3 class="prod-title">${esc(p.title)}</h3>
+                                </div>
+                                <div class="prod-footer-row">
+                                    <span class="prod-price">${esc(p.price)}</span>
+                                    <button class="btn-view-card" onclick="event.stopPropagation(); showProductDetails('${esc(p.id)}')">بینین</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2186,13 +2323,11 @@
             document.getElementById('modal-detail-wa-btn').href = `https://wa.me/${cleanPhone}?text=${waText}`;
             document.getElementById('modal-detail-call-btn').href = `tel:${cleanPhone}`;
             document.getElementById('modal-detail-phone-num').innerText = cleanPhone;
-
-            document.getElementById('productDetailModal').style.display = 'flex';
-            qaziPushNav();
+            showModal('productDetailModal');
         }
 
         function closeDetailModal() {
-            qaziGoBack();
+            hideModal('productDetailModal');
         }
 
         // ===================== Themes with Cookies & LocalStorage =====================
@@ -2235,17 +2370,17 @@
             document.getElementById('cover-preview-strip').style.background = selectedCoverColor;
 
             renderTwoFAStatus();
-            document.getElementById('profileModal').style.display = 'flex';
-            qaziPushNav();
+            showModal('profileModal');
         }
 
         function closeProfileModal() {
-            qaziGoBack();
+            hideModal('profileModal');
         }
 
         function closeProfileModalOnly() {
-            document.getElementById('profileModal').style.display = 'none';
-            document.getElementById('twofa-setup-box').style.display = 'none';
+            hideModal('profileModal');
+            const setupBox = document.getElementById('twofa-setup-box');
+            if (setupBox) setupBox.style.display = 'none';
             pendingTotpSecret = null;
         }
 
@@ -2308,11 +2443,13 @@
                 }
 
                 grid.innerHTML = sellers.map(s => `
-                    <div class="glass-card-product" style="padding:22px 16px; text-align:center; align-items:center;" onclick="showSellerProfile('${esc(s.uid)}')">
-                        <img src="${esc(s.photoURL || 'icon-192.png')}" style="width:72px; height:72px; border-radius:50%; object-fit:cover; margin-bottom:10px; border:2px solid var(--brand-gold);">
-                        <h4 style="font-weight:800; font-size:15px;">${esc(s.name)}</h4>
-                        <span class="user-tag" style="display:inline-block; margin:5px 0;">🛍️ فرۆشیاری فەرمی</span>
-                        <p style="font-size:12px; color:var(--text-muted); line-height:1.6; margin-top:5px;">${esc((s.bio || '').slice(0, 75))}</p>
+                    <div class="col">
+                        <div class="glass-card-product h-100" style="padding:22px 16px; text-align:center; align-items:center;" onclick="showSellerProfile('${esc(s.uid)}')">
+                            <img src="${esc(s.photoURL || 'icon-192.png')}" style="width:72px; height:72px; border-radius:50%; object-fit:cover; margin-bottom:10px; border:2px solid var(--brand-gold);">
+                            <h4 style="font-weight:800; font-size:15px;">${esc(s.name)}</h4>
+                            <span class="user-tag" style="display:inline-block; margin:5px 0;">🛍️ فرۆشیاری فەرمی</span>
+                            <p style="font-size:12px; color:var(--text-muted); line-height:1.6; margin-top:5px;">${esc((s.bio || '').slice(0, 75))}</p>
+                        </div>
                     </div>
                 `).join('');
             } catch (err) {
@@ -2353,16 +2490,18 @@
                 }
 
                 grid.innerHTML = prods.map(p => `
-                    <div class="glass-card-product" onclick="showProductDetails('${esc(p.id)}')">
-                        <div class="prod-img-box">
-                            <img src="${esc((p.images && p.images[0]) ? p.images[0] : 'qazibazar-logo.png')}" class="prod-img">
-                        </div>
-                        <div class="prod-details">
-                            <div class="prod-cat">${esc(p.subcategory)}</div>
-                            <h3 class="prod-title">${esc(p.title)}</h3>
-                            <div class="prod-footer-row">
-                                <span class="prod-price">${esc(p.price)}</span>
-                                <button class="btn-view-card">بینین</button>
+                    <div class="col">
+                        <div class="glass-card-product h-100" onclick="showProductDetails('${esc(p.id)}')">
+                            <div class="prod-img-box">
+                                <img src="${esc((p.images && p.images[0]) ? p.images[0] : 'qazibazar-logo.png')}" class="prod-img" loading="lazy">
+                            </div>
+                            <div class="prod-details">
+                                <div class="prod-cat">${esc(p.subcategory)}</div>
+                                <h3 class="prod-title">${esc(p.title)}</h3>
+                                <div class="prod-footer-row">
+                                    <span class="prod-price">${esc(p.price)}</span>
+                                    <button class="btn-view-card">بینین</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2461,11 +2600,11 @@
         async function verifyLogin2FA() {
             const code = document.getElementById('twofa-login-input').value.trim();
             const sec = await db.collection('users').doc(currentUser.uid).collection('private').doc('security').get();
-            if (!sec.exists) { document.getElementById('twoFAModal').style.display = 'none'; return; }
+            if (!sec.exists) { hideModal('twoFAModal'); return; }
             const ok = await verifyTOTP(code, sec.data().totpSecret);
             if (!ok) { alert('کۆدەکە هەڵەیە.'); return; }
             sessionStorage.setItem('qazi_2fa_verified', currentUser.uid);
-            document.getElementById('twoFAModal').style.display = 'none';
+            hideModal('twoFAModal');
         }
 
         // ===================== Service Worker PWA Registration =====================
@@ -2482,5 +2621,8 @@
         populateCategoriesUI();
         fetchMarketProducts();
     </script>
+
+    <!-- Bootstrap 5.3.3 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
